@@ -1,6 +1,7 @@
 package net.griefergames.reloaded;
 
 import lombok.Getter;
+import net.griefergames.reloaded.config.handler.ConfigHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
@@ -15,6 +16,8 @@ public enum GrieferGamesReloaded {
     PLUGIN;
 
     private GrieferGamesReloadedPlugin plugin;
+
+    private ConfigHandler configHandler;
 
     /**
      * Start method for the plugin - {@link GrieferGamesReloadedPlugin}
@@ -46,6 +49,8 @@ public enum GrieferGamesReloaded {
     private void init() {
         this.registerCommands();
         this.registerListener();
+
+        this.configHandler = new ConfigHandler();
     }
 
     /**

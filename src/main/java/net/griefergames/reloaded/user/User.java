@@ -1,11 +1,8 @@
 package net.griefergames.reloaded.user;
 
-import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
 import java.util.UUID;
 
 @Getter
