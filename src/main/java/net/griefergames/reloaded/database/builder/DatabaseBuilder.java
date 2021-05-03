@@ -11,6 +11,10 @@ public class DatabaseBuilder {
 
     public void buildConnection() {
         final String sqlQuery = "";
+        this.buildMultipleConnections( sqlQuery );
+    }
+
+    private void buildMultipleConnections( final String sqlQuery ) {
         try ( Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             preparedStatement.executeUpdate();
         } catch ( SQLException exception ) {

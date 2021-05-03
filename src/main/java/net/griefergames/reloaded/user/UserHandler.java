@@ -1,6 +1,7 @@
 package net.griefergames.reloaded.user;
 
 import com.google.common.collect.Maps;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,7 @@ public class UserHandler {
      * @param playerUuid Enter the {@code playerUuid} you want to get from the cache
      * @return returns from the {@link #USER_MAP} the <code>value</code>
      */
-    public static User getUserByUuid( UUID playerUuid ) {
+    public static User getUserByUuid( @NonNull UUID playerUuid ) {
         if ( !USER_MAP.containsKey( playerUuid ) )
             USER_MAP.put( playerUuid, new User( playerUuid ) );
 
@@ -30,7 +31,7 @@ public class UserHandler {
      * @param player The {@code player} you want to get from the cache
      * @return returns {@link #getUserByUuid(UUID)}
      */
-    public static User getUser( Player player ) {
+    public static User getUser( @NonNull Player player ) {
         return getUserByUuid( player.getUniqueId() );
     }
 
@@ -40,7 +41,7 @@ public class UserHandler {
      * @param playerName The {@code player} you want to get from the cache
      * @return returns {@link #getUser(Player)}
      */
-    public static User getUserByName( String playerName ) {
+    public static User getUserByName( @NonNull String playerName ) {
         return getUser( Bukkit.getPlayer( playerName ) );
     }
 
@@ -66,7 +67,7 @@ public class UserHandler {
      *
      * @param player Define the player you want to delete from the cache
      */
-    public static void deleteUser( Player player ) {
+    public static void deleteUser( @NonNull Player player ) {
         USER_MAP.remove( player.getUniqueId() );
     }
 }
