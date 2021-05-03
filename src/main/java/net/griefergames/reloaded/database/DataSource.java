@@ -16,7 +16,7 @@ public class DataSource {
     static {
         final Properties properties = GrieferGamesReloaded.PLUGIN.getConfigHandler().getPropertiesReader().getDatasourceProperties();
 
-        HIKARI_CONFIG.setMaximumPoolSize( 10 );
+        HIKARI_CONFIG.setMaximumPoolSize( Integer.parseInt( properties.getProperty( "dataSource.maximumPoolSize" ) ) );
 
         HIKARI_CONFIG.setDriverClassName( properties.getProperty( "dataSource.driverClassName" ) );
         HIKARI_CONFIG.setUsername( properties.getProperty( "dataSource.user" ) );
