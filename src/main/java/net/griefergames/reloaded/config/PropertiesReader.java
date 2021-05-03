@@ -2,7 +2,7 @@ package net.griefergames.reloaded.config;
 
 import lombok.Getter;
 import net.griefergames.reloaded.GrieferGamesReloaded;
-import net.griefergames.reloaded.exception.ExceptionFilter;
+import net.griefergames.reloaded.exception.ExceptionHandler;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +22,7 @@ public class PropertiesReader {
         try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( "datasource.properties" ) ) ) {
             datasourceProperties.load( inputStream );
         } catch ( IOException exception ) {
-            ExceptionFilter.filterException( exception, "Error while loading 'datasource.properties'" );
+            ExceptionHandler.handleException( exception, "Error while loading 'datasource.properties'" );
         }
     }
 
@@ -37,7 +37,7 @@ public class PropertiesReader {
 
             System.out.println( "File does already exists" );
         } catch ( IOException exception ) {
-            ExceptionFilter.filterException( exception, "Error while creating 'datasource.properties'" );
+            ExceptionHandler.handleException( exception, "Error while creating 'datasource.properties'" );
         }
     }
 
@@ -46,7 +46,7 @@ public class PropertiesReader {
             for ( String output : this.getConfigInput( inputStream ) )
                 fileWriter.write( output + System.lineSeparator() );
         } catch ( IOException exception ) {
-            ExceptionFilter.filterException( exception, "Error while filling 'datasource.properties'" );
+            ExceptionHandler.handleException( exception, "Error while filling 'datasource.properties'" );
         }
     }
 

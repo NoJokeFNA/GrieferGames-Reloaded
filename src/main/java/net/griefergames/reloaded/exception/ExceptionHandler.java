@@ -2,9 +2,9 @@ package net.griefergames.reloaded.exception;
 
 import lombok.val;
 
-public class ExceptionFilter {
+public class ExceptionHandler {
 
-    public static void filterException( Exception exception, String message ) {
+    public static void handleException( Exception exception, String message ) {
         val stackTraceElement = exception.getStackTrace()[4];
         final String
                 className = stackTraceElement.getClassName(),
