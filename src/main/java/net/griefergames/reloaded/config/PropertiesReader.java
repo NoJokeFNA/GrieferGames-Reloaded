@@ -13,22 +13,23 @@ import java.util.Properties;
 @Getter
 public class PropertiesReader {
 
+    private final String fileName = "datasource.properties";
+
     private Properties datasourceProperties;
 
     public void loadDatasourceProperties() {
         this.createDataSourceProperties();
-
         datasourceProperties = new Properties();
-        try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( "datasource.properties" ) ) ) {
+        try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( this.fileName ) ) ) {
             datasourceProperties.load( inputStream );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while loading 'datasource.properties'" );
+            ExceptionHandler.handleException( exception, "Error while loading '" + this.fileName + "'" );
         }
     }
 
     private void createDataSourceProperties() {
         try {
-            final File file = new File( "datasource.properties" );
+            final File file = new File( this.fileName );
             if ( file.createNewFile() ) {
                 fillFile( file );
                 System.out.println( "File successfully created" );
@@ -37,16 +38,16 @@ public class PropertiesReader {
 
             System.out.println( "File does already exists" );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while creating 'datasource.properties'" );
+            ExceptionHandler.handleException( exception, "Error while creating '" + this.fileName + "'" );
         }
     }
 
     private void fillFile( final File file ) {
-        try ( FileWriter fileWriter = new FileWriter( file ); InputStream inputStream = this.getFileFromResourceAsStream( "datasource.properties" ) ) {
+        try ( FileWriter fileWriter = new FileWriter( file ); InputStream inputStream = this.getFileFromResourceAsStream( this.fileName ) ) {
             for ( String output : this.getConfigInput( inputStream ) )
                 fileWriter.write( output + System.lineSeparator() );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while filling 'datasource.properties'" );
+            ExceptionHandler.handleException( exception, "Error while filling '" + this.fileName + "'" );
         }
     }
 
@@ -70,4 +71,5 @@ public class PropertiesReader {
 
         return inputList;
     }
+
 }
