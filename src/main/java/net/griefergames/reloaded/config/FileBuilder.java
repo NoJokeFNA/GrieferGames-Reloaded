@@ -50,7 +50,7 @@ public class FileBuilder extends YamlConfiguration {
         try {
             this.configuration.save( this.file );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "§cThe §7( §4" + this.fileName + " §7) §cconfig cannot be saved!" );
+            ExceptionHandler.handleException( exception, "Config '" + this.fileName + "' cannot be saved!" );
         }
     }
 
