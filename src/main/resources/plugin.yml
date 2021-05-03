@@ -1,0 +1,4 @@
+name: GrieferGames-Reloaded
+version: @version@
+main: net.griefergames.reloaded.GriefergamesReloadedPlugin
+authors: [ Niklas409, NoJokeFNA ]
