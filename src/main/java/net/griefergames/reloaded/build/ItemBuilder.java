@@ -495,20 +495,10 @@ public class ItemBuilder {
      * @return Return the class
      */
     public ItemBuilder glowItem() {
-        /*final net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy( this.itemStack );
-        NBTTagCompound tag = null;
+        this.itemStack.addEnchantment( Enchantment.ARROW_DAMAGE, 1 );
+        this.itemMeta.addItemFlags( ItemFlag.HIDE_ENCHANTS );
 
-        if ( !nmsStack.hasTag() ) {
-            tag = new NBTTagCompound();
-            nmsStack.setTag( tag );
-        }
-        if ( tag == null ) tag = nmsStack.getTag();
-
-        final NBTTagList ench = new NBTTagList();
-        tag.set( "ench", ench );
-
-        nmsStack.setTag( tag );
-        CraftItemStack.asCraftMirror( nmsStack );*/
+        this.itemStack.setItemMeta( itemMeta );
         return this;
     }
 

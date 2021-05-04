@@ -1,0 +1,143 @@
+package net.griefergames.reloaded.build;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
+
+/**
+ * @author NoJokeFNA
+ * @version 1.0.0
+ */
+public class ScoreboardBuilder {
+
+    private final Scoreboard scoreboard;
+    private final Objective objective;
+    private final Player player;
+    private Team team;
+
+    /**
+     * Create a new {@link Scoreboard}
+     *
+     * @param objectiveName the {@code objectiveName} of the new {@link Scoreboard} - {@link Scoreboard#registerNewObjective(String, String)}
+     * @param displaySlot   the {@link DisplaySlot} you wanna use
+     * @param displayName   the {@code displayName} of the {@code scoreboard}
+     * @param player        the {@link Player} object
+     */
+    public ScoreboardBuilder( String objectiveName, DisplaySlot displaySlot, String displayName, Player player ) {
+        this.player = player;
+
+        player.setScoreboard( Bukkit.getScoreboardManager().getNewScoreboard() );
+
+        this.scoreboard = player.getScoreboard();
+        this.objective = this.scoreboard.registerNewObjective( objectiveName, "dummy" );
+
+        this.objective.setDisplaySlot( displaySlot );
+        this.objective.setDisplayName( coloredMessage( displayName ) );
+    }
+
+    /**
+     * Remove the {@code entry} from the specified {@code team}
+     *
+     * @param player set the {@code player} from whom you want to get the {@code scoreboard}
+     * @param team   specify the {@code team} from which you want to remove the {@code entry}
+     * @param entry  set the {@code entry} from the {@code team}
+     */
+    public static void removeEntry( Player player, String team, String entry ) {
+        player.getScoreboard().getTeam( team ).removeEntry( entry );
+    }
+
+    /**
+     * Update a team with a {@code prefix}
+     *
+     * @param player set the {@code player} from whom you want to update the {@code scoreboard}
+     * @param team   set the {@code team} you want to update
+     * @param prefix set the {@code prefix} from the {@code team}
+     */
+    public static void updateTeam( Player player, String team, String prefix ) {
+        player.getScoreboard().getTeam( team ).setPrefix( staticColoredMessage( prefix ) );
+    }
+
+    /**
+     * Update a team with a {@code prefix} & {@code suffix}
+     *
+     * @param player set the {@code player} from whom you want to update the {@code scoreboard}
+     * @param team   set the {@code team} you want to update
+     * @param prefix set the {@code prefix} from the {@code team}
+     * @param suffix set the {@code suffix} from the {@code team}
+     */
+    public static void updateTeam( Player player, String team, String prefix, String suffix ) {
+        final Team playerTeam = player.getScoreboard().getTeam( team );
+        playerTeam.setPrefix( staticColoredMessage( prefix ) );
+        playerTeam.setSuffix( staticColoredMessage( suffix ) );
+    }
+
+    private static String staticColoredMessage( String message ) {
+        return ChatColor.translateAlternateColorCodes( '&', message );
+    }
+
+    /**
+     * Add a team to the {@code scoreboard}
+     *
+     * @param prefix set the {@code prefix} of the {@code score}
+     * @param score  set the {@code score} of the {@code prefix}
+     *
+     * @return returns the method
+     */
+    public ScoreboardBuilder addScore( String prefix, int score ) {
+        this.objective.getScore( prefix ).setScore( score );
+        return this;
+    }
+
+    /**
+     * Add a team to the {@code scoreboard}
+     *
+     * @param teamName set the {@code teamName} you want
+     * @param prefix   set the {@code prefix} of the {@code team}
+     * @param entry    set the {@code entry} of the {@code scoreboard}. Please use only §1, §2 (...), or {@link ChatColor}
+     * @param score    set the {@code score} in the following order
+     *
+     * @return returns the method
+     */
+    public ScoreboardBuilder addTeam( String teamName, String prefix, String entry, int score ) {
+        this.team = this.scoreboard.registerNewTeam( teamName );
+        this.team.setPrefix( coloredMessage( prefix ) );
+        this.team.addEntry( entry );
+        this.objective.getScore( entry ).setScore( score );
+        return this;
+    }
+
+    /**
+     * Add a team to the {@code scoreboard}
+     *
+     * @param teamName set the {@code teamName} you want
+     * @param prefix   set the {@code prefix} of the {@code team}
+     * @param suffix   set the {@code suffix} of the {@code team}
+     * @param entry    set the {@code entry} of the {@code scoreboard}. Please use only §1, §2, §3 (...), or {@link ChatColor}
+     * @param score    set the {@code score} in the following order
+     *
+     * @return returns the method
+     */
+    public ScoreboardBuilder addTeam( String teamName, String prefix, String suffix, String entry, int score ) {
+        this.team = this.scoreboard.registerNewTeam( teamName );
+        this.team.setPrefix( coloredMessage( prefix ) );
+        this.team.setSuffix( coloredMessage( suffix ) );
+        this.team.addEntry( entry );
+        this.objective.getScore( entry ).setScore( score );
+        return this;
+    }
+
+    /**
+     * Finally send the scoreboard
+     */
+    public void sendScoreboard() {
+        this.player.setScoreboard( this.scoreboard );
+    }
+
+    private String coloredMessage( String message ) {
+        return ChatColor.translateAlternateColorCodes( '&', message );
+    }
+}
