@@ -37,7 +37,7 @@ public class ItemBuilder {
      *
      * @param material The {@code #material} to create the {@link ItemBuilder} with.
      */
-    public ItemBuilder( Material material ) {
+    public ItemBuilder( final Material material ) {
         this( material, 1 );
     }
 
@@ -46,7 +46,7 @@ public class ItemBuilder {
      *
      * @param itemStack The this.itemStack to create the ItemBuilder over.
      */
-    public ItemBuilder( ItemStack itemStack ) {
+    public ItemBuilder( final ItemStack itemStack ) {
         this.itemStack = itemStack;
         this.itemMeta = itemStack.getItemMeta();
     }
@@ -57,7 +57,7 @@ public class ItemBuilder {
      * @param material The material of the item.
      * @param amount   The amount of the item.
      */
-    public ItemBuilder( Material material, int amount ) {
+    public ItemBuilder( final Material material, final int amount ) {
         this.itemStack = new ItemStack( material, amount );
         this.itemMeta = itemStack.getItemMeta();
     }
@@ -69,7 +69,7 @@ public class ItemBuilder {
      * @param amount     The amount of the item.
      * @param durability The durability of the item.
      */
-    public ItemBuilder( Material material, int amount, byte durability ) {
+    public ItemBuilder( final Material material, final int amount, final byte durability ) {
         this.itemStack = new ItemStack( material, amount, durability );
         this.itemMeta = itemStack.getItemMeta();
     }
@@ -93,7 +93,7 @@ public class ItemBuilder {
      *
      * @param durability The durability to set it to.
      */
-    public ItemBuilder setDurability( short durability ) {
+    public ItemBuilder setDurability( final short durability ) {
         this.itemStack.setDurability( durability );
         return this;
     }
@@ -103,7 +103,7 @@ public class ItemBuilder {
      *
      * @param name The name to change it to.
      */
-    public ItemBuilder setDisplayName( String name ) {
+    public ItemBuilder setDisplayName( final String name ) {
         this.itemMeta.setDisplayName( name );
         return this;
     }
@@ -114,7 +114,7 @@ public class ItemBuilder {
      * @param enchantment The enchantment to add.
      * @param level       The level to put the enchant on.
      */
-    public ItemBuilder addUnsafeEnchantment( Enchantment enchantment, int level ) {
+    public ItemBuilder addUnsafeEnchantment( final Enchantment enchantment, int level ) {
         this.itemStack.addUnsafeEnchantment( enchantment, level );
         return this;
     }
@@ -124,7 +124,7 @@ public class ItemBuilder {
      *
      * @param enchantment The enchantment to remove
      */
-    public ItemBuilder removeEnchantment( Enchantment enchantment ) {
+    public ItemBuilder removeEnchantment( final Enchantment enchantment ) {
         this.itemStack.removeEnchantment( enchantment );
         return this;
     }
@@ -134,7 +134,7 @@ public class ItemBuilder {
      *
      * @param ownerName The name of the skull's owner.
      */
-    public ItemBuilder setSkullOwner( String ownerName ) {
+    public ItemBuilder setSkullOwner( final String ownerName ) {
         try {
             final SkullMeta skullMeta = ( SkullMeta ) this.itemStack.getItemMeta();
 
@@ -150,7 +150,7 @@ public class ItemBuilder {
      *
      * @param player The name of the skull's owner.
      */
-    public ItemBuilder setSkullOwner( Player player ) {
+    public ItemBuilder setSkullOwner( final Player player ) {
         try {
             final SkullMeta skullMeta = ( SkullMeta ) this.itemStack.getItemMeta();
 
@@ -171,7 +171,7 @@ public class ItemBuilder {
      * @param enchantment The enchant to add
      * @param level       The level
      */
-    public ItemBuilder addEnchant( Enchantment enchantment, int level ) {
+    public ItemBuilder addEnchant( final Enchantment enchantment, final int level ) {
         this.itemMeta.addEnchant( enchantment, level, true );
         return this;
     }
@@ -181,7 +181,7 @@ public class ItemBuilder {
      *
      * @param enchantments The enchants to add.
      */
-    public ItemBuilder addEnchantments( Map<Enchantment, Integer> enchantments ) {
+    public ItemBuilder addEnchantments( final Map<Enchantment, Integer> enchantments ) {
         this.itemStack.addEnchantments( enchantments );
         return this;
     }
@@ -199,7 +199,7 @@ public class ItemBuilder {
      *
      * @param lore The lore to set it to.
      */
-    public ItemBuilder setLore( String... lore ) {
+    public ItemBuilder setLore( final String... lore ) {
         this.itemMeta.setLore( Arrays.asList( lore ) );
         return this;
     }
@@ -209,7 +209,7 @@ public class ItemBuilder {
      *
      * @param lore The lore to set it to.
      */
-    public ItemBuilder setLore( List<String> lore ) {
+    public ItemBuilder setLore( final List<String> lore ) {
         this.itemMeta.setLore( lore );
         return this;
     }
@@ -217,10 +217,10 @@ public class ItemBuilder {
     /**
      * Remove a lore line.
      */
-    public ItemBuilder removeLoreLine( String line ) {
+    public ItemBuilder removeLoreLine( final String line ) {
         final List<String> lore = new ArrayList<>( this.itemMeta.getLore() );
-
-        if ( !lore.contains( line ) ) return this;
+        if ( !lore.contains( line ) )
+            return this;
 
         lore.remove( line );
         this.itemMeta.setLore( lore );
@@ -232,10 +232,10 @@ public class ItemBuilder {
      *
      * @param index The index of the lore line to remove.
      */
-    public ItemBuilder removeLoreLine( int index ) {
+    public ItemBuilder removeLoreLine( final int index ) {
         final List<String> lore = new ArrayList<>( this.itemMeta.getLore() );
-
-        if ( index < 0 || index > lore.size() ) return this;
+        if ( index < 0 || index > lore.size() )
+            return this;
 
         lore.remove( index );
         this.itemMeta.setLore( lore );
@@ -247,10 +247,10 @@ public class ItemBuilder {
      *
      * @param line The lore line to add.
      */
-    public ItemBuilder addLoreLine( String line ) {
+    public ItemBuilder addLoreLine( final String line ) {
         List<String> lore = new ArrayList<>();
-
-        if ( this.itemMeta.hasLore() ) lore = new ArrayList<>( this.itemMeta.getLore() );
+        if ( this.itemMeta.hasLore() )
+            lore = new ArrayList<>( this.itemMeta.getLore() );
 
         lore.add( line );
         this.itemMeta.setLore( lore );
@@ -263,9 +263,8 @@ public class ItemBuilder {
      * @param index The index of where to put it.
      * @param line  The lore line to add.
      */
-    public ItemBuilder addLoreLine( int index, String line ) {
+    public ItemBuilder addLoreLine( final int index, final String line ) {
         final List<String> lore = new ArrayList<>( this.itemMeta.getLore() );
-
         lore.set( index, line );
         this.itemMeta.setLore( lore );
         return this;
@@ -278,7 +277,7 @@ public class ItemBuilder {
      * @param dyeColor The color to put.
      */
     @SuppressWarnings( "deprecation" )
-    public ItemBuilder setDyeColor( DyeColor dyeColor ) {
+    public ItemBuilder setDyeColor( final DyeColor dyeColor ) {
         this.itemStack.setDurability( dyeColor.getDyeData() );
         return this;
     }
@@ -292,7 +291,7 @@ public class ItemBuilder {
      * @deprecated As of version 1.2 changed to setDyeColor.
      */
     @Deprecated
-    public ItemBuilder setWoolColor( DyeColor dyeColor ) {
+    public ItemBuilder setWoolColor( final DyeColor dyeColor ) {
         /*if ( !this.itemStack.getType().equals( Material.WOO ) ) return this;*/
         this.itemStack.setDurability( dyeColor.getDyeData() );
         return this;
@@ -303,7 +302,7 @@ public class ItemBuilder {
      *
      * @param color The color to set it to.
      */
-    public ItemBuilder setLeatherArmorColor( Color color ) {
+    public ItemBuilder setLeatherArmorColor( final Color color ) {
         try {
             final LeatherArmorMeta armorMeta = ( LeatherArmorMeta ) this.itemStack.getItemMeta();
 
@@ -322,7 +321,7 @@ public class ItemBuilder {
      * @param page   Set the book page
      * @param data   Set the book data
      */
-    public ItemBuilder setBook( Player player, String author, String title, int page, String data ) {
+    public ItemBuilder setBook( final Player player, final String author, final String title, final int page, final String data ) {
         final BookMeta bookMeta = ( BookMeta ) this.itemStack.getItemMeta();
 
         bookMeta.setAuthor( author );
@@ -340,7 +339,7 @@ public class ItemBuilder {
      * @param page    Set the pages
      * @param message Send the new message on the page
      */
-    public ItemBuilder addBookPage( int page, String... message ) {
+    public ItemBuilder addBookPage( final int page, final String... message ) {
         final BookMeta bookMeta = ( BookMeta ) this.itemStack.getItemMeta();
         final List<String> pages = new ArrayList<>( bookMeta.getPages() );
 
@@ -355,7 +354,7 @@ public class ItemBuilder {
      *
      * @param itemFlags Set the ItemFlag array
      */
-    public ItemBuilder addItemFlag( ItemFlag... itemFlags ) {
+    public ItemBuilder addItemFlag( final ItemFlag... itemFlags ) {
         this.itemMeta.addItemFlags( itemFlags );
         return this;
     }
@@ -365,7 +364,7 @@ public class ItemBuilder {
      *
      * @param itemFlags Remove the ItemFlag array
      */
-    public ItemBuilder removeItemFlag( ItemFlag... itemFlags ) {
+    public ItemBuilder removeItemFlag( final ItemFlag... itemFlags ) {
         this.itemMeta.removeItemFlags( itemFlags );
         return this;
     }
@@ -375,7 +374,7 @@ public class ItemBuilder {
      *
      * @param materialData Set the data
      */
-    public ItemBuilder setData( MaterialData materialData ) {
+    public ItemBuilder setData( final MaterialData materialData ) {
         this.itemStack.setData( materialData );
         return this;
     }
@@ -385,9 +384,10 @@ public class ItemBuilder {
      *
      * @param patterns Set the patterns by a List
      */
-    public ItemBuilder setBanner( List<Pattern> patterns ) {
-        BannerMeta bannerMeta = ( BannerMeta ) this.itemStack.getItemMeta();
+    public ItemBuilder setBanner( final List<Pattern> patterns ) {
+        final BannerMeta bannerMeta = ( BannerMeta ) this.itemStack.getItemMeta();
         bannerMeta.setPatterns( patterns );
+
         this.itemStack.setItemMeta( bannerMeta );
         return this;
     }
@@ -397,10 +397,10 @@ public class ItemBuilder {
      *
      * @param value Set the value, you want to remove
      */
-    public ItemBuilder removeBannerPattern( int value ) {
+    public ItemBuilder removeBannerPattern( final int value ) {
         final BannerMeta bannerMeta = ( BannerMeta ) this.itemStack.getItemMeta();
-
         bannerMeta.removePattern( value );
+
         this.itemStack.setItemMeta( bannerMeta );
         return this;
     }
@@ -412,11 +412,11 @@ public class ItemBuilder {
      * @param level                  Set the level you want
      * @param ignoreLevelRestriction Set the boolean to true, if you want to ignore the level restriction
      */
-    public ItemBuilder addStoredEnchant( Enchantment enchantment, int level, boolean ignoreLevelRestriction ) {
+    public ItemBuilder addStoredEnchant( final Enchantment enchantment, final int level, final boolean ignoreLevelRestriction ) {
         final EnchantmentStorageMeta storageMeta = ( EnchantmentStorageMeta ) this.itemStack.getItemMeta();
-
         if ( !storageMeta.hasStoredEnchant( enchantment ) )
             storageMeta.addStoredEnchant( enchantment, level, ignoreLevelRestriction );
+
         this.itemStack.setItemMeta( storageMeta );
         return this;
     }
@@ -426,11 +426,11 @@ public class ItemBuilder {
      *
      * @param enchantment Set the enchantment you want to remove
      */
-    public ItemBuilder removeStoredEnchant( Enchantment enchantment ) {
+    public ItemBuilder removeStoredEnchant( final Enchantment enchantment ) {
         final EnchantmentStorageMeta storageMeta = ( EnchantmentStorageMeta ) this.itemStack.getItemMeta();
-
         if ( storageMeta.hasStoredEnchant( enchantment ) )
             storageMeta.removeStoredEnchant( enchantment );
+
         this.itemStack.setItemMeta( storageMeta );
         return this;
     }
@@ -440,11 +440,11 @@ public class ItemBuilder {
      *
      * @param value Set the boolean
      */
-    public ItemBuilder setMapScaling( boolean value ) {
+    public ItemBuilder setMapScaling( final boolean value ) {
         final MapMeta mapMeta = ( MapMeta ) this.itemStack.getItemMeta();
-
         if ( !mapMeta.isScaling() )
             mapMeta.setScaling( value );
+
         this.itemStack.setItemMeta( mapMeta );
         return this;
     }
@@ -454,10 +454,10 @@ public class ItemBuilder {
      *
      * @param potionEffectType Set the PotionEffectType you want
      */
-    public ItemBuilder setMainEffect( PotionEffectType potionEffectType ) {
+    public ItemBuilder setMainEffect( final PotionEffectType potionEffectType ) {
         final PotionMeta potionMeta = ( PotionMeta ) this.itemStack.getItemMeta();
-
         potionMeta.setMainEffect( potionEffectType );
+
         this.itemStack.setItemMeta( potionMeta );
         return this;
     }
@@ -468,10 +468,10 @@ public class ItemBuilder {
      * @param potionEffect Set the PotionEffect you want
      * @param overwrite    Set the boolean
      */
-    public ItemBuilder addCustomEffect( PotionEffect potionEffect, boolean overwrite ) {
+    public ItemBuilder addCustomEffect( final PotionEffect potionEffect, final boolean overwrite ) {
         final PotionMeta potionMeta = ( PotionMeta ) this.itemStack.getItemMeta();
-
         potionMeta.addCustomEffect( potionEffect, overwrite );
+
         this.itemStack.setItemMeta( potionMeta );
         return this;
     }

@@ -14,14 +14,14 @@ public abstract class HikariSqlFactory {
     /**
      * Execute a query in your database and get directly the result by the {@code preparedStatementConsumer}
      *
-     * @param sqlQuery                  the full sql query
+     * @param sqlQuery                  the full sql-query
      * @param preparedStatementConsumer the {@link PreparedStatement} callback
      */
     public void executeQuery( @NonNull final String sqlQuery, @NonNull final Consumer<PreparedStatement> preparedStatementConsumer ) {
         try ( Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             preparedStatementConsumer.accept( preparedStatement );
         } catch ( SQLException exception ) {
-            ExceptionHandler.handleException( exception, "Error while checking whether a key exists or not" );
+            ExceptionHandler.handleException( exception, "Error executing sql-query" );
         }
     }
 }
