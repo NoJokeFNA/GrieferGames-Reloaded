@@ -6,7 +6,6 @@ import net.griefergames.reloaded.exception.ExceptionHandler;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class DatabaseBuilder {
 
@@ -44,13 +43,36 @@ public class DatabaseBuilder {
                 "  PRIMARY KEY (id)" +
                 ");";
 
+        final String bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
+                "  id          INT(11)      NOT NULL AUTO_INCREMENT," +
+                "  bank_player VARCHAR(100) NOT NULL," +
+                "  bank_amount VARCHAR(32)  NOT NULL," +
+                "  PRIMARY KEY (id)" +
+                ");";
+
+        final String transactionsSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_transactions` (" +
+                "  id                 INT(11)      NOT NULL AUTO_INCREMENT," +
+                "  transaction_player VARCHAR(100) NOT NULL," +
+                "  transaction_type   VARCHAR(32)  NOT NULL," +
+                "  transaction_amount INT(11)      NOT NULL," +
+                "  transaction_date   BIGINT       NOT NULL," +
+                "  PRIMARY KEY (id)" +
+                ");";
+
         this.createTable( clanSqlQuery );
         this.createTable( boosterSqlQuery );
         this.createTable( cooldownSqlQuery );
+        this.createTable( bankSqlQuery );
+        this.createTable( transactionsSqlQuery );
     }
 
-    private void createTable( final String... sqlQuery ) {
-        try ( Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement( Arrays.toString( sqlQuery ) ) ) {
+    /**
+     * Simply create a table by inserting the sql-query
+     *
+     * @param sqlQuery the sql-query
+     */
+    private void createTable( final String sqlQuery ) {
+        try ( Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             preparedStatement.executeUpdate();
         } catch ( SQLException exception ) {
             ExceptionHandler.handleException( exception, "Error while executing sql-statement" );
