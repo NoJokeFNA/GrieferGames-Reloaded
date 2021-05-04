@@ -15,7 +15,8 @@ public class UserHandler {
     /**
      * Get the user who is cached by the {@link UUID} object
      *
-     * @param playerUuid Enter the {@code playerUuid} you want to get from the cache
+     * @param playerUuid enter the {@code playerUuid} you want to get from the cache
+     *
      * @return returns from the {@link #USER_MAP} the <code>value</code>
      */
     public static User getUserByUuid( @NonNull UUID playerUuid ) {
@@ -28,7 +29,8 @@ public class UserHandler {
     /**
      * Get the user who is cached by the {@code player} object
      *
-     * @param player The {@code player} you want to get from the cache
+     * @param player the {@code player} you want to get from the cache
+     *
      * @return returns {@link #getUserByUuid(UUID)}
      */
     public static User getUser( @NonNull Player player ) {
@@ -38,7 +40,8 @@ public class UserHandler {
     /**
      * Get the user who is cached by the {@code player} name
      *
-     * @param playerName The {@code player} you want to get from the cache
+     * @param playerName the {@code player} you want to get from the cache
+     *
      * @return returns {@link #getUser(Player)}
      */
     public static User getUserByName( @NonNull String playerName ) {
@@ -65,7 +68,7 @@ public class UserHandler {
     /**
      * Delete the {@code player} object from the cache
      *
-     * @param player Define the player you want to delete from the cache
+     * @param player define the player you want to delete from the cache
      */
     public static void deleteUser( @NonNull Player player ) {
         USER_MAP.remove( player.getUniqueId() );
