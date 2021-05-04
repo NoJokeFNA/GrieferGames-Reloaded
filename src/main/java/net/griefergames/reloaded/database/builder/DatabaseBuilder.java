@@ -10,6 +10,21 @@ import java.sql.SQLException;
 public class DatabaseBuilder {
 
     public void createTable() {
+        final String bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
+                "  id          INT(11)      NOT NULL AUTO_INCREMENT," +
+                "  bank_player VARCHAR(100) NOT NULL," +
+                "  bank_amount VARCHAR(32)  NOT NULL," +
+                "  PRIMARY KEY (id)" +
+                ");";
+
+        final String boosterSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_booster` (" +
+                "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
+                "  booster_type     VARCHAR(10) NOT NULL," +
+                "  booster_level    INT(1)      NOT NULL," +
+                "  booster_cooldown BIGINT      NOT NULL," +
+                "  PRIMARY KEY (id)" +
+                ");";
+
         /*
         clan_info -> clan_name; clan_tag; clan_cb
         clan_members -> player_uuid, player_name, player_rank;
@@ -24,14 +39,6 @@ public class DatabaseBuilder {
                 "  PRIMARY KEY (id)" +
                 ");";
 
-        final String boosterSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_booster` (" +
-                "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
-                "  booster_type     VARCHAR(10) NOT NULL," +
-                "  booster_level    INT(1)      NOT NULL," +
-                "  booster_cooldown BIGINT      NOT NULL," +
-                "  PRIMARY KEY (id)" +
-                ");";
-
         /*
         cooldown_info -> player_uuid; player_name
          */
@@ -40,13 +47,6 @@ public class DatabaseBuilder {
                 "  cooldown_info    VARCHAR(100) NOT NULL," +
                 "  cooldown_type    VARCHAR(10)  NOT NULL," +
                 "  cooldown         BIGINT       NOT NULL," +
-                "  PRIMARY KEY (id)" +
-                ");";
-
-        final String bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
-                "  id          INT(11)      NOT NULL AUTO_INCREMENT," +
-                "  bank_player VARCHAR(100) NOT NULL," +
-                "  bank_amount VARCHAR(32)  NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 
@@ -59,10 +59,10 @@ public class DatabaseBuilder {
                 "  PRIMARY KEY (id)" +
                 ");";
 
-        this.createTable( clanSqlQuery );
-        this.createTable( boosterSqlQuery );
-        this.createTable( cooldownSqlQuery );
         this.createTable( bankSqlQuery );
+        this.createTable( boosterSqlQuery );
+        this.createTable( clanSqlQuery );
+        this.createTable( cooldownSqlQuery );
         this.createTable( transactionsSqlQuery );
     }
 
