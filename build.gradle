@@ -7,8 +7,8 @@ plugins {
 group = 'net.griefergames.reloaded'
 version = '1.0-SNAPSHOT'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '1.11'
+targetCompatibility = '1.11'
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
 
