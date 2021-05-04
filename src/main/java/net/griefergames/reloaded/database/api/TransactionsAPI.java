@@ -1,4 +1,6 @@
 package net.griefergames.reloaded.database.api;
 
-public class TransactionsAPI {
+import net.griefergames.reloaded.database.factory.HikariSqlFactory;
+
+public class TransactionsAPI extends HikariSqlFactory {
 }

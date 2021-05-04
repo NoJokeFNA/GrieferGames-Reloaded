@@ -1,4 +1,6 @@
 package net.griefergames.reloaded.database.api;
 
-public class BoosterAPI {
+import net.griefergames.reloaded.database.factory.HikariSqlFactory;
+
+public class BoosterAPI extends HikariSqlFactory {
 }

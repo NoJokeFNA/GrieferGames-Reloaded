@@ -1,4 +1,6 @@
 package net.griefergames.reloaded.database.api;
 
-public class ClansAPI {
+import net.griefergames.reloaded.database.factory.HikariSqlFactory;
+
+public class ClansAPI extends HikariSqlFactory {
 }
