@@ -20,10 +20,20 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        name = 'cloudnet-releases'
+        url = 'https://repo.cloudnetservice.eu/repository/releases/'
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+
+    compileOnly 'de.dytanic.cloudnet:cloudnet-api-bridge:2.1.17'
+    compileOnly 'de.dytanic.cloudnet:cloudnet-bridge:3.3.0-RELEASE'
+    compileOnly 'de.dytanic.cloudnet:cloudnet-driver:3.3.0-RELEASE'
+
+    compileOnly 'net.luckperms:api:5.3'
 
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
 
