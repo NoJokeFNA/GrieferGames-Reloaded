@@ -1,0 +1,28 @@
+# Soll das integrierte Chat-System verwendet werden?
+use_chat: true
+
+# Von welchem Plugin sollen wir den Präfix entnehmen?
+# Du hast folgende möglichkeiten:
+#  - LuckPerms
+#  - CloudNetV2
+#  - CloudNetV3
+# Wähle bitte eines von diesen aus, andere werden nicht funktionieren!
+permission_plugin: 'LuckPerms'
+
+# Falls du dich für den CloudNet-Support entschieden hast, hast du die freie möglichkeit die variable zu definieren
+# Du kannst folgendes verwenden:
+#  - 'display' gibt den anzeigepräfix des Players von CloudNet zurück
+#  - 'prefix' gibt den präfix des Players von CloudNet zurück
+cloudnet:
+  art: 'display'
+
+# Hier kannst du verschiedene Chat-Einstellungen anwenden
+chat_settings:
+  # Sollen wir einen Cooldown für Chat-Nachrichten einbauen?
+  chat: true
+  # Setze die Zeit des Cooldowns in Sekunden
+  time_chat: 2
+  # Setze die Nachricht die dem Spieler beim Spammen von Chat-Nachrichten gesendet wird.
+  message_chat: '&cBitte Spamme keine Chat-Nachrichten!'
+  # Mit dieser Permission hast du einen 'bypass' für den Cooldown!
+  bypass_chat_permission: 'gg.chat.spam.bypass'
