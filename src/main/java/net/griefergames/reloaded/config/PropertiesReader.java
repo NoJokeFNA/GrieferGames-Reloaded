@@ -19,6 +19,7 @@ public class PropertiesReader {
 
     public void loadDatasourceProperties() {
         this.createDataSourceProperties();
+
         datasourceProperties = new Properties();
         try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( this.fileName ) ) ) {
             datasourceProperties.load( inputStream );
@@ -31,7 +32,7 @@ public class PropertiesReader {
         try {
             final File file = new File( this.fileName );
             if ( file.createNewFile() ) {
-                fillFile( file );
+                this.fillFile( file );
                 System.out.println( "File successfully created" );
                 return;
             }
