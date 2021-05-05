@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 import java.util.Map;
 import java.util.UUID;
 
-public class UserHandler {
+public class CacheHandler {
 
-    private static final Map<UUID, User> USER_MAP = Maps.newHashMap();
+    private static final Map<UUID, CacheUser> USER_MAP = Maps.newHashMap();
 
     /**
      * Get the user who is cached by the {@link UUID} object
@@ -19,9 +19,9 @@ public class UserHandler {
      *
      * @return returns from the {@link #USER_MAP} the <code>value</code>
      */
-    public static User getUserByUuid( @NonNull UUID playerUuid ) {
+    public static CacheUser getUserByUuid( @NonNull UUID playerUuid ) {
         if ( !USER_MAP.containsKey( playerUuid ) )
-            USER_MAP.put( playerUuid, new User( playerUuid ) );
+            USER_MAP.put( playerUuid, new CacheUser( playerUuid ) );
 
         return USER_MAP.get( playerUuid );
     }
@@ -33,7 +33,7 @@ public class UserHandler {
      *
      * @return returns {@link #getUserByUuid(UUID)}
      */
-    public static User getUser( @NonNull Player player ) {
+    public static CacheUser getUser( @NonNull Player player ) {
         return getUserByUuid( player.getUniqueId() );
     }
 
@@ -44,7 +44,7 @@ public class UserHandler {
      *
      * @return returns {@link #getUser(Player)}
      */
-    public static User getUserByName( @NonNull String playerName ) {
+    public static CacheUser getUserByName( @NonNull String playerName ) {
         return getUser( Bukkit.getPlayer( playerName ) );
     }
 
@@ -53,16 +53,16 @@ public class UserHandler {
      *
      * @return returns the cached players
      */
-    public static User[] getUsers() {
-        final User[] users = new User[USER_MAP.size()];
+    public static CacheUser[] getUsers() {
+        final CacheUser[] cacheUsers = new CacheUser[USER_MAP.size()];
 
         int count = 0;
-        for ( Map.Entry<UUID, User> userEntry : USER_MAP.entrySet() ) {
-            users[count] = userEntry.getValue();
+        for ( Map.Entry<UUID, CacheUser> userEntry : USER_MAP.entrySet() ) {
+            cacheUsers[count] = userEntry.getValue();
             count++;
         }
 
-        return users;
+        return cacheUsers;
     }
 
     /**

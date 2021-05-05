@@ -7,16 +7,19 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class User {
+public class CacheUser {
 
     private final UUID playerUuid;
+
+    /* Bank */
+    private int bankMoney;
 
     /**
      * Instantiates a new Cache user.
      *
      * @param playerUuid the player uuid
      */
-    public User( UUID playerUuid ) {
+    public CacheUser( UUID playerUuid ) {
         this.playerUuid = playerUuid;
     }
 }
