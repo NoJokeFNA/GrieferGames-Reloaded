@@ -63,6 +63,8 @@ public abstract class HikariSqlFactory {
      *
      * @see SqlType
      * @see PreparedStatement
+     * @see StatementFactory
+     * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
      */
     public void executeQuery( @NonNull final String sqlQuery, @NonNull final PreparedStatement preparedStatement, @NonNull final String[] replacements, @NonNull final SqlType... sqlTypes ) {
         final AtomicInteger index = new AtomicInteger( 0 );
@@ -138,6 +140,8 @@ public abstract class HikariSqlFactory {
      * @see CompletableFuture
      * @see CompletableFuture#runAsync(Runnable)
      * @see PreparedStatement
+     * @see StatementFactory
+     * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
      */
     public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final PreparedStatement preparedStatement, @NonNull final String[] replacements, @NonNull final SqlType... sqlTypes ) {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, preparedStatement, replacements, sqlTypes ) );
@@ -145,6 +149,19 @@ public abstract class HikariSqlFactory {
 
     private static class StatementFactory {
 
+        /**
+         * Execute a {@link PreparedStatement} by the given types
+         *
+         * @param index             the index you want to set
+         * @param sqlType           the {@link SqlType} you want to use
+         * @param replacement       all the replacements
+         * @param preparedStatement the {@link PreparedStatement}
+         *
+         * @see SqlType
+         * @see PreparedStatement
+         * @see HikariSqlFactory#executeQuery(String, PreparedStatement, String[], SqlType...)
+         * @see HikariSqlFactory#executeQueryAsync(String, PreparedStatement, String[], SqlType...)
+         */
         private static void setPreparedStatement( final int index, final SqlType sqlType, final Object replacement, final PreparedStatement preparedStatement ) throws SQLException {
             switch ( sqlType ) {
                 case NULL:
