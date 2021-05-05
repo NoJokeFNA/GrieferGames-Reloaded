@@ -35,6 +35,8 @@ dependencies {
 
     compileOnly 'net.luckperms:api:5.3'
 
+    compile fileTree(dir: 'libs', include: '*.jar')
+
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
