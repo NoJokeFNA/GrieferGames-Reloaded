@@ -24,6 +24,10 @@ repositories {
         name = 'cloudnet-releases'
         url = 'https://repo.cloudnetservice.eu/repository/releases/'
     }
+    maven {
+        name = 'cloud-paper'
+        url = 'https://repo.incendo.org/content/repositories/snapshots'
+    }
 }
 
 dependencies {
@@ -37,6 +41,7 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: '*.jar')
 
+    implementation group: 'cloud.commandframework', name: 'cloud-paper', version: '1.4.0'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
