@@ -54,7 +54,7 @@ public abstract class HikariSqlFactory {
      * <p>
      * So your `key` will be an {@link String} like <b>"Test"</b> and your `anotherKey` will be an {@link Integer} like <b>54</b>
      * <p></p>
-     * Of course you can also do UPDATE-Statements with it, this was just an example to show you how it works
+     * Of course you can also use UPDATE-Statements with it, this was just an example to show you how it works
      *
      * @param sqlQuery          the full sql-query
      * @param preparedStatement the {@link PreparedStatement}
@@ -94,6 +94,24 @@ public abstract class HikariSqlFactory {
     }
 
     /**
+     * Execute a query in your database and get directly the result by the {@code preparedStatementConsumer} - asynchronously
+     *
+     * @param sqlQuery                  the full sql-query
+     * @param preparedStatementConsumer the {@link PreparedStatement} callback
+     *
+     * @return the asynchronous {@link CompletableFuture}
+     *
+     * @see CompletableFuture
+     * @see CompletableFuture#runAsync(Runnable)
+     * @see Consumer
+     * @see Consumer#accept(Object)
+     * @see PreparedStatement
+     */
+    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final Consumer<PreparedStatement> preparedStatementConsumer ) {
+        return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, preparedStatementConsumer ) );
+    }
+
+    /**
      * Execute a query in your database - asynchronously
      * <p>
      * <b>Use this method only if you don't need a return value</b>
@@ -110,7 +128,7 @@ public abstract class HikariSqlFactory {
      * <p>
      * So your `key` will be an {@link String} like <b>"Test"</b> and your `anotherKey` will be an {@link Integer} like <b>54</b>
      * <p></p>
-     * Of course you can also do UPDATE-Statements with it, this was just an example to show you how it works
+     * Of course you can also use UPDATE-Statements with it, this was just an example to show you how it works
      *
      * @param sqlQuery          the full sql-query
      * @param preparedStatement the {@link PreparedStatement}
@@ -123,24 +141,6 @@ public abstract class HikariSqlFactory {
      */
     public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final PreparedStatement preparedStatement, @NonNull final String[] replacements, @NonNull final SqlType... sqlTypes ) {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, preparedStatement, replacements, sqlTypes ) );
-    }
-
-    /**
-     * Execute a query in your database and get directly the result by the {@code preparedStatementConsumer} - asynchronously
-     *
-     * @param sqlQuery                  the full sql-query
-     * @param preparedStatementConsumer the {@link PreparedStatement} callback
-     *
-     * @return the asynchronous {@link CompletableFuture}
-     *
-     * @see CompletableFuture
-     * @see CompletableFuture#runAsync(Runnable)
-     * @see Consumer
-     * @see Consumer#accept(Object)
-     * @see PreparedStatement
-     */
-    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final Consumer<PreparedStatement> preparedStatementConsumer ) {
-        return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, preparedStatementConsumer ) );
     }
 
     private static class StatementFactory {
