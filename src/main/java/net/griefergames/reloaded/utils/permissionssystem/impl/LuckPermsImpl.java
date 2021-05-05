@@ -82,6 +82,6 @@ public class LuckPermsImpl implements IPermissionsSystem {
 
         userManager.saveUser( user );
 
-        GrieferGamesLogger.log( Level.INFO, "Successfully modified {0}'s rank to {1}.", player.getName(), groupName );
+        GrieferGamesLogger.log( Level.INFO, "Successfully modified %s's rank to %s.", player.getName(), groupName );
     }
 }
