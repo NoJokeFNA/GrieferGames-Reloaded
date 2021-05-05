@@ -11,7 +11,7 @@ import net.luckperms.api.model.user.User;
 import net.luckperms.api.query.QueryOptions;
 import org.bukkit.entity.Player;
 
-public class LuckPermsPrefix implements IPrefix {
+public class LuckPermsImpl implements IPrefix {
 
     @Override
     public String getPrefix( @NonNull Player player ) {

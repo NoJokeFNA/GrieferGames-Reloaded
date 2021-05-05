@@ -9,7 +9,7 @@ import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.prefix.IPrefix;
 import org.bukkit.entity.Player;
 
-public class CloudNetV3Prefix implements IPrefix {
+public class CloudNetV3Impl implements IPrefix {
 
     @Override
     public String getPrefix( @NonNull Player player ) {

@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-public class PermissionsExPrefix implements IPrefix {
+public class PermissionsExImpl implements IPrefix {
 
     @Override
     public String getPrefix( @NonNull Player player ) {
