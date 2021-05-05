@@ -7,7 +7,7 @@ import java.util.logging.Level;
 
 public class ExceptionHandler {
 
-    public static void handleException( Exception exception, String message ) {
+    public static void handleException( final Exception exception, final String message ) {
         val stackTraceElement = exception.getStackTrace()[4];
         final String
                 className = stackTraceElement.getClassName(),
