@@ -1,13 +1,15 @@
-package net.griefergames.reloaded.utils.prefix.impl;
+package net.griefergames.reloaded.utils.permissionssystem.impl;
 
 import de.dytanic.cloudnet.api.CloudAPI;
 import de.dytanic.cloudnet.lib.player.permission.PermissionGroup;
 import lombok.NonNull;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
-import net.griefergames.reloaded.utils.prefix.IPrefix;
+import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
 import org.bukkit.entity.Player;
 
-public class CloudNetV2Impl implements IPrefix {
+import java.util.concurrent.TimeUnit;
+
+public class CloudNetV2Impl implements IPermissionsSystem {
 
     @Override
     public String getPrefix( @NonNull Player player ) {
@@ -29,5 +31,10 @@ public class CloudNetV2Impl implements IPrefix {
             default:
                 throw new UnsupportedOperationException( "§4Unsupported value in §cchat_settings.yml » chat.cloudnet.use » " + "asd" );
         }
+    }
+
+    @Override
+    public void setGroup( Player player, @NonNull Player targetPlayer, @NonNull String groupName, long duration, @NonNull TimeUnit timeUnit ) {
+
     }
 }
