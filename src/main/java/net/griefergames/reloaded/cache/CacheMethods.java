@@ -22,7 +22,7 @@ public class CacheMethods {
             }
         };
 
-        timer.schedule( timerTask, 1000L * 60L * 60L, 1000L * 60L * 60L );
+        timer.schedule( timerTask, 1000L * 60L * 15L, 1000L * 60L * 15L );
     }
 
     private static void clearCache() {
