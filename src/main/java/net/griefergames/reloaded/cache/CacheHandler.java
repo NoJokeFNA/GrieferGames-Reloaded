@@ -1,4 +1,4 @@
-package net.griefergames.reloaded.user;
+package net.griefergames.reloaded.cache;
 
 import com.google.common.collect.Maps;
 import lombok.NonNull;

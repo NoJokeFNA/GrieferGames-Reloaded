@@ -1,4 +1,4 @@
-package net.griefergames.reloaded.user;
+package net.griefergames.reloaded.cache;
 
 import lombok.Getter;
 import lombok.Setter;
