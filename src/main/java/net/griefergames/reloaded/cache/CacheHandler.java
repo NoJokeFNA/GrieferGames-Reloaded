@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class CacheHandler {
 
-    private static final Map<UUID, CacheUser> USER_MAP = Maps.newHashMap();
+    public static final Map<UUID, CacheUser> USER_MAP = Maps.newHashMap();
 
     /**
      * Get the user who is cached by the {@link UUID} object
