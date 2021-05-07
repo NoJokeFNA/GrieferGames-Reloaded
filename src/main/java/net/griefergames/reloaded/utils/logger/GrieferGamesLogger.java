@@ -10,7 +10,7 @@ public class GrieferGamesLogger {
     private static final Logger LOGGER = GrieferGamesReloaded.PLUGIN.getPlugin().getLogger();
 
     /**
-     * Log what you want easily without using {@link GrieferGamesReloaded#PLUGIN#getPlugin()#getLogger()} everytime
+     * Log what you want easily without using {@link Logger} everytime
      *
      * @param level   the {@link Level} type
      * @param message the {@code message} you wanna log

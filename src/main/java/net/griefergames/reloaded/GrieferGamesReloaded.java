@@ -3,6 +3,8 @@ package net.griefergames.reloaded;
 import lombok.Getter;
 import net.griefergames.reloaded.config.handler.ConfigHandler;
 import net.griefergames.reloaded.database.handler.DatabaseHandler;
+import net.griefergames.reloaded.listener.PlayerJoinListener;
+import net.griefergames.reloaded.listener.UserBalanceUpdateListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
@@ -68,7 +70,7 @@ public enum GrieferGamesReloaded {
      */
     private void registerListener() {
         final Listener[] listeners = new Listener[] {
-
+            new PlayerJoinListener(), new UserBalanceUpdateListener()
         };
 
         Arrays.stream( listeners ).forEach( listener -> Bukkit.getPluginManager().registerEvents( listener, this.plugin ) );

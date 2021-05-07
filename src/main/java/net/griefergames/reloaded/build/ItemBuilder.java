@@ -287,7 +287,7 @@ public class ItemBuilder {
      *
      * @param dyeColor The DyeColor to set the wool item to.
      *
-     * @see ItemBuilder@setDyeColor( DyeColor )
+     * @see #setDyeColor( DyeColor )
      * @deprecated As of version 1.2 changed to setDyeColor.
      */
     @Deprecated

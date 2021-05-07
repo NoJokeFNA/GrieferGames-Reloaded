@@ -9,10 +9,12 @@ public interface IPermissionsSystem {
 
     /**
      * Get the prefix from the player
-     * <li>LuckPerms</li>
-     * <li>PermissionsEx</li>
-     * <li>CloudNetV2</li>
-     * <li>CloudNetV3</li>
+     * <ul>
+     *      <li>LuckPerms</li>
+     *      <li>PermissionsEx</li>
+     *      <li>CloudNetV2</li>
+     *      <li>CloudNetV3</li>
+     * </ul>
      *
      * @param player the {@link Player} object
      */

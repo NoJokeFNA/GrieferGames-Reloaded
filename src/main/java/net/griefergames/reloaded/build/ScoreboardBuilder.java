@@ -62,7 +62,7 @@ public class ScoreboardBuilder {
     }
 
     /**
-     * Update a team with a {@code prefix} & {@code suffix}
+     * Update a team with a {@code prefix} and {@code suffix}
      *
      * @param player set the {@code player} from whom you want to update the {@code scoreboard}
      * @param team   set the {@code team} you want to update

@@ -15,8 +15,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * A simple <b>InventoryBuilder</b> with which you can create an inventory using various methods
  * <p></p>
  * <h1>A list of the current methods</h1>
- * <li>fill the {@code inventory} with the {@link org.bukkit.inventory.ItemStack} of your choice; you can also fill it with different colors</li>
- * <li>set an {@link org.bukkit.inventory.ItemStack} delayed; you can choose if you wanna play a {@link org.bukkit.Sound}, or not</li>
+ * <ul>
+ *     <li>fill the {@code inventory} with the {@link org.bukkit.inventory.ItemStack} of your choice; you can also fill it with different colors</li>
+ *     <li>set an {@link org.bukkit.inventory.ItemStack} delayed; you can choose if you wanna play a {@link org.bukkit.Sound}, or not</li>
+ * </ul>
  */
 public class InventoryBuilder {
 
