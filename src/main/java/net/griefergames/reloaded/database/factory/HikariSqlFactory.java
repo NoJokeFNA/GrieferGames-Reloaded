@@ -75,7 +75,7 @@ public abstract class HikariSqlFactory {
                 valuesAmount = replacements.length;
 
         if ( questionMarkAmount != valuesAmount )
-            throw new IllegalArgumentException( "Count doesn't match! question marks = " + questionMarkAmount + " -> values = " + valuesAmount );
+            throw new IllegalArgumentException( "Count doesn't match! placeholder = " + questionMarkAmount + " -> values = " + valuesAmount );
 
         final Map<String, SqlType> queryMap = new ConcurrentHashMap<>();
         for ( String replacement : replacements ) {
@@ -162,7 +162,7 @@ public abstract class HikariSqlFactory {
          * @see HikariSqlFactory#executeQuery(String, PreparedStatement, String[], SqlType...)
          * @see HikariSqlFactory#executeQueryAsync(String, PreparedStatement, String[], SqlType...)
          */
-        private static void setPreparedStatement( final int index, final SqlType sqlType, final Object replacement, final PreparedStatement preparedStatement ) throws SQLException {
+        private static void setPreparedStatement( final int index, @NonNull final SqlType sqlType, @NonNull final Object replacement, @NonNull final PreparedStatement preparedStatement ) throws SQLException {
             switch ( sqlType ) {
                 case NULL:
                     preparedStatement.setNull( index, ( int ) replacement );
@@ -233,7 +233,7 @@ public abstract class HikariSqlFactory {
                     break;
             }
 
-            System.out.println( sqlType + " - " + preparedStatement.toString() + " - " + index + " - " + replacement );
+            System.out.println( sqlType + " - " + preparedStatement + " - " + index + " - " + replacement );
         }
     }
 
