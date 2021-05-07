@@ -1,6 +1,6 @@
 name: GrieferGames-Reloaded
 version: @version@
-authors: [ Niklas409, NoJokeFNA ]
+authors: [ NoJokeFNA, Niklas409 ]
 
 main: net.griefergames.reloaded.GrieferGamesReloadedPlugin
 softdepend: [ CloudNet-Perms, CloudNet-Bridge, LuckPerms, PermissionsEx, Essentials ]
