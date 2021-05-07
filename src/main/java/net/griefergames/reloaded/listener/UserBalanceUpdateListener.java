@@ -15,6 +15,6 @@ public class UserBalanceUpdateListener implements Listener {
         final Player player = event.getPlayer();
 
         final String numberFormat = NumberFormat.getNumberInstance().format( event.getNewBalance() );
-        ScoreboardBuilder.updateTeam( player, "money", "§f" + numberFormat + "$" );
+        ScoreboardBuilder.updateTeam( player, "playerMoney", "§f" + numberFormat + "$" );
     }
 }

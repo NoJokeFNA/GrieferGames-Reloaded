@@ -17,7 +17,7 @@ public class PropertiesReader {
 
     private Properties datasourceProperties;
 
-    public void loadDatasourceProperties() {
+    public void loadDataSourceProperties() {
         this.createDataSourceProperties();
 
         datasourceProperties = new Properties();
@@ -52,7 +52,7 @@ public class PropertiesReader {
         }
     }
 
-    public InputStream getFileFromResourceAsStream( final String fileName ) {
+    private InputStream getFileFromResourceAsStream( final String fileName ) {
         final ClassLoader classLoader = GrieferGamesReloaded.class.getClassLoader();
         final InputStream inputStream = classLoader.getResourceAsStream( fileName );
         if ( inputStream == null )
@@ -61,7 +61,7 @@ public class PropertiesReader {
             return inputStream;
     }
 
-    public List<String> getConfigInput( final InputStream inputStream ) {
+    private List<String> getConfigInput( final InputStream inputStream ) {
         final List<String> inputList = new ArrayList<>();
 
         try ( InputStreamReader streamReader = new InputStreamReader( inputStream, StandardCharsets.UTF_8 ); BufferedReader reader = new BufferedReader( streamReader ) ) {

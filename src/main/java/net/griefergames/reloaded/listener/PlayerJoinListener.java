@@ -40,20 +40,21 @@ public class PlayerJoinListener implements Listener {
                 .addScore( "§f" + this.plugin.getServer().getServerName(), 12 )
                 .addScore( "§2", 11 )
                 .addScore( "§7>> §3§lKontostand", 10 )
-                .addTeam( "money", "§f" + numberFormat + "$", "§3", 9 )
+                .addTeam( "playerMoney", "§f" + numberFormat + "$", "§3", 9 )
                 .addScore( "§4", 8 )
                 .addScore( "§7>> §3§lOnline", 7 )
-                .addTeam( "online", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers(), "§5", 6 )
+                .addTeam( "onlinePlayer", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers(), "§5", 6 )
                 .addScore( "§6", 6 )
                 .addScore( "§7>> §3§lSpielzeit", 4 )
+                .addTeam( "onlineTime", "§f" + "34 Stunden", "§7", 3 )
                 .addScore( "§f" + "34 Stunden", 3 )
-                .addScore( "§7", 2 )
+                .addScore( "§8", 2 )
                 .addScore( "§7>> §3§lServer-Addresse", 1 )
                 .addScore( "§fGrieferGames.net", 0 );
 
 
         for ( Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
-            ScoreboardBuilder.updateTeam( onlinePlayer, "online", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() );
+            ScoreboardBuilder.updateTeam( onlinePlayer, "onlinePlayer", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() );
         }
     }
 }

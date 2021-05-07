@@ -1,6 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
 }
 
@@ -31,6 +32,9 @@ repositories {
 }
 
 dependencies {
+    /*shadow localGroovy()
+    shadow gradleApi()*/
+
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 
     compileOnly 'de.dytanic.cloudnet:cloudnet-api-bridge:2.1.17'
@@ -47,6 +51,12 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
+
+/*task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+}
+
+tasks.shadowJar.dependsOn tasks.relocateShadowJar*/
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
