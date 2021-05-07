@@ -52,7 +52,6 @@ public class PlayerJoinListener implements Listener {
                 .addScore( "§7>> §3§lServer-Addresse", 1 )
                 .addScore( "§fGrieferGames.net", 0 );
 
-
         for ( Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
             ScoreboardBuilder.updateTeam( onlinePlayer, "onlinePlayer", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() );
         }
