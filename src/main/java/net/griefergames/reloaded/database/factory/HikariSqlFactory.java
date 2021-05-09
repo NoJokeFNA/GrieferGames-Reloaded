@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 public abstract class HikariSqlFactory {
@@ -78,8 +79,8 @@ public abstract class HikariSqlFactory {
             throw new IllegalArgumentException( "Count doesn't match! placeholder = " + questionMarkAmount + " -> values = " + valuesAmount );
 
         final Map<String, SqlType> queryMap = new ConcurrentHashMap<>();
-        for ( String replacement : replacements ) {
-            for ( SqlType sqlType : sqlTypes ) {
+        for ( final String replacement : replacements ) {
+            for ( final SqlType sqlType : sqlTypes ) {
                 queryMap.put( replacement, sqlType );
             }
         }
@@ -87,6 +88,38 @@ public abstract class HikariSqlFactory {
         queryMap.forEach( ( replacement, sqlType ) -> {
             try {
                 StatementFactory.setPreparedStatement( index.incrementAndGet(), sqlType, replacement, preparedStatement );
+            } catch ( SQLException exception ) {
+                ExceptionHandler.handleException( exception, "Error while executing sql-query" );
+            }
+        } );
+
+        index.set( 0 );
+    }
+
+    public void test( @NonNull final String sqlQuery, @NonNull final PreparedStatement preparedStatement, @NonNull final String[] replacements, @NonNull final SqlType[] sqlTypes, @NonNull final Consumer<ResultSet> resultSetConsumer ) {
+        final AtomicInteger index = new AtomicInteger( 0 );
+        final String[] sqlQuerySplitter = sqlQuery.split( "[?]" );
+
+        final int
+                questionMarkAmount = sqlQuerySplitter.length,
+                valuesAmount = replacements.length;
+
+        if ( questionMarkAmount != valuesAmount )
+            throw new IllegalArgumentException( "Count doesn't match! placeholder = " + questionMarkAmount + " -> values = " + valuesAmount );
+
+        final Map<String, SqlType> queryMap = new ConcurrentHashMap<>();
+        for ( final String replacement : replacements ) {
+            for ( final SqlType sqlType : sqlTypes ) {
+                queryMap.put( replacement, sqlType );
+            }
+        }
+
+        final AtomicReference<ResultSet> resultSet = null;
+        queryMap.forEach( ( replacement, sqlType ) -> {
+            try {
+                StatementFactory.setPreparedStatement( index.incrementAndGet(), sqlType, replacement, preparedStatement );
+
+                resultSet.set( preparedStatement.executeQuery() );
             } catch ( SQLException exception ) {
                 ExceptionHandler.handleException( exception, "Error while executing sql-query" );
             }

@@ -3,6 +3,7 @@ package net.griefergames.reloaded;
 import lombok.Getter;
 import net.griefergames.reloaded.config.PropertiesReader;
 import net.griefergames.reloaded.config.handler.ConfigHandler;
+import net.griefergames.reloaded.database.builder.DatabaseBuilder;
 import net.griefergames.reloaded.database.handler.DatabaseHandler;
 import net.griefergames.reloaded.listener.PlayerJoinListener;
 import net.griefergames.reloaded.listener.UserBalanceUpdateListener;
@@ -52,13 +53,14 @@ public enum GrieferGamesReloaded {
      * Initialize everything
      */
     private void init() {
+        new PropertiesReader().loadDataSourceProperties();
+        new DatabaseBuilder().createTable();
+
         this.registerCommands();
         this.registerListener();
 
         this.configHandler = new ConfigHandler();
         this.databaseHandler = new DatabaseHandler();
-
-        new PropertiesReader().loadDataSourceProperties();
     }
 
     /**

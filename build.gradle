@@ -1,15 +1,13 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 group = 'net.griefergames.reloaded'
 version = '1.0-SNAPSHOT'
-
-sourceCompatibility = '1.11'
-targetCompatibility = '1.11'
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -32,9 +30,6 @@ repositories {
 }
 
 dependencies {
-    /*shadow localGroovy()
-    shadow gradleApi()*/
-
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 
     compileOnly 'de.dytanic.cloudnet:cloudnet-api-bridge:2.1.17'
@@ -45,21 +40,33 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: '*.jar')
 
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
+
     implementation group: 'cloud.commandframework', name: 'cloud-paper', version: '1.4.0'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
 
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
 
-/*task relocateShadowJar(type: ConfigureShadowRelocation) {
-    target = tasks.shadowJar
-}
-
-tasks.shadowJar.dependsOn tasks.relocateShadowJar*/
-
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+tasks {
+    jar {
+        dependsOn("shadowJar")
+        enabled = false
+    }
+
+    shadowJar {
+        archiveClassifier.set("")
+        relocate("com.zaxxer.hikaricp", "net.griefergames.reloaded.hikaricp")
+        relocate("org.xerial.sqlite-jbdc", "net.griefergames.reloaded.sqlite")
+        relocate("org.slf4j.slf4j-api", "net.griefergames.reloaded.slf4j")
     }
 }
