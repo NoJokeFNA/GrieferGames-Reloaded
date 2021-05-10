@@ -116,6 +116,7 @@ public abstract class HikariSqlFactory {
      * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
+     * @see CompletableFuture#runAsync(Runnable) 
      */
     public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final String[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
