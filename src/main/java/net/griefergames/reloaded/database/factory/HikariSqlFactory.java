@@ -84,7 +84,7 @@ public abstract class HikariSqlFactory {
     }
 
     /**
-     * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - synchronously
+     * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - asynchronously
      * <p>
      * <b>If you don't need a callback, just set the {@code resultSetCallback} to <b>null</b>></b>
      * <p></p>
