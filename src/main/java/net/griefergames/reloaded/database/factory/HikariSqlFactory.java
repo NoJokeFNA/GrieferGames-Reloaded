@@ -74,8 +74,7 @@ public abstract class HikariSqlFactory {
 
                 if ( resultSetCallback != null ) {
                     final ResultSet resultSet = preparedStatement.executeQuery();
-                    if ( resultSet.next() )
-                        resultSetCallback.accept( resultSet );
+                    resultSetCallback.accept( resultSet );
                 }
             }
         } catch ( SQLException exception ) {
@@ -204,7 +203,7 @@ public abstract class HikariSqlFactory {
         }
     }
 
-    private enum SqlType {
+    public enum SqlType {
 
         NULL,
         BOOLEAN,
