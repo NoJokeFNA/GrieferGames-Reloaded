@@ -17,57 +17,38 @@ import java.util.function.Consumer;
 public abstract class HikariSqlFactory {
 
     /**
-     * Execute a query in your database and get directly the result by the {@code preparedStatementConsumer} - synchronously
+     * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - synchronously
      * <p>
-     * <b>Use this method only if you need a return value</b>
-     * <p>
-     * <b>If you don't need a return value take a look at {@link #executeQuery(String, PreparedStatement, String[], SqlType...)}</b>
-     *
-     * @param sqlQuery                  the full sql-query
-     * @param preparedStatementConsumer the {@link PreparedStatement} callback
-     *
-     * @see Consumer
-     * @see Consumer#accept(Object)
-     * @see PreparedStatement
-     */
-    public void executeQuery( @NonNull final String sqlQuery, @NonNull final Consumer<PreparedStatement> preparedStatementConsumer ) {
-        try ( Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
-            preparedStatementConsumer.accept( preparedStatement );
-        } catch ( SQLException exception ) {
-            ExceptionHandler.handleException( exception, "Error executing sql-query" );
-        }
-    }
-
-    /**
-     * Execute a query in your database - synchronously
-     * <p>
-     * <b>Use this method only if you don't need a return value</b>
-     * <p>
-     * <b>If you need a return value take a look at {@link #executeQuery(String, Consumer)}</b>
+     * <b>If you don't need a callback, just set the {@code resultSetCallback} to <b>null</b>></b>
      * <p></p>
      * This method is a pretty simply way to execute a query directly into your database since it counts every placeholder - question mark - directly and replace it as well with the given types
      * <p></p>
      * For example:
      * <p>
-     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", preparedStatement, new String[] { "firstKey", "secondKey" }, SqlType.STRING, SqlType.INTEGER )}
+     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", preparedStatement, new String[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, null )}
      * <p></p>
      * This example shows you a query that executes 2 values - string and integer - with the 2 placeholders - question marks
+     * <p></p>
+     * Another example with a callback:
+     * <p>
+     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", preparedStatement, new String[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, resultSetCallback -> {} )}
+     * <p></p>
+     * This example shows you a query that executes 2 values - string and integer - with the 2 placeholders - question marks and gives you the callback
      * <p>
      * So your `key` will be an {@link String} like <b>"Test"</b> and your `anotherKey` will be an {@link Integer} like <b>54</b>
      * <p></p>
      * Of course you can also use UPDATE-Statements with it, this was just an example to show you how it works
      *
-     * @param sqlQuery          the full sql-query
-     * @param preparedStatement the {@link PreparedStatement}
-     * @param replacements      all the replacements
-     * @param sqlTypes          the {@link SqlType}'s for the {@code replacements}
+     * @param sqlQuery     the full sql-query
+     * @param replacements all the replacements
+     * @param sqlTypes     the {@link SqlType}'s for the {@code replacements}
      *
      * @see SqlType
-     * @see PreparedStatement
-     * @see StatementFactory
      * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
+     * @see Consumer#accept(Object)
+     * @see ResultSet
      */
-    public void executeQuery( @NonNull final String sqlQuery, @NonNull final PreparedStatement preparedStatement, @NonNull final String[] replacements, @NonNull final SqlType... sqlTypes ) {
+    public void executeQuery( @NonNull final String sqlQuery, @NonNull final String[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         final String[] sqlQuerySplitter = sqlQuery.split( "[?]" );
 
         final int
@@ -85,40 +66,26 @@ public abstract class HikariSqlFactory {
         }
 
         final List<Map.Entry<String, SqlType>> entryArray = new ArrayList<>( queryMap.entrySet() );
-        for ( int index = 0; index < queryMap.size(); index++ ) {
-            final Map.Entry<String, SqlType> entry = entryArray.get( index );
-            try {
+        try ( final Connection connection = DataSource.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
+            for ( int index = 0; index < queryMap.size(); index++ ) {
+                final Map.Entry<String, SqlType> entry = entryArray.get( index );
                 StatementFactory.setPreparedStatement( ( index + 1 ), entry.getValue(), entry.getKey(), preparedStatement );
-            } catch ( SQLException exception ) {
-                ExceptionHandler.handleException( exception, "Error while executing sql-query" );
+
+                if ( resultSetCallback != null ) {
+                    final ResultSet resultSet = preparedStatement.executeQuery();
+                    if ( resultSet.next() )
+                        resultSetCallback.accept( resultSet );
+                }
             }
+        } catch ( SQLException exception ) {
+            ExceptionHandler.handleException( exception, "Error while executing sql-query" );
         }
     }
 
     /**
-     * Execute a query in your database and get directly the result by the {@code preparedStatementConsumer} - asynchronously
-     *
-     * @param sqlQuery                  the full sql-query
-     * @param preparedStatementConsumer the {@link PreparedStatement} callback
-     *
-     * @return the asynchronous {@link CompletableFuture}
-     *
-     * @see CompletableFuture
-     * @see CompletableFuture#runAsync(Runnable)
-     * @see Consumer
-     * @see Consumer#accept(Object)
-     * @see PreparedStatement
-     */
-    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final Consumer<PreparedStatement> preparedStatementConsumer ) {
-        return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, preparedStatementConsumer ) );
-    }
-
-    /**
-     * Execute a query in your database - asynchronously
+     * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - asynchronously
      * <p>
-     * <b>Use this method only if you don't need a return value</b>
-     * <p>
-     * <b>If you need a return value take a look at {@link #executeQuery(String, Consumer)}</b>
+     * <b>If you don't need a return value, just set the {@code resultSetCallback} to null</b>
      * <p></p>
      * This method is a pretty simply way to execute a query directly into your database since it counts every placeholder - question mark - directly and replace it as well with the given types
      * <p></p>
@@ -132,19 +99,17 @@ public abstract class HikariSqlFactory {
      * <p></p>
      * Of course you can also use UPDATE-Statements with it, this was just an example to show you how it works
      *
-     * @param sqlQuery          the full sql-query
-     * @param preparedStatement the {@link PreparedStatement}
-     * @param replacements      all the replacements
-     * @param sqlTypes          the {@link SqlType}'s for the {@code replacements}
+     * @param sqlQuery     the full sql-query
+     * @param replacements all the replacements
+     * @param sqlTypes     the {@link SqlType}'s for the {@code replacements}
      *
-     * @see CompletableFuture
-     * @see CompletableFuture#runAsync(Runnable)
-     * @see PreparedStatement
-     * @see StatementFactory
+     * @see SqlType
      * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
+     * @see Consumer#accept(Object)
+     * @see ResultSet
      */
-    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final PreparedStatement preparedStatement, @NonNull final String[] replacements, @NonNull final SqlType... sqlTypes ) {
-        return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, preparedStatement, replacements, sqlTypes ) );
+    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final String[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
+        return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
     }
 
     private static class StatementFactory {
@@ -159,8 +124,8 @@ public abstract class HikariSqlFactory {
          *
          * @see SqlType
          * @see PreparedStatement
-         * @see HikariSqlFactory#executeQuery(String, PreparedStatement, String[], SqlType...)
-         * @see HikariSqlFactory#executeQueryAsync(String, PreparedStatement, String[], SqlType...)
+         * @see HikariSqlFactory#executeQuery(String, String[], SqlType[], Consumer)
+         * @see HikariSqlFactory#executeQueryAsync(String, String[], SqlType[], Consumer) 
          */
         private static void setPreparedStatement( final int index, @NonNull final SqlType sqlType, @NonNull final Object replacement, @NonNull final PreparedStatement preparedStatement ) throws SQLException {
             switch ( sqlType ) {
