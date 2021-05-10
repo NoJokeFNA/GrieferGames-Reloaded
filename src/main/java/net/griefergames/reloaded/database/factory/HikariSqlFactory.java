@@ -207,8 +207,6 @@ public abstract class HikariSqlFactory {
                     preparedStatement.setURL( index, ( URL ) replacement );
                     break;
             }
-
-            System.out.println( sqlType + " - " + preparedStatement + " - " + index + " - " + replacement );
         }
     }
 
