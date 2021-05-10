@@ -10,19 +10,5 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BoosterAPI extends HikariSqlFactory {
 
-    public boolean playerExists( @NonNull final UUID playerUuid ) {
-        final AtomicBoolean value = new AtomicBoolean( false );
 
-        final String sqlQuery = "SELECT * FROM `gg_booster` WHERE `player_uuid` = ?";
-        super.executeQuery( sqlQuery, new String[] { playerUuid.toString() }, new SqlType[] { SqlType.STRING }, resultSet -> {
-            try {
-                if ( resultSet.next() )
-                    value.set( true );
-            } catch ( SQLException exception ) {
-                ExceptionHandler.handleException( exception, "Error while executing sql-query" );
-            }
-        } );
-
-        return value.get();
-    }
 }

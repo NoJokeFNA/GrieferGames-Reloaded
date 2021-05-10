@@ -11,9 +11,10 @@ public class DatabaseBuilder {
 
     public void createTable() {
         final String bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
-                "  id          INT(11)      NOT NULL AUTO_INCREMENT," +
-                "  bank_player VARCHAR(100) NOT NULL," +
-                "  bank_amount VARCHAR(32)  NOT NULL," +
+                "  id               INT(11)      NOT NULL AUTO_INCREMENT," +
+                "  bank_player_name VARCHAR(100) NOT NULL," +
+                "  bank_player_uuid VARCHAR(100) NOT NULL," +
+                "  bank_amount      VARCHAR(32)  NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 
