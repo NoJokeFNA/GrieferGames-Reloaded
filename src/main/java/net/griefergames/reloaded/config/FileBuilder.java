@@ -36,7 +36,7 @@ public class FileBuilder extends YamlConfiguration {
      * @param path  the path
      * @param value the message to the path
      */
-    public void set( @NonNull String path, @NonNull Object value ) {
+    public void set( @NonNull String path, Object value ) {
         this.configuration.set( path, value );
 
         this.reloadConfig();

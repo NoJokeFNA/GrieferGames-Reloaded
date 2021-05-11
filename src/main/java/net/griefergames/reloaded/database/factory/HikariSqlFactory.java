@@ -54,11 +54,11 @@ public abstract class HikariSqlFactory {
         final String[] sqlQuerySplitter = sqlQuery.split( "[?]" );
 
         final int
-                placeholderAmount = sqlQuerySplitter.length,
+                placeholdersAmount = sqlQuerySplitter.length,
                 replacementsAmount = replacements.length;
 
-        if ( placeholderAmount != replacementsAmount )
-            throw new IllegalArgumentException( "Count doesn't match! placeholder = " + placeholderAmount + " -> replacements = " + replacementsAmount );
+        if ( placeholdersAmount != replacementsAmount )
+            throw new IllegalArgumentException( "Count doesn't match! placeholders = " + placeholdersAmount + " -> replacements = " + replacementsAmount );
 
         final Map<String, SqlType> queryMap = new ConcurrentHashMap<>();
         for ( final String replacement : replacements ) {

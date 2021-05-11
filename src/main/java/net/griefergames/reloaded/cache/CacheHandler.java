@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class CacheHandler {
@@ -45,7 +46,7 @@ public class CacheHandler {
      * @return returns {@link #getUser(Player)}
      */
     public static CacheUser getUserByName( @NonNull final String playerName ) {
-        return getUser( Bukkit.getPlayer( playerName ) );
+        return getUser( Objects.requireNonNull( Bukkit.getPlayer( playerName ) ) );
     }
 
     /**
