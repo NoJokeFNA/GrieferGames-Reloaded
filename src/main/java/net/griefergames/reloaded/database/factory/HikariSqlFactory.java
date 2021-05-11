@@ -134,8 +134,6 @@ public abstract class HikariSqlFactory {
          *
          * @see SqlType
          * @see PreparedStatement
-         * @see HikariSqlFactory#executeQuery(String, String[], SqlType[], Consumer)
-         * @see HikariSqlFactory#executeQueryAsync(String, String[], SqlType[], Consumer)
          */
         private static void setPreparedStatement( final int index, @NonNull final Object replacement, @NonNull final SqlType sqlType, @NonNull final PreparedStatement preparedStatement ) throws SQLException {
             switch ( sqlType ) {
