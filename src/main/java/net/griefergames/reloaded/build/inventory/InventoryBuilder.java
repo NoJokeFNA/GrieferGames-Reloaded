@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -68,7 +69,9 @@ public class InventoryBuilder {
      */
     public InventoryBuilder fillInventoryRandomColors( final ItemStack itemStack, final int maximalRandom ) {
         for ( short i = 0; i < this.inventory.getSize(); i++ ) {
-            itemStack.setDurability( ( short ) ThreadLocalRandom.current().nextInt( maximalRandom ) );
+            final Damageable damageMeta = ( Damageable ) itemStack.getItemMeta();
+            assert damageMeta != null;
+            damageMeta.setDamage( ( short ) ThreadLocalRandom.current().nextInt( maximalRandom ) );
             this.setItem( i, itemStack );
         }
         return this;
@@ -82,9 +85,11 @@ public class InventoryBuilder {
      * @param maximalRandom Set the {@code maximalRandom} value, to be used for the {@code subId} of the current {@code itemStack}
      */
     public InventoryBuilder fillInventoryRandomColors( final ItemStack itemStack, final int minimalRandom, final int maximalRandom ) {
-        for ( short i = 0; i < this.inventory.getSize(); i++ ) {
-            itemStack.setDurability( ( short ) ThreadLocalRandom.current().nextInt( minimalRandom, maximalRandom ) );
-            this.setItem( i, itemStack );
+        for ( short index = 0; index < this.inventory.getSize(); index++ ) {
+            final Damageable damageMeta = ( Damageable ) itemStack.getItemMeta();
+            assert damageMeta != null;
+            damageMeta.setDamage( ( short ) ThreadLocalRandom.current().nextInt( minimalRandom, maximalRandom ) );
+            this.setItem( index, itemStack );
         }
         return this;
     }
