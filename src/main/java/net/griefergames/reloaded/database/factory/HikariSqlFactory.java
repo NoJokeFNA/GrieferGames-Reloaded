@@ -46,7 +46,7 @@ public abstract class HikariSqlFactory {
      *
      * @see #executeQueryAsync(String, String[], SqlType[], Consumer) 
      * @see SqlType
-     * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
+     * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
      */
@@ -54,11 +54,11 @@ public abstract class HikariSqlFactory {
         final String[] sqlQuerySplitter = sqlQuery.split( "[?]" );
 
         final int
-                questionMarkAmount = sqlQuerySplitter.length,
-                valuesAmount = replacements.length;
+                placeholderAmount = sqlQuerySplitter.length,
+                replacementsAmount = replacements.length;
 
-        if ( questionMarkAmount != valuesAmount )
-            throw new IllegalArgumentException( "Count doesn't match! placeholder = " + questionMarkAmount + " -> values = " + valuesAmount );
+        if ( placeholderAmount != replacementsAmount )
+            throw new IllegalArgumentException( "Count doesn't match! placeholder = " + placeholderAmount + " -> replacements = " + replacementsAmount );
 
         final Map<String, SqlType> queryMap = new ConcurrentHashMap<>();
         for ( final String replacement : replacements ) {
@@ -71,7 +71,7 @@ public abstract class HikariSqlFactory {
         try ( final Connection connection = DataSource.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             for ( int index = 0; index < queryMap.size(); index++ ) {
                 final Map.Entry<String, SqlType> entry = entryArray.get( index );
-                StatementFactory.setPreparedStatement( ( index + 1 ), entry.getValue(), entry.getKey(), preparedStatement );
+                StatementFactory.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
 
                 if ( resultSetCallback != null ) {
                     final ResultSet resultSet = preparedStatement.executeQuery();
@@ -113,7 +113,7 @@ public abstract class HikariSqlFactory {
      *
      * @see #executeQuery(String, String[], SqlType[], Consumer) 
      * @see SqlType
-     * @see StatementFactory#setPreparedStatement(int, SqlType, Object, PreparedStatement)
+     * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
      * @see CompletableFuture#runAsync(Runnable) 
@@ -137,7 +137,7 @@ public abstract class HikariSqlFactory {
          * @see HikariSqlFactory#executeQuery(String, String[], SqlType[], Consumer)
          * @see HikariSqlFactory#executeQueryAsync(String, String[], SqlType[], Consumer)
          */
-        private static void setPreparedStatement( final int index, @NonNull final SqlType sqlType, @NonNull final Object replacement, @NonNull final PreparedStatement preparedStatement ) throws SQLException {
+        private static void setPreparedStatement( final int index, @NonNull final Object replacement, @NonNull final SqlType sqlType, @NonNull final PreparedStatement preparedStatement ) throws SQLException {
             switch ( sqlType ) {
                 case NULL:
                     preparedStatement.setNull( index, ( int ) replacement );
