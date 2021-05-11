@@ -37,7 +37,7 @@ public class PlayerJoinListener implements Listener {
         new ScoreboardBuilder( "dummy", DisplaySlot.SIDEBAR, "§6§lGrieferGames", player )
                 .addScore( "§1", 14 )
                 .addScore( "§7>> §3§lServer", 13 )
-                .addScore( "§f" + this.plugin.getServer().getServerName(), 12 )
+                .addScore( "§f" + this.plugin.getServer().getName(), 12 )
                 .addScore( "§2", 11 )
                 .addScore( "§7>> §3§lKontostand", 10 )
                 .addTeam( "playerMoney", "§f" + numberFormat + "$", "§3", 9 )
