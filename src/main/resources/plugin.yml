@@ -3,4 +3,4 @@ version: @version@
 authors: [ NoJokeFNA, Niklas409 ]
 
 main: net.griefergames.reloaded.GrieferGamesReloadedPlugin
-softdepend: [ CloudNet-Perms, CloudNet-Bridge, LuckPerms, PermissionsEx, Essentials ]
+softdepend: [ CloudNet-Perms, CloudNet-Bridge, LuckPerms, PermissionsEx, Essentials, HolographicDisplays ]
