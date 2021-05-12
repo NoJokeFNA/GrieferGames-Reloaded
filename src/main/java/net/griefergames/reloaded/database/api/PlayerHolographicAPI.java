@@ -1,20 +1,18 @@
 package net.griefergames.reloaded.database.api;
 
-import lombok.NonNull;
 import net.griefergames.reloaded.database.factory.HikariSqlFactory;
 import net.griefergames.reloaded.exception.ExceptionHandler;
 
 import java.sql.SQLException;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BankAPI extends HikariSqlFactory {
+public class PlayerHolographicAPI extends HikariSqlFactory {
 
-    public boolean playerExists( @NonNull final UUID playerUuid ) {
+    public boolean holographicExists( final int holographicId ) {
         final AtomicBoolean value = new AtomicBoolean( false );
 
-        final String sqlQuery = "SELECT * FROM `gg_bank` WHERE `bank_player_uuid` = ?";
-        super.executeQuery( sqlQuery, new Object[] { playerUuid.toString() }, new SqlType[] { SqlType.STRING }, resultSet -> {
+        final String sqlQuery = "SELECT * FROM `gg_playerholo` WHERE `holo_info` = ?";
+        super.executeQuery( sqlQuery, new Object[] { holographicId }, new SqlType[] { SqlType.INTEGER }, resultSet -> {
             try {
                 value.set( resultSet.next() );
             } catch ( SQLException exception ) {

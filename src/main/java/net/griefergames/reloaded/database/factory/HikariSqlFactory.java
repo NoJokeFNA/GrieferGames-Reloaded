@@ -50,7 +50,7 @@ public abstract class HikariSqlFactory {
      * @see Consumer#accept(Object)
      * @see ResultSet
      */
-    public void executeQuery( @NonNull final String sqlQuery, @NonNull final String[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
+    public void executeQuery( @NonNull final String sqlQuery, @NonNull final Object[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         final String[] sqlQuerySplitter = sqlQuery.split( "[?]" );
 
         final int
@@ -60,17 +60,17 @@ public abstract class HikariSqlFactory {
         if ( placeholdersAmount != replacementsAmount )
             throw new IllegalArgumentException( "Count doesn't match! placeholders = " + placeholdersAmount + " -> replacements = " + replacementsAmount );
 
-        final Map<String, SqlType> queryMap = new ConcurrentHashMap<>();
-        for ( final String replacement : replacements ) {
+        final Map<Object, SqlType> queryMap = new ConcurrentHashMap<>();
+        for ( final Object replacement : replacements ) {
             for ( final SqlType sqlType : sqlTypes ) {
                 queryMap.put( replacement, sqlType );
             }
         }
 
-        final List<Map.Entry<String, SqlType>> entryArray = new ArrayList<>( queryMap.entrySet() );
+        final List<Map.Entry<Object, SqlType>> entryArray = new ArrayList<>( queryMap.entrySet() );
         try ( final Connection connection = DataSource.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             for ( int index = 0; index < queryMap.size(); index++ ) {
-                final Map.Entry<String, SqlType> entry = entryArray.get( index );
+                final Map.Entry<Object, SqlType> entry = entryArray.get( index );
                 StatementFactory.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
 
                 if ( resultSetCallback != null ) {
@@ -111,7 +111,7 @@ public abstract class HikariSqlFactory {
      * @param sqlTypes          the {@link SqlType}'s for the {@code replacements}
      * @param resultSetCallback the {@link ResultSet} callback
      *
-     * @see #executeQuery(String, String[], SqlType[], Consumer) 
+     * @see #executeQuery(String, Object[], SqlType[], Consumer)
      * @see SqlType
      * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
