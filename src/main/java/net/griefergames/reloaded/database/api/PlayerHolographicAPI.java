@@ -11,7 +11,7 @@ public class PlayerHolographicAPI extends HikariSqlFactory {
     public boolean holographicExists( final int holographicId ) {
         final AtomicBoolean value = new AtomicBoolean( false );
 
-        final String sqlQuery = "SELECT * FROM `gg_playerholo` WHERE `holo_info` = ?";
+        final String sqlQuery = "SELECT * FROM `gg_playerholo` WHERE `holo_info` REGEXP '((" + holographicId + ")|[\\d.-]+)';";
         super.executeQuery( sqlQuery, new Object[] { holographicId }, new SqlType[] { SqlType.INTEGER }, resultSet -> {
             try {
                 value.set( resultSet.next() );
