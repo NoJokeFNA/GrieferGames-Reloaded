@@ -1,14 +1,14 @@
 package net.griefergames.reloaded.database.api;
 
 import lombok.NonNull;
-import net.griefergames.reloaded.database.factory.HikariSqlFactory;
+import net.griefergames.reloaded.database.executor.HikariSqlExecutor;
 import net.griefergames.reloaded.exception.ExceptionHandler;
 
 import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BankAPI extends HikariSqlFactory {
+public class BankAPI extends HikariSqlExecutor {
 
     public boolean playerExists( @NonNull final UUID playerUuid ) {
         final AtomicBoolean value = new AtomicBoolean( false );

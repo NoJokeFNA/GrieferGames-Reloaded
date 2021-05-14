@@ -10,13 +10,10 @@ import java.sql.SQLException;
 public class DatabaseBuilder {
 
     public void createTable() {
-        /*
-        bank_player_info -> player_uuid; player_name
-         */
         final String bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
-                "  id               INT(11)      NOT NULL AUTO_INCREMENT," +
-                "  bank_player_info VARCHAR(100) NOT NULL," +
-                "  bank_amount      VARCHAR(32)  NOT NULL," +
+                "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
+                "  bank_player_uuid VARCHAR(64) NOT NULL," +
+                "  bank_amount      VARCHAR(32) NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 
@@ -54,22 +51,21 @@ public class DatabaseBuilder {
                 ");";
 
         /*
-        holo_player_info -> player_uuid; player_name
         holo_info -> holo_id, holo_location, holo_text;
          */
         final String playerHolographicSql = "CREATE TABLE IF NOT EXISTS `gg_playerholo` (" +
                 "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
-                "  holo_player_info VARCHAR(64) NOT NULL," +
+                "  holo_player      VARCHAR(64) NOT NULL," +
                 "  holo_info        MEDIUMTEXT  NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 
         final String transactionsSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_transactions` (" +
-                "  id                 INT(11)      NOT NULL AUTO_INCREMENT," +
-                "  transaction_player VARCHAR(64)  NOT NULL," +
-                "  transaction_type   VARCHAR(32)  NOT NULL," +
-                "  transaction_amount INT(11)      NOT NULL," +
-                "  transaction_date   BIGINT       NOT NULL," +
+                "  id                 INT(11)     NOT NULL AUTO_INCREMENT," +
+                "  transaction_player VARCHAR(64) NOT NULL," +
+                "  transaction_type   VARCHAR(32) NOT NULL," +
+                "  transaction_amount INT(11)     NOT NULL," +
+                "  transaction_date   BIGINT      NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 

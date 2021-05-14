@@ -1,6 +1,6 @@
 package net.griefergames.reloaded.database.api;
 
-import net.griefergames.reloaded.database.factory.HikariSqlFactory;
+import net.griefergames.reloaded.database.executor.HikariSqlExecutor;
 
-public class ClansAPI extends HikariSqlFactory {
+public class ClansAPI extends HikariSqlExecutor {
 }

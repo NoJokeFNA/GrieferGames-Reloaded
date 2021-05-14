@@ -1,4 +1,4 @@
-package net.griefergames.reloaded.database.factory;
+package net.griefergames.reloaded.database.executor;
 
 import lombok.NonNull;
 import net.griefergames.reloaded.database.DataSource;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-public abstract class HikariSqlFactory {
+public class HikariSqlExecutor {
 
     /**
      * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - synchronously
