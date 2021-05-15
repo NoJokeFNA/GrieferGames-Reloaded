@@ -121,7 +121,7 @@ public class HikariSqlExecutor {
      * @see ResultSet
      * @see CompletableFuture#runAsync(Runnable) 
      */
-    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final String[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
+    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final Object[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
     }
 
