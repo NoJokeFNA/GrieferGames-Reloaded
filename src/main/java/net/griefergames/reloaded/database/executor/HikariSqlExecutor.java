@@ -73,10 +73,13 @@ public class HikariSqlExecutor {
                 final Map.Entry<Object, SqlType> entry = entryArray.get( index );
                 StatementFactory.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
 
-                if ( resultSetCallback != null ) {
-                    final ResultSet resultSet = preparedStatement.executeQuery();
-                    resultSetCallback.accept( resultSet );
+                if ( resultSetCallback == null ) {
+                    preparedStatement.executeUpdate();
+                    return;
                 }
+
+                final ResultSet resultSet = preparedStatement.executeQuery();
+                resultSetCallback.accept( resultSet );
             }
         } catch ( SQLException exception ) {
             ExceptionHandler.handleException( exception, "Error while executing sql-query" );
