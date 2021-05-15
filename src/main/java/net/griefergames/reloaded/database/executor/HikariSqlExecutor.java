@@ -78,8 +78,9 @@ public class HikariSqlExecutor {
                     return;
                 }
 
-                final ResultSet resultSet = preparedStatement.executeQuery();
-                resultSetCallback.accept( resultSet );
+                try ( ResultSet resultSet = preparedStatement.executeQuery() ) {
+                    resultSetCallback.accept( resultSet );
+                }
             }
         } catch ( SQLException exception ) {
             ExceptionHandler.handleException( exception, "Error while executing sql-query" );
