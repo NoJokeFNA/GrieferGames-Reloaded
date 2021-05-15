@@ -40,7 +40,9 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: '*.jar')
 
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.25'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.0-alpha'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.34.0'
 
     implementation group: 'cloud.commandframework', name: 'cloud-paper', version: '1.4.0'
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
@@ -66,7 +68,11 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
         relocate("com.zaxxer.hikaricp", "net.griefergames.reloaded.hikaricp")
+
+        relocate("mysql-mysql-connector-java", "net.griefergames.reloaded.mysql")
+        relocate("org.mariadb.jdbc-mariadb-java-client", "net.griefergames.reloaded.mariadb")
         relocate("org.xerial.sqlite-jbdc", "net.griefergames.reloaded.sqlite")
+
         relocate("org.slf4j.slf4j-api", "net.griefergames.reloaded.slf4j")
     }
 }

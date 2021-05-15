@@ -16,6 +16,6 @@ public class ExceptionHandler {
 
         final int lineNumber = stackTraceElement.getLineNumber();
 
-        GrieferGamesLogger.log( Level.WARNING, "%s: {%s - %s - %d} - %s", message, className, methodName, lineNumber, exception );
+        GrieferGamesLogger.log( Level.WARNING, "{0}: {1} - {2} - {3}} - {4}", new Object[] { message, className, methodName, lineNumber, exception } );
     }
 }

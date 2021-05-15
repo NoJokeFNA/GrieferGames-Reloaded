@@ -13,24 +13,22 @@ import java.util.Properties;
 @Getter
 public class PropertiesReader {
 
-    private final String fileName = GrieferGamesReloaded.PLUGIN.getPlugin().getDataFolder().getAbsolutePath() + "/" + "datasource.properties";
+    private final Properties dataSourceProperties;
+    private final String fileName;
 
-    private Properties dataSourceProperties;
+    public PropertiesReader() {
+        this.dataSourceProperties = new Properties();
+        this.fileName = GrieferGamesReloaded.PLUGIN.getPlugin().getDataFolder().getAbsolutePath() + "\\" + "datasource.properties";
+    }
 
     public void loadDataSourceProperties() {
         this.createDataSourceProperties();
 
-        dataSourceProperties = new Properties();
-        try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( "datasource.properties" ) ) ) {
+        try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( this.fileName ) ) ) {
             dataSourceProperties.load( inputStream );
         } catch ( IOException exception ) {
             ExceptionHandler.handleException( exception, "Error while loading '" + this.fileName + "'" );
         }
-
-        this.dataSourceProperties.forEach( ( o, o2 ) -> {
-            System.out.println( 1 );
-            System.out.println( o + " - " + o2 );
-        } );
     }
 
     private void createDataSourceProperties() {

@@ -53,14 +53,17 @@ public enum GrieferGamesReloaded {
      * Initialize everything
      */
     private void init() {
+        this.configHandler = new ConfigHandler();
+        this.databaseHandler = new DatabaseHandler();
+
+        System.out.println( this.configHandler );
+        System.out.println( this.configHandler.getPropertiesReader() );
+
         new PropertiesReader().loadDataSourceProperties();
         new DatabaseBuilder().createTable();
 
         this.registerCommands();
         this.registerListener();
-
-        this.configHandler = new ConfigHandler();
-        this.databaseHandler = new DatabaseHandler();
     }
 
     /**
@@ -75,7 +78,7 @@ public enum GrieferGamesReloaded {
      */
     private void registerListener() {
         final Listener[] listeners = new Listener[] {
-            new PlayerJoinListener(), new UserBalanceUpdateListener()
+                new PlayerJoinListener(), new UserBalanceUpdateListener()
         };
 
         Arrays.stream( listeners ).forEach( listener -> Bukkit.getPluginManager().registerEvents( listener, this.plugin ) );

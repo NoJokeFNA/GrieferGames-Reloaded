@@ -64,7 +64,7 @@ public class LuckPermsImpl implements IPermissionsSystem {
             if ( player != null )
                 player.sendMessage( "Der Spieler hat bereits den " + groupName + " Rang!" );
 
-            GrieferGamesLogger.log( Level.INFO, "Player already has the rank" );
+            GrieferGamesLogger.log( Level.INFO, "Player already has the rank", null );
             return;
         }
 
@@ -76,12 +76,12 @@ public class LuckPermsImpl implements IPermissionsSystem {
 
         final DataMutateResult dataMutateResult = user.data().add( inheritanceNode );
         if ( !dataMutateResult.wasSuccessful() ) {
-            GrieferGamesLogger.log( Level.WARNING, "An internal error occurred within LuckPerms" );
+            GrieferGamesLogger.log( Level.WARNING, "An internal error occurred within LuckPerms", null );
             return;
         }
 
         userManager.saveUser( user );
 
-        GrieferGamesLogger.log( Level.INFO, "Successfully modified %s's rank to %s.", player.getName(), groupName );
+        GrieferGamesLogger.log( Level.INFO, "Successfully modified %s's rank to %s.", new Object[] { player.getName(), groupName } );
     }
 }
