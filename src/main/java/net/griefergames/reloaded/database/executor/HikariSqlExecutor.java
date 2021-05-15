@@ -25,13 +25,13 @@ public class HikariSqlExecutor {
      * <p></p>
      * For example:
      * <p>
-     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new String[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, null )}
+     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new Object[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, null )}
      * <p></p>
      * This example shows you a query that executes 2 values - string and integer - with the 2 placeholders - question marks
      * <p></p>
      * Another example with a callback:
      * <p>
-     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new String[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, resultSetCallback -> {} )}
+     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new Object[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, resultSetCallback -> {} )}
      * <p></p>
      * This example shows you a query that executes 2 values - string and integer - with the 2 placeholders - question marks and gives you the callback
      * <p>
@@ -44,7 +44,7 @@ public class HikariSqlExecutor {
      * @param sqlTypes          the {@link SqlType}'s for the {@code replacements}
      * @param resultSetCallback the {@link ResultSet} callback
      *
-     * @see #executeQueryAsync(String, String[], SqlType[], Consumer) 
+     * @see #executeQueryAsync(String, Object[], SqlType[], Consumer)
      * @see SqlType
      * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
@@ -95,13 +95,13 @@ public class HikariSqlExecutor {
      * <p></p>
      * For example:
      * <p>
-     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new String[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, null )}
+     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new Object[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, null )}
      * <p></p>
      * This example shows you a query that executes 2 values - string and integer - with the 2 placeholders - question marks
      * <p></p>
      * Another example with a callback:
      * <p>
-     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new String[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, resultSetCallback -> {} )}
+     * {@code #executeQuery( "SELECT * FROM `table_name` WHERE `key` = ? AND `anotherKey` = ?", new Object[] { "firstKey", "secondKey" }, new SqlType[] { SqlType.STRING, SqlType.INTEGER }, resultSetCallback -> {} )}
      * <p></p>
      * This example shows you a query that executes 2 values - string and integer - with the 2 placeholders - question marks and gives you the callback
      * <p>
