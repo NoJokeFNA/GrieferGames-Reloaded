@@ -19,7 +19,7 @@ public class HikariSqlExecutor {
     /**
      * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - synchronously
      * <p>
-     * <b>If you don't need a callback, just set the {@code resultSetCallback} to <b>null</b>></b>
+     * <b>If you don't need a callback, just set the {@code resultSetCallback} to null</b>
      * <p></p>
      * This method is a pretty simply way to execute a query directly into your database since it counts every placeholder - question mark - directly and replace it as well with the given types
      * <p></p>
@@ -86,7 +86,7 @@ public class HikariSqlExecutor {
     /**
      * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - asynchronously
      * <p>
-     * <b>If you don't need a callback, just set the {@code resultSetCallback} to <b>null</b>></b>
+     * <b>If you don't need a callback, just set the {@code resultSetCallback} to null</b>
      * <p></p>
      * This method is a pretty simply way to execute a query directly into your database since it counts every placeholder - question mark - directly and replace it as well with the given types
      * <p></p>
@@ -208,6 +208,9 @@ public class HikariSqlExecutor {
         }
     }
 
+    /**
+     * All SQL-Types that are supported by {@link StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
+     */
     public enum SqlType {
 
         NULL,
