@@ -18,7 +18,7 @@ public class BankAPI extends HikariSqlExecutor {
             try {
                 value.set( resultSet.next() );
             } catch ( SQLException exception ) {
-                ExceptionHandler.handleException( exception, "Error while executing sql-query" );
+                ExceptionHandler.handleException( exception, "Error while executing sql-query", false );
             }
         } );
 

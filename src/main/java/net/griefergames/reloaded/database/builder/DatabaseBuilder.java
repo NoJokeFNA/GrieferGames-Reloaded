@@ -86,7 +86,7 @@ public class DatabaseBuilder {
         try ( Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             preparedStatement.executeUpdate();
         } catch ( SQLException exception ) {
-            ExceptionHandler.handleException( exception, "Error while executing sql-statement" );
+            ExceptionHandler.handleException( exception, "Error while executing sql-statement", true );
         }
     }
 }

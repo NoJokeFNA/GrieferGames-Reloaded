@@ -27,7 +27,7 @@ public class PropertiesReader {
         try ( BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( this.fileName ) ) ) {
             dataSourceProperties.load( inputStream );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while loading '" + this.fileName + "'" );
+            ExceptionHandler.handleException( exception, "Error while loading '" + this.fileName + "'", true );
         }
     }
 
@@ -44,7 +44,7 @@ public class PropertiesReader {
 
             System.out.println( "File does already exists" );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while creating '" + this.fileName + "'" );
+            ExceptionHandler.handleException( exception, "Error while creating '" + this.fileName + "'", true );
         }
     }
 
@@ -53,7 +53,7 @@ public class PropertiesReader {
             for ( String output : this.getConfigInput( inputStream ) )
                 fileWriter.write( output + System.lineSeparator() );
         } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while filling '" + this.fileName + "'" );
+            ExceptionHandler.handleException( exception, "Error while filling '" + this.fileName + "'", true );
         }
     }
 
