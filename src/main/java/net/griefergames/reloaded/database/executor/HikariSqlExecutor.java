@@ -46,7 +46,7 @@ public class HikariSqlExecutor {
      *
      * @see #executeQueryAsync(String, Object[], SqlType[], Consumer)
      * @see SqlType
-     * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
+     * @see StatementSetter#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
      */
@@ -71,7 +71,7 @@ public class HikariSqlExecutor {
         try ( final Connection connection = DataSource.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             for ( int index = 0; index < queryMap.size(); index++ ) {
                 final Map.Entry<Object, SqlType> entry = entryArray.get( index );
-                StatementFactory.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
+                StatementSetter.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
 
                 if ( resultSetCallback == null ) {
                     preparedStatement.executeUpdate();
@@ -117,7 +117,7 @@ public class HikariSqlExecutor {
      *
      * @see #executeQuery(String, Object[], SqlType[], Consumer)
      * @see SqlType
-     * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
+     * @see StatementSetter#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
      * @see CompletableFuture#runAsync(Runnable) 
@@ -126,7 +126,7 @@ public class HikariSqlExecutor {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
     }
 
-    private static class StatementFactory {
+    private static class StatementSetter {
 
         /**
          * Execute a {@link PreparedStatement} by the given types
@@ -213,7 +213,7 @@ public class HikariSqlExecutor {
     }
 
     /**
-     * All SQL-Types that are supported by {@link StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
+     * All SQL-Types that are supported by {@link StatementSetter#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
      */
     public enum SqlType {
 
