@@ -14,6 +14,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
+/**
+ * Simply execute various queries without writing the whole code 100 times. You can simply execute a query, with- or without any return value for the {@link ResultSet}, and with various {@link SqlType}'s.
+ * <p>
+ * The class will make your whole SQL live easier with just typing in the {@code sqlQuery}, the {@code replacements} and the {@link SqlType}'s. You can literally do what you want
+ */
 public class HikariSqlExecutor {
 
     /**
@@ -126,6 +131,9 @@ public class HikariSqlExecutor {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
     }
 
+    /**
+     * Set a {@link PreparedStatement} directly by using an {@link SqlType}
+     */
     private static class StatementSetter {
 
         /**
