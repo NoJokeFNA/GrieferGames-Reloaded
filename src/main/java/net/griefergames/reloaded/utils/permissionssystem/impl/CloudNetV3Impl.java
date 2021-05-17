@@ -19,7 +19,7 @@ public class CloudNetV3Impl implements IPermissionsSystem {
         if ( iPermissionUser == null )
             return "User cannot be null";
 
-        final var iPermissionGroup = iPermissionManagement.getHighestPermissionGroup( iPermissionUser  );
+        final var iPermissionGroup = iPermissionManagement.getHighestPermissionGroup( iPermissionUser );
         final var playerName = player.getName();
 
         switch ( "asd" ) {

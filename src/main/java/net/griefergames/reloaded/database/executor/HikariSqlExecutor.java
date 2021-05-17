@@ -130,6 +130,30 @@ public class HikariSqlExecutor {
     }
 
     /**
+     * All SQL-Types that are supported by {@link StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
+     */
+    public enum SqlType {
+
+        NULL,
+        BOOLEAN,
+        BYTE,
+        SHORT,
+        INTEGER,
+        LONG,
+        FLOAT,
+        DOUBLE,
+        BIG_DECIMAL,
+        STRING,
+        BYTES,
+        DATE,
+        TIME,
+        TIMESTAMP,
+        OBJECT,
+        ARRAY,
+        URL;
+    }
+
+    /**
      * Set a {@link PreparedStatement} directly by using an {@link SqlType}
      */
     private static class StatementFactory {
@@ -216,29 +240,5 @@ public class HikariSqlExecutor {
                     break;
             }
         }
-    }
-
-    /**
-     * All SQL-Types that are supported by {@link StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
-     */
-    public enum SqlType {
-
-        NULL,
-        BOOLEAN,
-        BYTE,
-        SHORT,
-        INTEGER,
-        LONG,
-        FLOAT,
-        DOUBLE,
-        BIG_DECIMAL,
-        STRING,
-        BYTES,
-        DATE,
-        TIME,
-        TIMESTAMP,
-        OBJECT,
-        ARRAY,
-        URL;
     }
 }
