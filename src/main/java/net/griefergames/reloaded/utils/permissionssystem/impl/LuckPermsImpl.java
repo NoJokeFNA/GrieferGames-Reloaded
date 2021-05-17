@@ -8,16 +8,12 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.context.ContextManager;
-import net.luckperms.api.model.data.DataMutateResult;
-import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
-import net.luckperms.api.model.user.UserManager;
 import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.InheritanceNode;
 import net.luckperms.api.query.QueryOptions;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -43,18 +39,18 @@ public class LuckPermsImpl implements IPermissionsSystem {
 
     @Override
     public void setGroup( final Player player, @NonNull final Player targetPlayer, @NonNull String groupName, final long duration, @NonNull final TimeUnit timeUnit ) {
-        final LuckPerms luckPerms = LuckPermsProvider.get();
+        final var luckPerms = LuckPermsProvider.get();
 
-        final UserManager userManager = luckPerms.getUserManager();
-        final User user = userManager.getUser( targetPlayer.getUniqueId() );
+        final var userManager = luckPerms.getUserManager();
+        final var user = userManager.getUser( targetPlayer.getUniqueId() );
         if ( user == null )
             throw new UnsupportedOperationException( "User cannot be null" );
 
-        final Group group = luckPerms.getGroupManager().getGroup( groupName );
+        final var group = luckPerms.getGroupManager().getGroup( groupName );
         if ( group == null )
             throw new UnsupportedOperationException( "Group cannot be null" );
 
-        final Set<String> userGroups = user
+        final var userGroups = user
                 .getNodes( NodeType.INHERITANCE )
                 .stream()
                 .map( InheritanceNode::getGroupName )
@@ -68,13 +64,13 @@ public class LuckPermsImpl implements IPermissionsSystem {
             return;
         }
 
-        final InheritanceNode inheritanceNode = InheritanceNode
+        final var inheritanceNode = InheritanceNode
                 .builder( group )
                 .expiry( duration, timeUnit )
                 .value( true )
                 .build();
 
-        final DataMutateResult dataMutateResult = user.data().add( inheritanceNode );
+        final var dataMutateResult = user.data().add( inheritanceNode );
         if ( !dataMutateResult.wasSuccessful() ) {
             GrieferGamesLogger.log( Level.WARNING, "An internal error occurred within LuckPerms", null );
             return;

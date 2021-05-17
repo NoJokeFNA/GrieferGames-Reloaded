@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,39 +50,38 @@ public class HikariSqlExecutor {
      *
      * @see #executeQueryAsync(String, Object[], SqlType[], Consumer)
      * @see SqlType
-     * @see StatementSetter#setPreparedStatement(int, Object, SqlType, PreparedStatement)
+     * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
      */
     public void executeQuery( @NonNull final String sqlQuery, @NonNull final Object[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
-        final String[] sqlQuerySplitter = sqlQuery.split( "[?]" );
+        final var sqlQuerySplitter = sqlQuery.split( "[?]" );
 
-        final int
-                placeholdersAmount = sqlQuerySplitter.length,
-                replacementsAmount = replacements.length;
+        final var placeholdersAmount = sqlQuerySplitter.length;
+        final var replacementsAmount = replacements.length;
 
         if ( placeholdersAmount != replacementsAmount )
             throw new IllegalArgumentException( "Count doesn't match! placeholders = " + placeholdersAmount + " -> replacements = " + replacementsAmount );
 
         final Map<Object, SqlType> queryMap = new ConcurrentHashMap<>();
-        for ( final Object replacement : replacements ) {
-            for ( final SqlType sqlType : sqlTypes ) {
+        for ( final var replacement : replacements ) {
+            for ( final var sqlType : sqlTypes ) {
                 queryMap.put( replacement, sqlType );
             }
         }
 
-        final List<Map.Entry<Object, SqlType>> entryArray = new ArrayList<>( queryMap.entrySet() );
-        try ( final Connection connection = DataSource.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement( sqlQuery ) ) {
+        final var entryArray = new ArrayList<>( queryMap.entrySet() );
+        try ( final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement( sqlQuery ) ) {
             for ( int index = 0; index < queryMap.size(); index++ ) {
-                final Map.Entry<Object, SqlType> entry = entryArray.get( index );
-                StatementSetter.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
+                final var entry = entryArray.get( index );
+                StatementFactory.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
 
                 if ( resultSetCallback == null ) {
                     preparedStatement.executeUpdate();
                     return;
                 }
 
-                try ( final ResultSet resultSet = preparedStatement.executeQuery() ) {
+                try ( final var resultSet = preparedStatement.executeQuery() ) {
                     resultSetCallback.accept( resultSet );
                 }
             }
@@ -122,10 +120,10 @@ public class HikariSqlExecutor {
      *
      * @see #executeQuery(String, Object[], SqlType[], Consumer)
      * @see SqlType
-     * @see StatementSetter#setPreparedStatement(int, Object, SqlType, PreparedStatement)
+     * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
-     * @see CompletableFuture#runAsync(Runnable) 
+     * @see CompletableFuture#runAsync(Runnable)
      */
     public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final Object[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
@@ -134,7 +132,7 @@ public class HikariSqlExecutor {
     /**
      * Set a {@link PreparedStatement} directly by using an {@link SqlType}
      */
-    private static class StatementSetter {
+    private static class StatementFactory {
 
         /**
          * Execute a {@link PreparedStatement} by the given types
@@ -221,7 +219,7 @@ public class HikariSqlExecutor {
     }
 
     /**
-     * All SQL-Types that are supported by {@link StatementSetter#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
+     * All SQL-Types that are supported by {@link StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)}
      */
     public enum SqlType {
 

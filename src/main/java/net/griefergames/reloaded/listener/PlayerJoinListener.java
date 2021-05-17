@@ -1,13 +1,11 @@
 package net.griefergames.reloaded.listener;
 
 import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.User;
 import net.ess3.api.IEssentials;
 import net.griefergames.reloaded.GrieferGamesReloaded;
 import net.griefergames.reloaded.GrieferGamesReloadedPlugin;
 import net.griefergames.reloaded.build.ScoreboardBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -29,10 +27,10 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin( final PlayerJoinEvent event ) {
-        final Player player = event.getPlayer();
+        final var player = event.getPlayer();
 
-        final User essentialsUser = this.iEssentials.getUser( player.getUniqueId() );
-        final String numberFormat = NumberFormat.getNumberInstance().format( essentialsUser.getMoney() );
+        final var essentialsUser = this.iEssentials.getUser( player.getUniqueId() );
+        final var numberFormat = NumberFormat.getNumberInstance().format( essentialsUser.getMoney() );
 
         new ScoreboardBuilder( "dummy", DisplaySlot.SIDEBAR, "§6§lGrieferGames", player )
                 .addScore( "§1", 14 )
@@ -52,7 +50,7 @@ public class PlayerJoinListener implements Listener {
                 .addScore( "§7>> §3§lServer-Addresse", 1 )
                 .addScore( "§fGrieferGames.net", 0 );
 
-        for ( Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
+        for ( var onlinePlayer : Bukkit.getOnlinePlayers() ) {
             ScoreboardBuilder.updateTeam( onlinePlayer, "onlinePlayer", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers() );
         }
     }

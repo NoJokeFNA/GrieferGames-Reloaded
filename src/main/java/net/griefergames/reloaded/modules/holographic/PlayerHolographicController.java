@@ -1,6 +1,5 @@
 package net.griefergames.reloaded.modules.holographic;
 
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import lombok.NonNull;
 import net.griefergames.reloaded.GrieferGamesReloaded;
@@ -11,7 +10,7 @@ public class PlayerHolographicController {
     public void createHolographic( @NonNull final Player player, final int holographicId, @NonNull final String text ) {
         //TODO: Set the players holographic -> Database
 
-        final Hologram hologram = HologramsAPI.createHologram( GrieferGamesReloaded.PLUGIN.getPlugin(), player.getLocation() );
+        final var hologram = HologramsAPI.createHologram( GrieferGamesReloaded.PLUGIN.getPlugin(), player.getLocation() );
         hologram.appendTextLine( text );
     }
 

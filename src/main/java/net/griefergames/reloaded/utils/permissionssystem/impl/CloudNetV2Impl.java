@@ -1,7 +1,6 @@
 package net.griefergames.reloaded.utils.permissionssystem.impl;
 
 import de.dytanic.cloudnet.api.CloudAPI;
-import de.dytanic.cloudnet.lib.player.permission.PermissionGroup;
 import lombok.NonNull;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
@@ -13,13 +12,13 @@ public class CloudNetV2Impl implements IPermissionsSystem {
 
     @Override
     public String getPrefix( @NonNull Player player ) {
-        final PermissionGroup permissionEntity = CloudAPI
+        final var permissionEntity = CloudAPI
                 .getInstance()
                 .getOnlinePlayer( player.getUniqueId() )
                 .getPermissionEntity()
                 .getHighestPermissionGroup( CloudAPI.getInstance().getPermissionPool() );
 
-        final String playerName = player.getName();
+        final var playerName = player.getName();
 
         switch ( "asd" ) {
             case "display":

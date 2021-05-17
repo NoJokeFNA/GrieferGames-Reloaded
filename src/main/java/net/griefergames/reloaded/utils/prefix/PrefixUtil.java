@@ -5,9 +5,9 @@ public class PrefixUtil {
     private static int i = 0;
 
     public static String setPlayerPrefix( final String playerName, final char firstColor, final char secondColor ) {
-        final StringBuilder stringBuilder = new StringBuilder();
+        final var stringBuilder = new StringBuilder();
 
-        final char[] playerNameCharArray = playerName.toCharArray();
+        final var playerNameCharArray = playerName.toCharArray();
         for ( char c : playerNameCharArray ) {
             i++;
 

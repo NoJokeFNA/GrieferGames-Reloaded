@@ -55,9 +55,9 @@ public class CacheHandler {
      * @return returns the cached players
      */
     public static CacheUser[] getUsers() {
-        final CacheUser[] cacheUsers = new CacheUser[USER_MAP.size()];
+        final var cacheUsers = new CacheUser[USER_MAP.size()];
 
-        int count = 0;
+        var count = 0;
         for ( Map.Entry<UUID, CacheUser> userEntry : USER_MAP.entrySet() ) {
             cacheUsers[count] = userEntry.getValue();
             count++;

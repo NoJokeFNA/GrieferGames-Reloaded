@@ -11,9 +11,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class PlayerHolographicAPI extends HikariSqlExecutor {
 
     public boolean playerExists( @NonNull final UUID playerUuid ) {
-        final AtomicBoolean value = new AtomicBoolean( false );
+        final var value = new AtomicBoolean( false );
 
-        final String sqlQuery = "SELECT * FROM `gg_playerholo` WHERE holo_player = ?";
+        final var sqlQuery = "SELECT * FROM `gg_playerholo` WHERE holo_player = ?";
         super.executeQuery( sqlQuery, new Object[] { playerUuid.toString() }, new SqlType[] { SqlType.STRING }, resultSet -> {
             try {
                 value.set( resultSet.next() );
@@ -26,9 +26,9 @@ public class PlayerHolographicAPI extends HikariSqlExecutor {
     }
 
     public boolean holographicExists( final int holographicId ) {
-        final AtomicBoolean value = new AtomicBoolean( false );
+        final var value = new AtomicBoolean( false );
 
-        final String sqlQuery = "SELECT * FROM `gg_playerholo` WHERE `holo_info` REGEXP ';(?<status>\\d+)?(" + holographicId + ")';";
+        final var sqlQuery = "SELECT * FROM `gg_playerholo` WHERE `holo_info` REGEXP ';(?<status>\\d+)?(" + holographicId + ")';";
         super.executeQuery( sqlQuery, new Object[] { holographicId }, new SqlType[] { SqlType.INTEGER }, resultSet -> {
             try {
                 value.set( resultSet.next() );

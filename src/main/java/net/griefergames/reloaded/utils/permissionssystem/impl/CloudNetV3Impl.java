@@ -1,9 +1,6 @@
 package net.griefergames.reloaded.utils.permissionssystem.impl;
 
 import de.dytanic.cloudnet.driver.CloudNetDriver;
-import de.dytanic.cloudnet.driver.permission.IPermissionGroup;
-import de.dytanic.cloudnet.driver.permission.IPermissionManagement;
-import de.dytanic.cloudnet.driver.permission.IPermissionUser;
 import lombok.NonNull;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
@@ -15,16 +12,15 @@ public class CloudNetV3Impl implements IPermissionsSystem {
 
     @Override
     public String getPrefix( @NonNull Player player ) {
-        final CloudNetDriver cloudNetDriver = CloudNetDriver.getInstance();
+        final var cloudNetDriver = CloudNetDriver.getInstance();
 
-        final IPermissionManagement iPermissionManagement = cloudNetDriver.getPermissionManagement();
-        final IPermissionUser iPermissionUser = iPermissionManagement.getUser( player.getUniqueId() );
+        final var iPermissionManagement = cloudNetDriver.getPermissionManagement();
+        final var iPermissionUser = iPermissionManagement.getUser( player.getUniqueId() );
         if ( iPermissionUser == null )
             return "User cannot be null";
 
-        final IPermissionGroup iPermissionGroup = iPermissionManagement.getHighestPermissionGroup( iPermissionUser  );
-
-        final String playerName = player.getName();
+        final var iPermissionGroup = iPermissionManagement.getHighestPermissionGroup( iPermissionUser  );
+        final var playerName = player.getName();
 
         switch ( "asd" ) {
             case "display":

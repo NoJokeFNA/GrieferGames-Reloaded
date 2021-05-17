@@ -56,9 +56,6 @@ public enum GrieferGamesReloaded {
         this.configHandler = new ConfigHandler();
         this.databaseHandler = new DatabaseHandler();
 
-        System.out.println( this.configHandler );
-        System.out.println( this.configHandler.getPropertiesReader() );
-
         new PropertiesReader().loadDataSourceProperties();
         new DatabaseBuilder().createTable();
 
@@ -77,7 +74,7 @@ public enum GrieferGamesReloaded {
      * Register all listener
      */
     private void registerListener() {
-        final Listener[] listeners = new Listener[] {
+        final var listeners = new Listener[] {
                 new PlayerJoinListener(), new UserBalanceUpdateListener()
         };
 

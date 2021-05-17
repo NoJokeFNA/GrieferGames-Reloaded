@@ -73,7 +73,7 @@ public class ScoreboardBuilder {
      * @param suffix set the {@code suffix} from the {@code team}
      */
     public static void updateTeam( @NonNull final Player player, @NonNull final String team, @NonNull final String prefix, @NonNull final String suffix ) {
-        final Team playerTeam = player.getScoreboard().getTeam( team );
+        final var playerTeam = player.getScoreboard().getTeam( team );
         assert playerTeam != null : "Team cannot be null";
 
         playerTeam.setPrefix( staticColoredMessage( prefix ) );

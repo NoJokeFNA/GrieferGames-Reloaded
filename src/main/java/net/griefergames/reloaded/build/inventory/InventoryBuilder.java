@@ -69,7 +69,7 @@ public class InventoryBuilder {
      */
     public InventoryBuilder fillInventoryRandomColors( final ItemStack itemStack, final int maximalRandom ) {
         for ( short i = 0; i < this.inventory.getSize(); i++ ) {
-            final Damageable damageMeta = ( Damageable ) itemStack.getItemMeta();
+            final var damageMeta = ( Damageable ) itemStack.getItemMeta();
             assert damageMeta != null;
             damageMeta.setDamage( ( short ) ThreadLocalRandom.current().nextInt( maximalRandom ) );
             this.setItem( i, itemStack );
@@ -86,7 +86,7 @@ public class InventoryBuilder {
      */
     public InventoryBuilder fillInventoryRandomColors( final ItemStack itemStack, final int minimalRandom, final int maximalRandom ) {
         for ( short index = 0; index < this.inventory.getSize(); index++ ) {
-            final Damageable damageMeta = ( Damageable ) itemStack.getItemMeta();
+            final var damageMeta = ( Damageable ) itemStack.getItemMeta();
             assert damageMeta != null;
             damageMeta.setDamage( ( short ) ThreadLocalRandom.current().nextInt( minimalRandom, maximalRandom ) );
             this.setItem( index, itemStack );
@@ -102,9 +102,8 @@ public class InventoryBuilder {
      * @param to        Set the {@code to} value, to be used for the {@code subId} of the current {@code itemStack}
      */
     public InventoryBuilder fillInventoryFromTo( final ItemStack itemStack, final short from, final short to ) {
-        for ( short i = from; i < to; i++ ) {
+        for ( short i = from; i < to; i++ )
             this.setItem( i, itemStack );
-        }
         return this;
     }
 

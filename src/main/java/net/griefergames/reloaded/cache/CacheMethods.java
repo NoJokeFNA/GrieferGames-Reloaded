@@ -1,17 +1,15 @@
 package net.griefergames.reloaded.cache;
 
 import net.griefergames.reloaded.GrieferGamesReloaded;
-import org.bukkit.entity.Player;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 public class CacheMethods {
 
     public static void updateCache() {
-        final Timer timer = new Timer( true );
-        final TimerTask timerTask = new TimerTask() {
+        final var timer = new Timer( true );
+        final var timerTask = new TimerTask() {
             @Override
             public void run() {
                 // Execute methods
@@ -26,12 +24,11 @@ public class CacheMethods {
     }
 
     private static void clearCache() {
-        for ( UUID cacheUuid : CacheHandler.USER_MAP.keySet() ) {
-            final CacheUser user = CacheHandler.getUserByUuid( cacheUuid );
-            final Player player = GrieferGamesReloaded.PLUGIN.getPlugin().getServer().getPlayer( user.getPlayerUuid() );
-            if ( player == null ) {
+        for ( final var cacheUuid : CacheHandler.USER_MAP.keySet() ) {
+            final var user = CacheHandler.getUserByUuid( cacheUuid );
+            final var player = GrieferGamesReloaded.PLUGIN.getPlugin().getServer().getPlayer( user.getPlayerUuid() );
+            if ( player == null )
                 CacheHandler.USER_MAP.remove( user.getPlayerUuid() );
-            }
 
             System.out.println( "Current cached players: " + CacheHandler.USER_MAP.size() );
         }

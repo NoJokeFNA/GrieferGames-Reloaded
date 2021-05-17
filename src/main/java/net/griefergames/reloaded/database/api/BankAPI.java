@@ -11,9 +11,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class BankAPI extends HikariSqlExecutor {
 
     public boolean playerExists( @NonNull final UUID playerUuid ) {
-        final AtomicBoolean value = new AtomicBoolean( false );
+        final var value = new AtomicBoolean( false );
 
-        final String sqlQuery = "SELECT * FROM `gg_bank` WHERE `bank_player_uuid` = ?";
+        final var sqlQuery = "SELECT * FROM `gg_bank` WHERE `bank_player_uuid` = ?";
         super.executeQuery( sqlQuery, new Object[] { playerUuid.toString() }, new SqlType[] { SqlType.STRING }, resultSet -> {
             try {
                 value.set( resultSet.next() );
