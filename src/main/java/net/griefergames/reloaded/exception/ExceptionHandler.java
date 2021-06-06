@@ -1,6 +1,6 @@
 package net.griefergames.reloaded.exception;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,7 +11,7 @@ public class ExceptionHandler {
 
     private static final Logger LOGGER = Logger.getLogger( "griefergames-logger" );
 
-    public static void handleException( @NonNull final Exception exception, @NonNull final String message, final boolean printStackTrace ) {
+    public static void handleException( @NotNull final Exception exception, @NotNull final String message, final boolean printStackTrace ) {
         final var packageArray = ExceptionHandler.class.getPackageName().split( "[.]" );
         final var packageName  = packageArray[0] + "." + packageArray[1];
 

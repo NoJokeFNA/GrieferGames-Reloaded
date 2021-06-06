@@ -1,6 +1,6 @@
 package net.griefergames.reloaded.database.executor;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import net.griefergames.reloaded.database.DataSource;
 import net.griefergames.reloaded.exception.ExceptionHandler;
 
@@ -54,7 +54,7 @@ public class HikariSqlExecutor {
      * @see Consumer#accept(Object)
      * @see ResultSet
      */
-    public void executeQuery( @NonNull final String sqlQuery, @NonNull final Object[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
+    public void executeQuery( @NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         final var sqlQuerySplitter = sqlQuery.split( "[?]" );
 
         final var placeholdersAmount = sqlQuerySplitter.length;
@@ -125,7 +125,7 @@ public class HikariSqlExecutor {
      * @see ResultSet
      * @see CompletableFuture#runAsync(Runnable)
      */
-    public CompletableFuture<Void> executeQueryAsync( @NonNull final String sqlQuery, @NonNull final Object[] replacements, @NonNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
+    public CompletableFuture<Void> executeQueryAsync( @NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
         return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
     }
 
@@ -169,7 +169,7 @@ public class HikariSqlExecutor {
          * @see SqlType
          * @see PreparedStatement
          */
-        private static void setPreparedStatement( final int index, @NonNull final Object replacement, @NonNull final SqlType sqlType, @NonNull final PreparedStatement preparedStatement ) throws SQLException {
+        private static void setPreparedStatement( final int index, @NotNull final Object replacement, @NotNull final SqlType sqlType, @NotNull final PreparedStatement preparedStatement ) throws SQLException {
             switch ( sqlType ) {
                 case NULL:
                     preparedStatement.setNull( index, ( int ) replacement );

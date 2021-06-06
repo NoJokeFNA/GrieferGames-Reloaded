@@ -1,6 +1,6 @@
 package net.griefergames.reloaded.utils.permissionssystem.impl;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.logger.GrieferGamesLogger;
 import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class LuckPermsImpl implements IPermissionsSystem {
 
     @Override
-    public String getPrefix( @NonNull Player player ) {
+    public String getPrefix( @NotNull Player player ) {
         final LuckPerms luckPerms = LuckPermsProvider.get();
         final User user = luckPerms.getUserManager().getUser( player.getUniqueId() );
         if ( user == null )
@@ -38,7 +38,7 @@ public class LuckPermsImpl implements IPermissionsSystem {
     }
 
     @Override
-    public void setGroup( final Player player, @NonNull final Player targetPlayer, @NonNull String groupName, final long duration, @NonNull final TimeUnit timeUnit ) {
+    public void setGroup( final Player player, @NotNull final Player targetPlayer, @NotNull String groupName, final long duration, @NotNull final TimeUnit timeUnit ) {
         final var luckPerms = LuckPermsProvider.get();
 
         final var userManager = luckPerms.getUserManager();

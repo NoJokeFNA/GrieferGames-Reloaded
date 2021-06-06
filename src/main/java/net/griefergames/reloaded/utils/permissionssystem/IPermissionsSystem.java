@@ -1,6 +1,6 @@
 package net.griefergames.reloaded.utils.permissionssystem;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
@@ -18,7 +18,7 @@ public interface IPermissionsSystem {
      *
      * @param player the {@link Player} object
      */
-    String getPrefix( @NonNull final Player player );
+    String getPrefix( @NotNull final Player player );
 
-    void setGroup( final Player player, @NonNull final Player targetPlayer, @NonNull final String groupName, final long duration, @NonNull final TimeUnit timeUnit );
+    void setGroup( final Player player, @NotNull final Player targetPlayer, @NotNull final String groupName, final long duration, @NotNull final TimeUnit timeUnit );
 }

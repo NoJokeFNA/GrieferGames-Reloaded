@@ -1,6 +1,6 @@
 package net.griefergames.reloaded.config;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import net.griefergames.reloaded.GrieferGamesReloaded;
 import net.griefergames.reloaded.exception.ExceptionHandler;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -21,7 +21,7 @@ public class FileBuilder extends YamlConfiguration {
      *
      * @param fileName the name of the file
      */
-    public FileBuilder( @NonNull String fileName ) {
+    public FileBuilder( @NotNull String fileName ) {
         this.fileName = fileName;
 
         this.file = new File( GrieferGamesReloaded.PLUGIN.getPlugin().getDataFolder().getAbsolutePath(), this.fileName + ".yml" );
@@ -36,7 +36,7 @@ public class FileBuilder extends YamlConfiguration {
      * @param path  the path
      * @param value the message to the path
      */
-    public void set( @NonNull String path, Object value ) {
+    public void set( @NotNull String path, Object value ) {
         this.configuration.set( path, value );
 
         this.reloadConfig();

@@ -1,8 +1,8 @@
 package net.griefergames.reloaded.database.registry;
 
-import lombok.NonNull;
 import net.griefergames.reloaded.database.executor.HikariSqlExecutor;
 import net.griefergames.reloaded.exception.ExceptionHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BankRegistry extends HikariSqlExecutor {
 
-    public boolean playerExists( @NonNull final UUID playerUuid ) {
+    public boolean playerExists( @NotNull final UUID playerUuid ) {
         final var value = new AtomicBoolean( false );
 
         final var sqlQuery = "SELECT * FROM `gg_bank` WHERE `bank_player_uuid` = ?";

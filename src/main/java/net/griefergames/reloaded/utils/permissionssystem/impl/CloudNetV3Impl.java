@@ -1,7 +1,7 @@
 package net.griefergames.reloaded.utils.permissionssystem.impl;
 
 import de.dytanic.cloudnet.driver.CloudNetDriver;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
 import org.bukkit.entity.Player;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class CloudNetV3Impl implements IPermissionsSystem {
 
     @Override
-    public String getPrefix( @NonNull Player player ) {
+    public String getPrefix( @NotNull Player player ) {
         final var cloudNetDriver = CloudNetDriver.getInstance();
 
         final var iPermissionManagement = cloudNetDriver.getPermissionManagement();
@@ -35,7 +35,7 @@ public class CloudNetV3Impl implements IPermissionsSystem {
     }
 
     @Override
-    public void setGroup( Player player, @NonNull Player targetPlayer, @NonNull String groupName, long duration, @NonNull TimeUnit timeUnit ) {
+    public void setGroup( Player player, @NotNull Player targetPlayer, @NotNull String groupName, long duration, @NotNull TimeUnit timeUnit ) {
 
     }
 }
