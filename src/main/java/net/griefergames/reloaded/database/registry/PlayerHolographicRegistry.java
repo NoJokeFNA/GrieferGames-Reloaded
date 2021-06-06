@@ -1,4 +1,4 @@
-package net.griefergames.reloaded.database.api;
+package net.griefergames.reloaded.database.registry;
 
 import lombok.NonNull;
 import net.griefergames.reloaded.database.executor.HikariSqlExecutor;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class PlayerHolographicAPI extends HikariSqlExecutor {
+public class PlayerHolographicRegistry extends HikariSqlExecutor {
 
     public boolean playerExists( @NonNull final UUID playerUuid ) {
         final var value = new AtomicBoolean( false );

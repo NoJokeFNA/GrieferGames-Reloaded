@@ -1,22 +1,22 @@
 package net.griefergames.reloaded.database.handler;
 
 import lombok.Getter;
-import net.griefergames.reloaded.database.api.*;
+import net.griefergames.reloaded.database.registry.*;
 
 @Getter
 public class DatabaseHandler {
 
-    private final BankAPI bankAPI;
-    private final BoosterAPI boosterAPI;
-    private final ClansAPI clansAPI;
-    private final CooldownAPI cooldownAPI;
-    private final TransactionsAPI transactionsAPI;
+    private final BankRegistry bankRegistry;
+    private final BoosterRegistry boosterRegistry;
+    private final ClansRegistry clansRegistry;
+    private final CooldownRegistry cooldownRegistry;
+    private final TransactionsRegistry transactionsRegistry;
 
     public DatabaseHandler() {
-        this.bankAPI = new BankAPI();
-        this.boosterAPI = new BoosterAPI();
-        this.clansAPI = new ClansAPI();
-        this.cooldownAPI = new CooldownAPI();
-        this.transactionsAPI = new TransactionsAPI();
+        this.bankRegistry = new BankRegistry();
+        this.boosterRegistry = new BoosterRegistry();
+        this.clansRegistry = new ClansRegistry();
+        this.cooldownRegistry = new CooldownRegistry();
+        this.transactionsRegistry = new TransactionsRegistry();
     }
 }
