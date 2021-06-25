@@ -31,15 +31,15 @@ public class ScoreboardBuilder {
      * @param displayName   the {@code displayName} of the {@code scoreboard}
      * @param player        the {@link Player} object
      */
-    public ScoreboardBuilder( @NotNull final String objectiveName, @NotNull final DisplaySlot displaySlot, @NotNull final String displayName, @NotNull final Player player ) {
+    public ScoreboardBuilder(@NotNull final String objectiveName, @NotNull final DisplaySlot displaySlot, @NotNull final String displayName, @NotNull final Player player) {
         this.player = player;
 
-        player.setScoreboard( Objects.requireNonNull( Bukkit.getScoreboardManager() ).getNewScoreboard() );
+        player.setScoreboard(Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard());
 
         this.scoreboard = player.getScoreboard();
-        this.objective = this.scoreboard.registerNewObjective( objectiveName, "dummy", coloredMessage( displayName ) );
+        this.objective = this.scoreboard.registerNewObjective(objectiveName, "dummy", coloredMessage(displayName));
 
-        this.objective.setDisplaySlot( displaySlot );
+        this.objective.setDisplaySlot(displaySlot);
     }
 
     /**
@@ -49,8 +49,8 @@ public class ScoreboardBuilder {
      * @param team   specify the {@code team} from which you want to remove the {@code entry}
      * @param entry  set the {@code entry} from the {@code team}
      */
-    public static void removeEntry( @NotNull final Player player, @NotNull final String team, @NotNull final String entry ) {
-        Objects.requireNonNull( player.getScoreboard().getTeam( team ) ).removeEntry( entry );
+    public static void removeEntry(@NotNull final Player player, @NotNull final String team, @NotNull final String entry) {
+        Objects.requireNonNull(player.getScoreboard().getTeam(team)).removeEntry(entry);
     }
 
     /**
@@ -60,8 +60,8 @@ public class ScoreboardBuilder {
      * @param team   set the {@code team} you want to update
      * @param prefix set the {@code prefix} from the {@code team}
      */
-    public static void updateTeam( @NotNull final Player player, @NotNull final String team, @NotNull final String prefix ) {
-        Objects.requireNonNull( player.getScoreboard().getTeam( team ) ).setPrefix( staticColoredMessage( prefix ) );
+    public static void updateTeam(@NotNull final Player player, @NotNull final String team, @NotNull final String prefix) {
+        Objects.requireNonNull(player.getScoreboard().getTeam(team)).setPrefix(staticColoredMessage(prefix));
     }
 
     /**
@@ -72,16 +72,16 @@ public class ScoreboardBuilder {
      * @param prefix set the {@code prefix} from the {@code team}
      * @param suffix set the {@code suffix} from the {@code team}
      */
-    public static void updateTeam( @NotNull final Player player, @NotNull final String team, @NotNull final String prefix, @NotNull final String suffix ) {
-        final var playerTeam = player.getScoreboard().getTeam( team );
+    public static void updateTeam(@NotNull final Player player, @NotNull final String team, @NotNull final String prefix, @NotNull final String suffix) {
+        final var playerTeam = player.getScoreboard().getTeam(team);
         assert playerTeam != null : "Team cannot be null";
 
-        playerTeam.setPrefix( staticColoredMessage( prefix ) );
-        playerTeam.setSuffix( staticColoredMessage( suffix ) );
+        playerTeam.setPrefix(staticColoredMessage(prefix));
+        playerTeam.setSuffix(staticColoredMessage(suffix));
     }
 
-    private static String staticColoredMessage( @NotNull final String message ) {
-        return ChatColor.translateAlternateColorCodes( '&', message );
+    private static String staticColoredMessage(@NotNull final String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 
     /**
@@ -89,11 +89,10 @@ public class ScoreboardBuilder {
      *
      * @param prefix set the {@code prefix} of the {@code score}
      * @param score  set the {@code score} of the {@code prefix}
-     *
      * @return returns the method
      */
-    public ScoreboardBuilder addScore( @NotNull final String prefix, final int score ) {
-        this.objective.getScore( prefix ).setScore( score );
+    public ScoreboardBuilder addScore(@NotNull final String prefix, final int score) {
+        this.objective.getScore(prefix).setScore(score);
         return this;
     }
 
@@ -104,14 +103,13 @@ public class ScoreboardBuilder {
      * @param prefix   set the {@code prefix} of the {@code team}
      * @param entry    set the {@code entry} of the {@code scoreboard}. Please use only §1, §2 (...), or {@link ChatColor}
      * @param score    set the {@code score} in the following order
-     *
      * @return returns the method
      */
-    public ScoreboardBuilder addTeam( @NotNull final String teamName, @NotNull final String prefix, @NotNull final String entry, final int score ) {
-        this.team = this.scoreboard.registerNewTeam( teamName );
-        this.team.setPrefix( coloredMessage( prefix ) );
-        this.team.addEntry( entry );
-        this.objective.getScore( entry ).setScore( score );
+    public ScoreboardBuilder addTeam(@NotNull final String teamName, @NotNull final String prefix, @NotNull final String entry, final int score) {
+        this.team = this.scoreboard.registerNewTeam(teamName);
+        this.team.setPrefix(coloredMessage(prefix));
+        this.team.addEntry(entry);
+        this.objective.getScore(entry).setScore(score);
         return this;
     }
 
@@ -123,15 +121,14 @@ public class ScoreboardBuilder {
      * @param suffix   set the {@code suffix} of the {@code team}
      * @param entry    set the {@code entry} of the {@code scoreboard}. Please use only §1, §2, §3 (...), or {@link ChatColor}
      * @param score    set the {@code score} in the following order
-     *
      * @return returns the method
      */
-    public ScoreboardBuilder addTeam( @NotNull final String teamName, @NotNull final String prefix, @NotNull final String suffix, @NotNull final String entry, final int score ) {
-        this.team = this.scoreboard.registerNewTeam( teamName );
-        this.team.setPrefix( coloredMessage( prefix ) );
-        this.team.setSuffix( coloredMessage( suffix ) );
-        this.team.addEntry( entry );
-        this.objective.getScore( entry ).setScore( score );
+    public ScoreboardBuilder addTeam(@NotNull final String teamName, @NotNull final String prefix, @NotNull final String suffix, @NotNull final String entry, final int score) {
+        this.team = this.scoreboard.registerNewTeam(teamName);
+        this.team.setPrefix(coloredMessage(prefix));
+        this.team.setSuffix(coloredMessage(suffix));
+        this.team.addEntry(entry);
+        this.objective.getScore(entry).setScore(score);
         return this;
     }
 
@@ -139,10 +136,10 @@ public class ScoreboardBuilder {
      * Finally send the scoreboard
      */
     public void sendScoreboard() {
-        this.player.setScoreboard( this.scoreboard );
+        this.player.setScoreboard(this.scoreboard);
     }
 
-    private String coloredMessage( @NotNull final String message ) {
-        return ChatColor.translateAlternateColorCodes( '&', message );
+    private String coloredMessage(@NotNull final String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 }

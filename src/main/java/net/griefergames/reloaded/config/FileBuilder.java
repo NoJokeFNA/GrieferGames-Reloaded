@@ -1,9 +1,9 @@
 package net.griefergames.reloaded.config;
 
-import org.jetbrains.annotations.NotNull;
 import net.griefergames.reloaded.GrieferGamesReloaded;
 import net.griefergames.reloaded.exception.ExceptionHandler;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,13 +21,13 @@ public class FileBuilder extends YamlConfiguration {
      *
      * @param fileName the name of the file
      */
-    public FileBuilder( @NotNull String fileName ) {
+    public FileBuilder(@NotNull String fileName) {
         this.fileName = fileName;
 
-        this.file = new File( GrieferGamesReloaded.PLUGIN.getPlugin().getDataFolder().getAbsolutePath(), this.fileName + ".yml" );
-        this.configuration = YamlConfiguration.loadConfiguration( this.file );
+        this.file = new File(GrieferGamesReloaded.PLUGIN.getPlugin().getDataFolder().getAbsolutePath(), this.fileName + ".yml");
+        this.configuration = YamlConfiguration.loadConfiguration(this.file);
 
-        GrieferGamesReloaded.PLUGIN.getPlugin().saveResource( fileName, false );
+        GrieferGamesReloaded.PLUGIN.getPlugin().saveResource(fileName, false);
     }
 
     /**
@@ -36,8 +36,8 @@ public class FileBuilder extends YamlConfiguration {
      * @param path  the path
      * @param value the message to the path
      */
-    public void set( @NotNull String path, Object value ) {
-        this.configuration.set( path, value );
+    public void set(@NotNull String path, Object value) {
+        this.configuration.set(path, value);
 
         this.reloadConfig();
         this.saveConfig();
@@ -48,9 +48,9 @@ public class FileBuilder extends YamlConfiguration {
      */
     public void saveConfig() {
         try {
-            this.configuration.save( this.file );
-        } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Config '" + this.fileName + "' cannot be saved!", true );
+            this.configuration.save(this.file);
+        } catch (IOException exception) {
+            ExceptionHandler.handleException(exception, "Config '" + this.fileName + "' cannot be saved!", true);
         }
     }
 
@@ -58,7 +58,7 @@ public class FileBuilder extends YamlConfiguration {
      * Reload the config
      */
     public void reloadConfig() {
-        final YamlConfiguration defConfig = YamlConfiguration.loadConfiguration( this.file );
-        this.configuration.setDefaults( defConfig );
+        final YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(this.file);
+        this.configuration.setDefaults(defConfig);
     }
 }

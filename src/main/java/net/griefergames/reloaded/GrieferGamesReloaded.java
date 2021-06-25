@@ -30,7 +30,7 @@ public enum GrieferGamesReloaded {
      *
      * @param plugin the plugin instance
      */
-    public void start( final GrieferGamesReloadedPlugin plugin ) {
+    public void start(final GrieferGamesReloadedPlugin plugin) {
         this.plugin = plugin;
 
         assert plugin != null : "Something went wrong! Plugin was null.";
@@ -43,7 +43,7 @@ public enum GrieferGamesReloaded {
      *
      * @param plugin the plugin instance
      */
-    public void stop( final GrieferGamesReloadedPlugin plugin ) {
+    public void stop(final GrieferGamesReloadedPlugin plugin) {
         this.plugin = plugin;
 
         assert plugin != null : "Something went wrong! Plugin was null.";
@@ -74,10 +74,10 @@ public enum GrieferGamesReloaded {
      * Register all listener
      */
     private void registerListener() {
-        final var listeners = new Listener[] {
+        final var listeners = new Listener[]{
                 new PlayerJoinListener(), new UserBalanceUpdateListener()
         };
 
-        Arrays.stream( listeners ).forEach( listener -> Bukkit.getPluginManager().registerEvents( listener, this.plugin ) );
+        Arrays.stream(listeners).forEach(listener -> Bukkit.getPluginManager().registerEvents(listener, this.plugin));
     }
 }

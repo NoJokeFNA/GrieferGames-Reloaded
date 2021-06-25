@@ -10,17 +10,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BankRegistry extends HikariSqlExecutor {
 
-    public boolean playerExists( @NotNull final UUID playerUuid ) {
-        final var value = new AtomicBoolean( false );
+    public boolean playerExists(@NotNull final UUID playerUuid) {
+        final var value = new AtomicBoolean(false);
 
         final var sqlQuery = "SELECT * FROM `gg_bank` WHERE `bank_player_uuid` = ?";
-        super.executeQuery( sqlQuery, new Object[] { playerUuid.toString() }, new SqlType[] { SqlType.STRING }, resultSet -> {
+        super.executeQuery(sqlQuery, new Object[]{playerUuid.toString()}, new SqlType[]{SqlType.STRING}, resultSet -> {
             try {
-                value.set( resultSet.next() );
-            } catch ( SQLException exception ) {
-                ExceptionHandler.handleException( exception, "Error while executing sql-query", false );
+                value.set(resultSet.next());
+            } catch (SQLException exception) {
+                ExceptionHandler.handleException(exception, "Error while executing sql-query", false);
             }
-        } );
+        });
 
         return value.get();
     }

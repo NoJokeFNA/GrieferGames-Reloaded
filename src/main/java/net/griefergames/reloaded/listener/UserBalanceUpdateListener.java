@@ -10,10 +10,10 @@ import java.text.NumberFormat;
 public class UserBalanceUpdateListener implements Listener {
 
     @EventHandler
-    public void onUserBalanceUpdate( final UserBalanceUpdateEvent event ) {
+    public void onUserBalanceUpdate(final UserBalanceUpdateEvent event) {
         final var player = event.getPlayer();
 
-        final var numberFormat = NumberFormat.getNumberInstance().format( event.getNewBalance() );
-        ScoreboardBuilder.updateTeam( player, "playerMoney", "§f" + numberFormat + "$" );
+        final var numberFormat = NumberFormat.getNumberInstance().format(event.getNewBalance());
+        ScoreboardBuilder.updateTeam(player, "playerMoney", "§f" + numberFormat + "$");
     }
 }

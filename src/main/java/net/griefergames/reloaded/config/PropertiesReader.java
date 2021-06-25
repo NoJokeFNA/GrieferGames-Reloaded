@@ -24,60 +24,60 @@ public class PropertiesReader {
     public void loadDataSourceProperties() {
         this.createDataSourceProperties();
 
-        try ( final var inputStream = new BufferedInputStream( new FileInputStream( this.fileName ) ) ) {
-            dataSourceProperties.load( inputStream );
-        } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while loading '" + this.fileName + "'", true );
+        try (final var inputStream = new BufferedInputStream(new FileInputStream(this.fileName))) {
+            dataSourceProperties.load(inputStream);
+        } catch (IOException exception) {
+            ExceptionHandler.handleException(exception, "Error while loading '" + this.fileName + "'", true);
         }
     }
 
     private void createDataSourceProperties() {
         try {
-            final var file = new File( this.fileName );
-            if ( file.createNewFile() ) {
-                if ( file.mkdirs() ) {
-                    this.fillFile( file );
-                    System.out.println( "File successfully created" );
+            final var file = new File(this.fileName);
+            if (file.createNewFile()) {
+                if (file.mkdirs()) {
+                    this.fillFile(file);
+                    System.out.println("File successfully created");
                 }
                 return;
             }
 
-            System.out.println( "File does already exists" );
-        } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while creating '" + this.fileName + "'", true );
+            System.out.println("File does already exists");
+        } catch (IOException exception) {
+            ExceptionHandler.handleException(exception, "Error while creating '" + this.fileName + "'", true);
         }
     }
 
-    private void fillFile( final File file ) {
-        try ( final var fileWriter = new FileWriter( file ); final var inputStream = this.getFileFromResourceAsStream( this.fileName ) ) {
-            for ( final var output : this.getConfigInput( inputStream ) )
-                fileWriter.write( output + System.lineSeparator() );
-        } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Error while filling '" + this.fileName + "'", true );
+    private void fillFile(final File file) {
+        try (final var fileWriter = new FileWriter(file); final var inputStream = this.getFileFromResourceAsStream(this.fileName)) {
+            for (final var output : this.getConfigInput(inputStream))
+                fileWriter.write(output + System.lineSeparator());
+        } catch (IOException exception) {
+            ExceptionHandler.handleException(exception, "Error while filling '" + this.fileName + "'", true);
         }
     }
 
-    private InputStream getFileFromResourceAsStream( final String fileName ) {
+    private InputStream getFileFromResourceAsStream(final String fileName) {
         final var classLoader = GrieferGamesReloaded.class.getClassLoader();
-        try ( final var inputStream = classLoader.getResourceAsStream( fileName ) ) {
-            if ( inputStream == null )
-                throw new IllegalArgumentException( "InputStream is null! " + fileName );
+        try (final var inputStream = classLoader.getResourceAsStream(fileName)) {
+            if (inputStream == null)
+                throw new IllegalArgumentException("InputStream is null! " + fileName);
             else
                 return inputStream;
-        } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Inputstream is null", true );
+        } catch (IOException exception) {
+            ExceptionHandler.handleException(exception, "Inputstream is null", true);
         }
 
         return null;
     }
 
-    private List<String> getConfigInput( final InputStream inputStream ) {
+    private List<String> getConfigInput(final InputStream inputStream) {
         final List<String> inputList = new ArrayList<>();
 
-        try ( final var streamReader = new InputStreamReader( inputStream, StandardCharsets.UTF_8 ); final var reader = new BufferedReader( streamReader ) ) {
-            reader.lines().forEach( inputList::add );
-        } catch ( IOException exception ) {
-            ExceptionHandler.handleException( exception, "Stream or Buffer reader is null", true );
+        try (final var streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8); final var reader = new BufferedReader(streamReader)) {
+            reader.lines().forEach(inputList::add);
+        } catch (IOException exception) {
+            ExceptionHandler.handleException(exception, "Stream or Buffer reader is null", true);
         }
 
         return inputList;

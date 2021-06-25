@@ -67,12 +67,12 @@ public class DatabaseBuilder {
                 "  PRIMARY KEY (id)" +
                 ");";
 
-        this.createTable( bankSqlQuery );
-        this.createTable( boosterSqlQuery );
-        this.createTable( clanSqlQuery );
-        this.createTable( cooldownSqlQuery );
-        this.createTable( playerHolographicSql );
-        this.createTable( transactionsSqlQuery );
+        this.createTable(bankSqlQuery);
+        this.createTable(boosterSqlQuery);
+        this.createTable(clanSqlQuery);
+        this.createTable(cooldownSqlQuery);
+        this.createTable(playerHolographicSql);
+        this.createTable(transactionsSqlQuery);
     }
 
     /**
@@ -80,11 +80,11 @@ public class DatabaseBuilder {
      *
      * @param sqlQuery the sql-query
      */
-    private void createTable( final String sqlQuery ) {
-        try ( final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement( sqlQuery ) ) {
+    private void createTable(final String sqlQuery) {
+        try (final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.executeUpdate();
-        } catch ( SQLException exception ) {
-            ExceptionHandler.handleException( exception, "Error while executing sql-statement", true );
+        } catch (SQLException exception) {
+            ExceptionHandler.handleException(exception, "Error while executing sql-statement", true);
         }
     }
 }

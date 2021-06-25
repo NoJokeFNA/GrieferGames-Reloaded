@@ -1,8 +1,8 @@
 package net.griefergames.reloaded.database.executor;
 
-import org.jetbrains.annotations.NotNull;
 import net.griefergames.reloaded.database.DataSource;
 import net.griefergames.reloaded.exception.ExceptionHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -47,46 +47,45 @@ public class HikariSqlExecutor {
      * @param replacements      all the replacements
      * @param sqlTypes          the {@link SqlType}'s for the {@code replacements}
      * @param resultSetCallback the {@link ResultSet} callback
-     *
      * @see #executeQueryAsync(String, Object[], SqlType[], Consumer)
      * @see SqlType
      * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
      * @see Consumer#accept(Object)
      * @see ResultSet
      */
-    public void executeQuery( @NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
-        final var sqlQuerySplitter = sqlQuery.split( "[?]" );
+    public void executeQuery(@NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback) {
+        final var sqlQuerySplitter = sqlQuery.split("[?]");
 
         final var placeholdersAmount = sqlQuerySplitter.length;
         final var replacementsAmount = replacements.length;
 
-        if ( placeholdersAmount != replacementsAmount )
-            throw new IllegalArgumentException( "Count doesn't match! placeholders = " + placeholdersAmount + " -> replacements = " + replacementsAmount );
+        if (placeholdersAmount != replacementsAmount)
+            throw new IllegalArgumentException("Count doesn't match! placeholders = " + placeholdersAmount + " -> replacements = " + replacementsAmount);
 
         final Map<Object, SqlType> queryMap = new ConcurrentHashMap<>();
-        for ( final var replacement : replacements ) {
-            for ( final var sqlType : sqlTypes ) {
-                queryMap.put( replacement, sqlType );
+        for (final var replacement : replacements) {
+            for (final var sqlType : sqlTypes) {
+                queryMap.put(replacement, sqlType);
             }
         }
 
-        final var entryArray = new ArrayList<>( queryMap.entrySet() );
-        try ( final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement( sqlQuery ) ) {
-            for ( int index = 0; index < queryMap.size(); index++ ) {
-                final var entry = entryArray.get( index );
-                StatementFactory.setPreparedStatement( ( index + 1 ), entry.getKey(), entry.getValue(), preparedStatement );
+        final var entryArray = new ArrayList<>(queryMap.entrySet());
+        try (final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement(sqlQuery)) {
+            for (int index = 0; index < queryMap.size(); index++) {
+                final var entry = entryArray.get(index);
+                StatementFactory.setPreparedStatement((index + 1), entry.getKey(), entry.getValue(), preparedStatement);
 
-                if ( resultSetCallback == null ) {
+                if (resultSetCallback == null) {
                     preparedStatement.executeUpdate();
                     return;
                 }
 
-                try ( final var resultSet = preparedStatement.executeQuery() ) {
-                    resultSetCallback.accept( resultSet );
+                try (final var resultSet = preparedStatement.executeQuery()) {
+                    resultSetCallback.accept(resultSet);
                 }
             }
-        } catch ( SQLException exception ) {
-            ExceptionHandler.handleException( exception, "Error while executing sql-query", true );
+        } catch (SQLException exception) {
+            ExceptionHandler.handleException(exception, "Error while executing sql-query", true);
         }
     }
 
@@ -117,7 +116,6 @@ public class HikariSqlExecutor {
      * @param replacements      all the replacements
      * @param sqlTypes          the {@link SqlType}'s for the {@code replacements}
      * @param resultSetCallback the {@link ResultSet} callback
-     *
      * @see #executeQuery(String, Object[], SqlType[], Consumer)
      * @see SqlType
      * @see StatementFactory#setPreparedStatement(int, Object, SqlType, PreparedStatement)
@@ -125,8 +123,8 @@ public class HikariSqlExecutor {
      * @see ResultSet
      * @see CompletableFuture#runAsync(Runnable)
      */
-    public CompletableFuture<Void> executeQueryAsync( @NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback ) {
-        return CompletableFuture.runAsync( () -> this.executeQuery( sqlQuery, replacements, sqlTypes, resultSetCallback ) );
+    public CompletableFuture<Void> executeQueryAsync(@NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback) {
+        return CompletableFuture.runAsync(() -> this.executeQuery(sqlQuery, replacements, sqlTypes, resultSetCallback));
     }
 
     /**
@@ -165,78 +163,77 @@ public class HikariSqlExecutor {
          * @param sqlType           the {@link SqlType} you want to use
          * @param replacement       all the replacements
          * @param preparedStatement the {@link PreparedStatement}
-         *
          * @see SqlType
          * @see PreparedStatement
          */
-        private static void setPreparedStatement( final int index, @NotNull final Object replacement, @NotNull final SqlType sqlType, @NotNull final PreparedStatement preparedStatement ) throws SQLException {
-            switch ( sqlType ) {
+        private static void setPreparedStatement(final int index, @NotNull final Object replacement, @NotNull final SqlType sqlType, @NotNull final PreparedStatement preparedStatement) throws SQLException {
+            switch (sqlType) {
                 case NULL:
-                    preparedStatement.setNull( index, ( int ) replacement );
+                    preparedStatement.setNull(index, (int) replacement);
                     break;
 
                 case BOOLEAN:
-                    preparedStatement.setBoolean( index, ( boolean ) replacement );
+                    preparedStatement.setBoolean(index, (boolean) replacement);
                     break;
 
                 case BYTE:
-                    preparedStatement.setByte( index, ( byte ) replacement );
+                    preparedStatement.setByte(index, (byte) replacement);
                     break;
 
                 case SHORT:
-                    preparedStatement.setShort( index, ( short ) replacement );
+                    preparedStatement.setShort(index, (short) replacement);
                     break;
 
                 case INTEGER:
-                    preparedStatement.setInt( index, ( int ) replacement );
+                    preparedStatement.setInt(index, (int) replacement);
                     break;
 
                 case LONG:
-                    preparedStatement.setLong( index, ( long ) replacement );
+                    preparedStatement.setLong(index, (long) replacement);
                     break;
 
                 case FLOAT:
-                    preparedStatement.setFloat( index, ( float ) replacement );
+                    preparedStatement.setFloat(index, (float) replacement);
                     break;
 
                 case DOUBLE:
-                    preparedStatement.setDouble( index, ( double ) replacement );
+                    preparedStatement.setDouble(index, (double) replacement);
                     break;
 
                 case BIG_DECIMAL:
-                    preparedStatement.setBigDecimal( index, ( BigDecimal ) replacement );
+                    preparedStatement.setBigDecimal(index, (BigDecimal) replacement);
                     break;
 
                 case STRING:
-                    preparedStatement.setString( index, ( String ) replacement );
+                    preparedStatement.setString(index, (String) replacement);
                     break;
 
                 case BYTES:
-                    preparedStatement.setBytes( index, ( byte[] ) replacement );
+                    preparedStatement.setBytes(index, (byte[]) replacement);
                     break;
 
                 case DATE:
-                    preparedStatement.setDate( index, ( Date ) replacement );
+                    preparedStatement.setDate(index, (Date) replacement);
                     break;
 
                 case TIME:
-                    preparedStatement.setTime( index, ( Time ) replacement );
+                    preparedStatement.setTime(index, (Time) replacement);
                     break;
 
                 case TIMESTAMP:
-                    preparedStatement.setTimestamp( index, ( Timestamp ) replacement );
+                    preparedStatement.setTimestamp(index, (Timestamp) replacement);
                     break;
 
                 case OBJECT:
-                    preparedStatement.setObject( index, replacement );
+                    preparedStatement.setObject(index, replacement);
                     break;
 
                 case ARRAY:
-                    preparedStatement.setArray( index, ( Array ) replacement );
+                    preparedStatement.setArray(index, (Array) replacement);
                     break;
 
                 case URL:
-                    preparedStatement.setURL( index, ( URL ) replacement );
+                    preparedStatement.setURL(index, (URL) replacement);
                     break;
             }
         }

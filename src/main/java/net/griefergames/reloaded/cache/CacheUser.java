@@ -19,7 +19,7 @@ public class CacheUser {
      *
      * @param playerUuid the player uuid
      */
-    public CacheUser( UUID playerUuid ) {
+    public CacheUser(UUID playerUuid) {
         this.playerUuid = playerUuid;
     }
 }

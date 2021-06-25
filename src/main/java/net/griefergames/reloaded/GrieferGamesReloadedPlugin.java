@@ -6,11 +6,11 @@ public class GrieferGamesReloadedPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        GrieferGamesReloaded.PLUGIN.start( this );
+        GrieferGamesReloaded.PLUGIN.start(this);
     }
 
     @Override
     public void onDisable() {
-        GrieferGamesReloaded.PLUGIN.stop( this );
+        GrieferGamesReloaded.PLUGIN.stop(this);
     }
 }

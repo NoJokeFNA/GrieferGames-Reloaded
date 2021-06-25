@@ -16,7 +16,7 @@ public class GrieferGamesLogger {
      * @param message the {@code message} you wanna log
      * @param params  the placeholder for the {@code message}
      */
-    public static void log( final Level level, final String message, final Object[] params ) {
-        LOGGER.log( level, message, params );
+    public static void log(final Level level, final String message, final Object[] params) {
+        LOGGER.log(level, message, params);
     }
 }
