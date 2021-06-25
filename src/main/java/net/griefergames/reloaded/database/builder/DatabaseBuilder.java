@@ -1,21 +1,23 @@
 package net.griefergames.reloaded.database.builder;
 
+import lombok.val;
 import net.griefergames.reloaded.database.DataSource;
 import net.griefergames.reloaded.exception.ExceptionHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 
 public class DatabaseBuilder {
 
     public void createTable() {
-        final var bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
+        val bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
                 "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
                 "  bank_player_uuid VARCHAR(64) NOT NULL," +
                 "  bank_amount      VARCHAR(32) NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 
-        final var boosterSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_booster` (" +
+        val boosterSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_booster` (" +
                 "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
                 "  booster_type     VARCHAR(10) NOT NULL," +
                 "  booster_level    INT(1)      NOT NULL," +
@@ -27,7 +29,7 @@ public class DatabaseBuilder {
         clan_info -> clan_name; clan_tag; clan_cb
         clan_members -> player_uuid, player_name, player_rank;
          */
-        final var clanSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_clans` (" +
+        val clanSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_clans` (" +
                 "  id               INT(11)      NOT NULL AUTO_INCREMENT," +
                 "  clan_info        VARCHAR(100) NOT NULL," +
                 "  clan_max_members INT(3)       NOT NULL," +
@@ -40,7 +42,7 @@ public class DatabaseBuilder {
         /*
         cooldown_player_info -> player_uuid; player_name
          */
-        final var cooldownSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_cooldown` (" +
+        val cooldownSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_cooldown` (" +
                 "  id                   INT(11)      NOT NULL AUTO_INCREMENT," +
                 "  cooldown_player_info VARCHAR(100) NOT NULL," +
                 "  cooldown_type        VARCHAR(10)  NOT NULL," +
@@ -51,14 +53,14 @@ public class DatabaseBuilder {
         /*
         holo_info -> holo_id, holo_location, holo_text;
          */
-        final var playerHolographicSql = "CREATE TABLE IF NOT EXISTS `gg_playerholo` (" +
+        val playerHolographicSql = "CREATE TABLE IF NOT EXISTS `gg_playerholo` (" +
                 "  id               INT(11)     NOT NULL AUTO_INCREMENT," +
                 "  holo_player      VARCHAR(64) NOT NULL," +
                 "  holo_info        MEDIUMTEXT  NOT NULL," +
                 "  PRIMARY KEY (id)" +
                 ");";
 
-        final var transactionsSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_transactions` (" +
+        val transactionsSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_transactions` (" +
                 "  id                 INT(11)     NOT NULL AUTO_INCREMENT," +
                 "  transaction_player VARCHAR(64) NOT NULL," +
                 "  transaction_type   VARCHAR(32) NOT NULL," +
@@ -80,8 +82,8 @@ public class DatabaseBuilder {
      *
      * @param sqlQuery the sql-query
      */
-    private void createTable(final String sqlQuery) {
-        try (final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement(sqlQuery)) {
+    private void createTable(@NotNull final String sqlQuery) {
+        try (val connection = DataSource.getConnection(); val preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
             ExceptionHandler.handleException(exception, "Error while executing sql-statement", true);

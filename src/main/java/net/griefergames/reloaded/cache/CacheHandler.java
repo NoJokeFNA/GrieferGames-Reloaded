@@ -1,6 +1,7 @@
 package net.griefergames.reloaded.cache;
 
 import com.google.common.collect.Maps;
+import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +53,7 @@ public class CacheHandler {
      * @return returns the cached players
      */
     public static CacheUser[] getUsers() {
-        final var cacheUsers = new CacheUser[USER_MAP.size()];
+        val cacheUsers = new CacheUser[USER_MAP.size()];
 
         var count = 0;
         for (Map.Entry<UUID, CacheUser> userEntry : USER_MAP.entrySet()) {

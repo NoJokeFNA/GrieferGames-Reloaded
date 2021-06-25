@@ -1,4 +1,4 @@
-package net.griefergames.reloaded.utils.permissionssystem;
+package net.griefergames.reloaded.utils.prefix.permissionssystem;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

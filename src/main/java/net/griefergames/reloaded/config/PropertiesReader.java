@@ -1,8 +1,10 @@
 package net.griefergames.reloaded.config;
 
 import lombok.Getter;
+import lombok.val;
 import net.griefergames.reloaded.GrieferGamesReloaded;
 import net.griefergames.reloaded.exception.ExceptionHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +26,7 @@ public class PropertiesReader {
     public void loadDataSourceProperties() {
         this.createDataSourceProperties();
 
-        try (final var inputStream = new BufferedInputStream(new FileInputStream(this.fileName))) {
+        try (val inputStream = new BufferedInputStream(new FileInputStream(this.fileName))) {
             dataSourceProperties.load(inputStream);
         } catch (IOException exception) {
             ExceptionHandler.handleException(exception, "Error while loading '" + this.fileName + "'", true);
@@ -33,7 +35,7 @@ public class PropertiesReader {
 
     private void createDataSourceProperties() {
         try {
-            final var file = new File(this.fileName);
+            val file = new File(this.fileName);
             if (file.createNewFile()) {
                 if (file.mkdirs()) {
                     this.fillFile(file);
@@ -48,18 +50,20 @@ public class PropertiesReader {
         }
     }
 
-    private void fillFile(final File file) {
-        try (final var fileWriter = new FileWriter(file); final var inputStream = this.getFileFromResourceAsStream(this.fileName)) {
-            for (final var output : this.getConfigInput(inputStream))
+    private void fillFile(@NotNull final File file) {
+        try (val fileWriter = new FileWriter(file); val inputStream =
+                this.getFileFromResourceAsStream(this.fileName)) {
+            assert inputStream != null;
+            for (val output : this.getConfigInput(inputStream))
                 fileWriter.write(output + System.lineSeparator());
         } catch (IOException exception) {
             ExceptionHandler.handleException(exception, "Error while filling '" + this.fileName + "'", true);
         }
     }
 
-    private InputStream getFileFromResourceAsStream(final String fileName) {
-        final var classLoader = GrieferGamesReloaded.class.getClassLoader();
-        try (final var inputStream = classLoader.getResourceAsStream(fileName)) {
+    private InputStream getFileFromResourceAsStream(@NotNull final String fileName) {
+        val classLoader = GrieferGamesReloaded.class.getClassLoader();
+        try (val inputStream = classLoader.getResourceAsStream(fileName)) {
             if (inputStream == null)
                 throw new IllegalArgumentException("InputStream is null! " + fileName);
             else
@@ -71,10 +75,10 @@ public class PropertiesReader {
         return null;
     }
 
-    private List<String> getConfigInput(final InputStream inputStream) {
-        final List<String> inputList = new ArrayList<>();
+    private List<String> getConfigInput(@NotNull final InputStream inputStream) {
+        @NotNull final List<String> inputList = new ArrayList<>();
 
-        try (final var streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8); final var reader = new BufferedReader(streamReader)) {
+        try (val streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8); val reader = new BufferedReader(streamReader)) {
             reader.lines().forEach(inputList::add);
         } catch (IOException exception) {
             ExceptionHandler.handleException(exception, "Stream or Buffer reader is null", true);
@@ -82,5 +86,4 @@ public class PropertiesReader {
 
         return inputList;
     }
-
 }

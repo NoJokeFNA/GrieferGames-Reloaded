@@ -9,6 +9,7 @@ import net.griefergames.reloaded.listener.PlayerJoinListener;
 import net.griefergames.reloaded.listener.UserBalanceUpdateListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -30,10 +31,8 @@ public enum GrieferGamesReloaded {
      *
      * @param plugin the plugin instance
      */
-    public void start(final GrieferGamesReloadedPlugin plugin) {
+    public void start(@NotNull final GrieferGamesReloadedPlugin plugin) {
         this.plugin = plugin;
-
-        assert plugin != null : "Something went wrong! Plugin was null.";
 
         this.init();
     }
@@ -43,10 +42,8 @@ public enum GrieferGamesReloaded {
      *
      * @param plugin the plugin instance
      */
-    public void stop(final GrieferGamesReloadedPlugin plugin) {
+    public void stop(@NotNull final GrieferGamesReloadedPlugin plugin) {
         this.plugin = plugin;
-
-        assert plugin != null : "Something went wrong! Plugin was null.";
     }
 
     /**
@@ -74,7 +71,7 @@ public enum GrieferGamesReloaded {
      * Register all listener
      */
     private void registerListener() {
-        final var listeners = new Listener[]{
+        val listeners = new Listener[]{
                 new PlayerJoinListener(), new UserBalanceUpdateListener()
         };
 

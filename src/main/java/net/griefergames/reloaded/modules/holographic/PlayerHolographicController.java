@@ -13,7 +13,7 @@ public class PlayerHolographicController {
     public void createHolographic(@NotNull final Player player, final int holographicId, @NotNull final String text) {
         //TODO: Set the players holographic -> Database
 
-        final var hologram = HologramsAPI.createHologram(GrieferGamesReloaded.PLUGIN.getPlugin(), player.getLocation());
+        val hologram = HologramsAPI.createHologram(GrieferGamesReloaded.PLUGIN.getPlugin(), player.getLocation());
         hologram.appendTextLine(text);
     }
 
@@ -24,7 +24,7 @@ public class PlayerHolographicController {
     public void addLine(@NotNull final Player player, final int holographicId, @NotNull final String text) {
         //TODO: Add a line from the players holograms line -> Database
 
-        final var hologramCollection = this.getHolograms();
+        val hologramCollection = this.getHolograms();
         hologramCollection.forEach(hologram -> {
             //TODO: Do some stuff
         });
@@ -33,7 +33,7 @@ public class PlayerHolographicController {
     public void removeLine(@NotNull final Player player, final int holographicId, @NotNull final String text) {
         //TODO: Remove a line from the players holograms line -> Database
 
-        final var hologramCollection = this.getHolograms();
+        val hologramCollection = this.getHolograms();
         hologramCollection.forEach(hologram -> {
             //TODO: Do some stuff
             hologram.removeLine(holographicId);
@@ -43,7 +43,7 @@ public class PlayerHolographicController {
     public void editLine(@NotNull final Player player, final int holographicId, final int lineNumber, @NotNull final String text) {
         //TODO: Edit the players holographic -> Database
 
-        final var hologramCollection = this.getHolograms();
+        val hologramCollection = this.getHolograms();
         hologramCollection.forEach(hologram -> {
             //TODO: Do some stuff
         });
@@ -52,7 +52,7 @@ public class PlayerHolographicController {
     public void moveHolographic(@NotNull final Player player, final int holographicId) {
         //TODO: Move the players holographic -> Database
 
-        final var hologramCollection = this.getHolograms();
+        val hologramCollection = this.getHolograms();
         hologramCollection.forEach(hologram -> {
             //TODO: Do some stuff
         });
@@ -61,7 +61,7 @@ public class PlayerHolographicController {
     public void deleteHolographic(@NotNull final Player player, final int holographicId) {
         //TODO: Delete the players holographic -> Database
 
-        final var hologramCollection = this.getHolograms();
+        val hologramCollection = this.getHolograms();
         hologramCollection.forEach(hologram -> {
             //TODO: Do some stuff
             hologram.delete();

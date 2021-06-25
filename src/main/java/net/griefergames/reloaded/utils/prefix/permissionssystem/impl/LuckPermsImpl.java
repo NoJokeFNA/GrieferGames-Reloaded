@@ -1,8 +1,8 @@
-package net.griefergames.reloaded.utils.permissionssystem.impl;
+package net.griefergames.reloaded.utils.prefix.permissionssystem.impl;
 
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.logger.GrieferGamesLogger;
-import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
+import net.griefergames.reloaded.utils.prefix.permissionssystem.IPermissionsSystem;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.cacheddata.CachedMetaData;
@@ -39,18 +39,18 @@ public class LuckPermsImpl implements IPermissionsSystem {
 
     @Override
     public void setGroup(final Player player, @NotNull final Player targetPlayer, @NotNull String groupName, final long duration, @NotNull final TimeUnit timeUnit) {
-        final var luckPerms = LuckPermsProvider.get();
+        val luckPerms = LuckPermsProvider.get();
 
-        final var userManager = luckPerms.getUserManager();
-        final var user = userManager.getUser(targetPlayer.getUniqueId());
+        val userManager = luckPerms.getUserManager();
+        val user = userManager.getUser(targetPlayer.getUniqueId());
         if (user == null)
             throw new UnsupportedOperationException("User cannot be null");
 
-        final var group = luckPerms.getGroupManager().getGroup(groupName);
+        val group = luckPerms.getGroupManager().getGroup(groupName);
         if (group == null)
             throw new UnsupportedOperationException("Group cannot be null");
 
-        final var userGroups = user
+        val userGroups = user
                 .getNodes(NodeType.INHERITANCE)
                 .stream()
                 .map(InheritanceNode::getGroupName)
@@ -64,13 +64,13 @@ public class LuckPermsImpl implements IPermissionsSystem {
             return;
         }
 
-        final var inheritanceNode = InheritanceNode
+        val inheritanceNode = InheritanceNode
                 .builder(group)
                 .expiry(duration, timeUnit)
                 .value(true)
                 .build();
 
-        final var dataMutateResult = user.data().add(inheritanceNode);
+        val dataMutateResult = user.data().add(inheritanceNode);
         if (!dataMutateResult.wasSuccessful()) {
             GrieferGamesLogger.log(Level.WARNING, "An internal error occurred within LuckPerms", null);
             return;

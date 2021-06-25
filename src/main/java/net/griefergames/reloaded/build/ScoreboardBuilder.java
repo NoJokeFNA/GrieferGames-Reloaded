@@ -1,5 +1,6 @@
 package net.griefergames.reloaded.build;
 
+import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -73,7 +74,7 @@ public class ScoreboardBuilder {
      * @param suffix set the {@code suffix} from the {@code team}
      */
     public static void updateTeam(@NotNull final Player player, @NotNull final String team, @NotNull final String prefix, @NotNull final String suffix) {
-        final var playerTeam = player.getScoreboard().getTeam(team);
+        val playerTeam = player.getScoreboard().getTeam(team);
         assert playerTeam != null : "Team cannot be null";
 
         playerTeam.setPrefix(staticColoredMessage(prefix));

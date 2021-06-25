@@ -1,5 +1,6 @@
 package net.griefergames.reloaded.database.executor;
 
+import lombok.val;
 import net.griefergames.reloaded.database.DataSource;
 import net.griefergames.reloaded.exception.ExceptionHandler;
 import org.jetbrains.annotations.NotNull;
@@ -54,25 +55,25 @@ public class HikariSqlExecutor {
      * @see ResultSet
      */
     public void executeQuery(@NotNull final String sqlQuery, @NotNull final Object[] replacements, @NotNull final SqlType[] sqlTypes, final Consumer<ResultSet> resultSetCallback) {
-        final var sqlQuerySplitter = sqlQuery.split("[?]");
+        val sqlQuerySplitter = sqlQuery.split("[?]");
 
-        final var placeholdersAmount = sqlQuerySplitter.length;
-        final var replacementsAmount = replacements.length;
+        val placeholdersAmount = sqlQuerySplitter.length;
+        val replacementsAmount = replacements.length;
 
         if (placeholdersAmount != replacementsAmount)
             throw new IllegalArgumentException("Count doesn't match! placeholders = " + placeholdersAmount + " -> replacements = " + replacementsAmount);
 
         final Map<Object, SqlType> queryMap = new ConcurrentHashMap<>();
-        for (final var replacement : replacements) {
-            for (final var sqlType : sqlTypes) {
+        for (val replacement : replacements) {
+            for (val sqlType : sqlTypes) {
                 queryMap.put(replacement, sqlType);
             }
         }
 
-        final var entryArray = new ArrayList<>(queryMap.entrySet());
-        try (final var connection = DataSource.getConnection(); final var preparedStatement = connection.prepareStatement(sqlQuery)) {
+        val entryArray = new ArrayList<>(queryMap.entrySet());
+        try (val connection = DataSource.getConnection(); val preparedStatement = connection.prepareStatement(sqlQuery)) {
             for (int index = 0; index < queryMap.size(); index++) {
-                final var entry = entryArray.get(index);
+                val entry = entryArray.get(index);
                 StatementFactory.setPreparedStatement((index + 1), entry.getKey(), entry.getValue(), preparedStatement);
 
                 if (resultSetCallback == null) {
@@ -80,7 +81,7 @@ public class HikariSqlExecutor {
                     return;
                 }
 
-                try (final var resultSet = preparedStatement.executeQuery()) {
+                try (val resultSet = preparedStatement.executeQuery()) {
                     resultSetCallback.accept(resultSet);
                 }
             }

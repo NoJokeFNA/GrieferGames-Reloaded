@@ -2,6 +2,7 @@ package net.griefergames.reloaded.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.val;
 import net.griefergames.reloaded.GrieferGamesReloaded;
 
 import java.sql.Connection;
@@ -13,7 +14,7 @@ public class DataSource {
     public final static HikariDataSource HIKARI_DATA_SOURCE;
 
     static {
-        final var properties = GrieferGamesReloaded.PLUGIN.getConfigHandler().getPropertiesReader().getDataSourceProperties();
+        val properties = GrieferGamesReloaded.PLUGIN.getConfigHandler().getPropertiesReader().getDataSourceProperties();
 
         HIKARI_CONFIG.setMaximumPoolSize((int) properties.get("dataSource.maximumPoolSize"));
 

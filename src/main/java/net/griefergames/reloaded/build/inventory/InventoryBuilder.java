@@ -1,5 +1,6 @@
 package net.griefergames.reloaded.build.inventory;
 
+import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -23,7 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class InventoryBuilder {
 
-    private final Inventory inventory;
+    private @NotNull
+    final Inventory inventory;
 
     /**
      * Initialize the class
@@ -33,7 +36,7 @@ public class InventoryBuilder {
      *                    The maximum is fifty-four and the minimum is nine
      * @param displayName Enter the {@code displayName} of the inventory you created to be displayed above
      */
-    public InventoryBuilder(final int size, final String displayName) {
+    public InventoryBuilder(final int size, @NotNull final String displayName) {
         if (size == size % 9 || size > 54)
             throw new UnsupportedOperationException("Unsupported value: " + size);
 
@@ -46,7 +49,7 @@ public class InventoryBuilder {
      * @param player        Define the {@code player}
      * @param inventoryType Specify the {@code inventoryType} that you want to create
      */
-    public InventoryBuilder(final Player player, final InventoryType inventoryType) {
+    public InventoryBuilder(@NotNull final Player player, @NotNull final InventoryType inventoryType) {
         this.inventory = Bukkit.createInventory(player, inventoryType);
     }
 
@@ -55,7 +58,7 @@ public class InventoryBuilder {
      *
      * @param itemStack Create the {@code itemStack} you want to fill up the inventory
      */
-    public InventoryBuilder fillInventory(final ItemStack itemStack) {
+    public InventoryBuilder fillInventory(@NotNull final ItemStack itemStack) {
         for (short i = 0; i < this.inventory.getSize(); i++)
             this.setItem(i, itemStack);
         return this;
@@ -66,7 +69,7 @@ public class InventoryBuilder {
      *
      * @param itemContents the {@link ItemStack} Array
      */
-    public InventoryBuilder fillInventory(final ItemStack[] itemContents) {
+    public InventoryBuilder fillInventory(@NotNull final ItemStack[] itemContents) {
         this.inventory.setContents(itemContents);
         return this;
     }
@@ -77,9 +80,9 @@ public class InventoryBuilder {
      * @param itemStack     Create the {@code itemStack} you want to fill up the inventory
      * @param maximalRandom Set the {@code maximalRandom} value, to be used for the {@code subId} of the current {@code itemStack}
      */
-    public InventoryBuilder fillInventoryRandomColors(final ItemStack itemStack, final int maximalRandom) {
+    public InventoryBuilder fillInventoryRandomColors(@NotNull final ItemStack itemStack, final int maximalRandom) {
         for (short i = 0; i < this.inventory.getSize(); i++) {
-            final var damageMeta = (Damageable) itemStack.getItemMeta();
+            val damageMeta = (Damageable) itemStack.getItemMeta();
             assert damageMeta != null;
             damageMeta.setDamage((short) ThreadLocalRandom.current().nextInt(maximalRandom));
             this.setItem(i, itemStack);
@@ -94,9 +97,10 @@ public class InventoryBuilder {
      * @param minimalRandom Set the {@code minimalRandom} value, from the start value, of the {@code subId}
      * @param maximalRandom Set the {@code maximalRandom} value, to be used for the {@code subId} of the current {@code itemStack}
      */
-    public InventoryBuilder fillInventoryRandomColors(final ItemStack itemStack, final int minimalRandom, final int maximalRandom) {
+    public InventoryBuilder fillInventoryRandomColors(@NotNull final ItemStack itemStack, final int minimalRandom,
+                                                      final int maximalRandom) {
         for (short index = 0; index < this.inventory.getSize(); index++) {
-            final var damageMeta = (Damageable) itemStack.getItemMeta();
+            val damageMeta = (Damageable) itemStack.getItemMeta();
             assert damageMeta != null;
             damageMeta.setDamage((short) ThreadLocalRandom.current().nextInt(minimalRandom, maximalRandom));
             this.setItem(index, itemStack);
@@ -111,7 +115,7 @@ public class InventoryBuilder {
      * @param from      Set the {@code from} value, where we should start to calc
      * @param to        Set the {@code to} value, to be used for the {@code subId} of the current {@code itemStack}
      */
-    public InventoryBuilder fillInventoryFromTo(final ItemStack itemStack, final short from, final short to) {
+    public InventoryBuilder fillInventoryFromTo(@NotNull final ItemStack itemStack, final short from, final short to) {
         for (short i = from; i < to; i++)
             this.setItem(i, itemStack);
         return this;
@@ -123,7 +127,7 @@ public class InventoryBuilder {
      * @param slot      Set the {@code slot} of the item you want to set
      * @param itemStack Create the {@code itemStack} you want to use
      */
-    public InventoryBuilder setItem(final int slot, final ItemStack itemStack) {
+    public InventoryBuilder setItem(final int slot, @NotNull final ItemStack itemStack) {
         this.inventory.setItem(slot, itemStack);
         return this;
     }
@@ -136,7 +140,8 @@ public class InventoryBuilder {
      * @param plugin    Initialize the {@code plugin} with your Main-Class
      * @param delay     Enter the {@code delay} you want
      */
-    public InventoryBuilder setDelayedItem(final int slot, final ItemStack itemStack, final Plugin plugin, final long delay) {
+    public InventoryBuilder setDelayedItem(final int slot, @NotNull final ItemStack itemStack,
+                                           @NotNull final Plugin plugin, final long delay) {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -156,7 +161,9 @@ public class InventoryBuilder {
      * @param delay     Enter the {@code delay} you want
      * @param sound     Specify the {@code sound} you want to play for the {@code player}
      */
-    public InventoryBuilder setDelayedItem(final Player player, final int slot, final ItemStack itemStack, final Plugin plugin, final long delay, final Sound sound) {
+    public InventoryBuilder setDelayedItem(@NotNull final Player player, final int slot,
+                                           @NotNull final ItemStack itemStack, @NotNull final Plugin plugin,
+                                           final long delay, @NotNull final Sound sound) {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -179,7 +186,10 @@ public class InventoryBuilder {
      * @param volume    Set the {@code volume} you want to have for the {@code sound}
      * @param pitch     Set the {@code pitch} you want to have for the {@code sound}
      */
-    public InventoryBuilder setDelayedItem(final Player player, final int slot, final ItemStack itemStack, final Plugin plugin, final long delay, final Sound sound, final float volume, final float pitch) {
+    public InventoryBuilder setDelayedItem(@NotNull final Player player, final int slot,
+                                           @NotNull final ItemStack itemStack, @NotNull final Plugin plugin,
+                                           final long delay, @NotNull final Sound sound, final float volume,
+                                           final float pitch) {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -195,7 +205,7 @@ public class InventoryBuilder {
      *
      * @param player Define the {@code player} that should open the inventory
      */
-    public InventoryBuilder openInventory(final Player player) {
+    public InventoryBuilder openInventory(@NotNull final Player player) {
         player.openInventory(this.inventory);
         return this;
     }

@@ -1,6 +1,6 @@
-package net.griefergames.reloaded.utils.permissionssystem.impl;
+package net.griefergames.reloaded.utils.prefix.permissionssystem.impl;
 
-import net.griefergames.reloaded.utils.permissionssystem.IPermissionsSystem;
+import net.griefergames.reloaded.utils.prefix.permissionssystem.IPermissionsSystem;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -11,7 +11,7 @@ public class PermissionsExImpl implements IPermissionsSystem {
 
     @Override
     public String getPrefix(@NotNull Player player) {
-        final var user = PermissionsEx.getUser(player);
+        val user = PermissionsEx.getUser(player);
         return user.getPrefix();
     }
 
