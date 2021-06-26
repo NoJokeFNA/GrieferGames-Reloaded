@@ -2,19 +2,16 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 group = 'net.griefergames.reloaded'
 version = '1.0-SNAPSHOT'
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_HIGHER
 
 repositories {
-    mavenCentral()
-    maven {
-        name = 'spigotmc-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
@@ -27,10 +24,13 @@ repositories {
         name = 'cloud-paper'
         url = 'https://repo.incendo.org/content/repositories/snapshots'
     }
+
+    mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT'
+    compileOnly "org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT"
 
     compileOnly 'de.dytanic.cloudnet:cloudnet-api-bridge:2.1.17'
     compileOnly 'de.dytanic.cloudnet:cloudnet-bridge:3.3.0-RELEASE'
@@ -38,7 +38,7 @@ dependencies {
 
     compileOnly 'net.luckperms:api:5.3'
 
-    compile fileTree(dir: 'libs', include: '*.jar')
+    fileTree(dir: 'libs', include: '*.jar')
 
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.25'
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.0-alpha'
