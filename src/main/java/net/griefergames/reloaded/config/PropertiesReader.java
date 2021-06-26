@@ -14,7 +14,6 @@ import java.util.Properties;
 
 @Getter
 public class PropertiesReader {
-
     private final Properties dataSourceProperties;
     private final String fileName;
 

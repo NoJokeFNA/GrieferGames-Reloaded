@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum BoosterType {
-
     BREAK("Break-Booster", 15),
     DROP("Drop-Booster", 30),
     FLY("Fly-Booster", 15),

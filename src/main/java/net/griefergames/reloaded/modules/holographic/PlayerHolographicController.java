@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 
 public class PlayerHolographicController {
-
     public void createHolographic(@NotNull final Player player, final int holographicId, @NotNull final String text) {
         //TODO: Set the players holographic -> Database
 

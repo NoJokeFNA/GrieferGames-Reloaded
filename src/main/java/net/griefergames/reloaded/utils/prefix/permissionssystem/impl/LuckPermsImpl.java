@@ -1,5 +1,6 @@
 package net.griefergames.reloaded.utils.prefix.permissionssystem.impl;
 
+import lombok.val;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.logger.GrieferGamesLogger;
 import net.griefergames.reloaded.utils.prefix.permissionssystem.IPermissionsSystem;
@@ -19,7 +20,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class LuckPermsImpl implements IPermissionsSystem {
-
     @Override
     public String getPrefix(@NotNull Player player) {
         final LuckPerms luckPerms = LuckPermsProvider.get();

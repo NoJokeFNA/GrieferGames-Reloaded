@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import java.sql.SQLException;
 
 public class DatabaseBuilder {
-
     public void createTable() {
         val bankSqlQuery = "CREATE TABLE IF NOT EXISTS `gg_bank` (" +
                 "  id               INT(11)     NOT NULL AUTO_INCREMENT," +

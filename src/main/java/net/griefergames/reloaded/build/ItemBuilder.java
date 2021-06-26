@@ -25,10 +25,8 @@ import java.util.*;
  * @author NoJokeFNA
  */
 public class ItemBuilder {
-
-    private @NotNull
-    final ItemStack itemStack;
-    private @NotNull final ItemMeta itemMeta;
+    private final ItemStack itemStack;
+    private final ItemMeta itemMeta;
 
     /**
      * Create a new {@link ItemBuilder} from scratch.

@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.text.NumberFormat;
 
 public class UserBalanceUpdateListener implements Listener {
-
     @EventHandler
     public void onUserBalanceUpdate(@NotNull final UserBalanceUpdateEvent event) {
         val player = event.getPlayer();

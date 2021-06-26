@@ -17,7 +17,6 @@ import java.util.Objects;
  * @version 1.0.0
  */
 public class ScoreboardBuilder {
-
     private final Scoreboard scoreboard;
     private final Objective objective;
     private final Player player;

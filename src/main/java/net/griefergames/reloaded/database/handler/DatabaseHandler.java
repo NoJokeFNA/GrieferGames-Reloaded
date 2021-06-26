@@ -5,7 +5,6 @@ import net.griefergames.reloaded.database.registry.*;
 
 @Getter
 public class DatabaseHandler {
-
     private final BankRegistry bankRegistry;
     private final BoosterRegistry boosterRegistry;
     private final ClansRegistry clansRegistry;

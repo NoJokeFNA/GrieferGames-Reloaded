@@ -24,9 +24,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * </ul>
  */
 public class InventoryBuilder {
-
-    private @NotNull
-    final Inventory inventory;
+    private final Inventory inventory;
 
     /**
      * Initialize the class

@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 
 public interface IPermissionsSystem {
-
     /**
      * Get the prefix from the player
      * <ul>

@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DataSource {
-
     public final static HikariConfig HIKARI_CONFIG = new HikariConfig(GrieferGamesReloaded.PLUGIN.getPlugin().getDataFolder().getAbsolutePath() + "\\" + "datasource.properties");
     public final static HikariDataSource HIKARI_DATA_SOURCE;
 

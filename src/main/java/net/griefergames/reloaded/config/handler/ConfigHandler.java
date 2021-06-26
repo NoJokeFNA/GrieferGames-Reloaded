@@ -5,7 +5,6 @@ import net.griefergames.reloaded.config.PropertiesReader;
 
 @Getter
 public class ConfigHandler {
-
     private final PropertiesReader propertiesReader;
 
     public ConfigHandler() {

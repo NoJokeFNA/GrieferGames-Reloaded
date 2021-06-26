@@ -4,7 +4,6 @@ import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 public class PrefixUtil {
-
     private static int i = 0;
 
     public static String setPlayerPrefix(@NotNull final String playerName, final char firstColor, final char secondColor) {

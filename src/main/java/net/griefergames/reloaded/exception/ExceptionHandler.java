@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ExceptionHandler {
-
     private static final Logger LOGGER = Logger.getLogger("griefergames-logger");
 
     public static void handleException(@NotNull final Exception exception, @NotNull final String message, final boolean printStackTrace) {

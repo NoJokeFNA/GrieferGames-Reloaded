@@ -19,7 +19,6 @@ import java.util.Arrays;
  */
 @Getter
 public enum GrieferGamesReloaded {
-
     PLUGIN;
 
     private GrieferGamesReloadedPlugin plugin;

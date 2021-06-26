@@ -20,7 +20,6 @@ import java.util.function.Consumer;
  * The class will make your whole SQL live easier with just typing in the {@code sqlQuery}, the {@code replacements} and the {@link SqlType}'s. You can literally do what you want
  */
 public class HikariSqlExecutor {
-
     /**
      * Execute a query in your database and get directly the {@link ResultSet} by the {@code resultSetCallback} - synchronously
      * <p>

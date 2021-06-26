@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import java.text.NumberFormat;
 
 public class PlayerJoinListener implements Listener {
-
     private final GrieferGamesReloadedPlugin plugin;
 
     private final IEssentials iEssentials;

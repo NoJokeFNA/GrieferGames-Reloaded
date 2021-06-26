@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GrieferGamesLogger {
-
     private static final Logger LOGGER = GrieferGamesReloaded.PLUGIN.getPlugin().getLogger();
 
     /**

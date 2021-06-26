@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileBuilder extends YamlConfiguration {
-
     private final String fileName;
 
     private final File file;

@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 
 public class CloudNetV3Impl implements IPermissionsSystem {
-
     @Override
     public String getPrefix(@NotNull Player player) {
         val cloudNetDriver = CloudNetDriver.getInstance();

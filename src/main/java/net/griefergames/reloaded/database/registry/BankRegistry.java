@@ -10,7 +10,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BankRegistry extends HikariSqlExecutor {
-
     public boolean playerExists(@NotNull final UUID playerUuid) {
         val value = new AtomicBoolean(false);
 

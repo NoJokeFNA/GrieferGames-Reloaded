@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 public class CacheMethods {
-
     public static void updateCache() {
         final Runnable cacheRunnable = () -> {
             // Execute methods

@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CacheUser {
-
     private final UUID playerUuid;
 
     /* Bank */

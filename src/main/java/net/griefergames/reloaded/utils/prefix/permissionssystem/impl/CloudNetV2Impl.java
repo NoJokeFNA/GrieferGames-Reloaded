@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.TimeUnit;
 
 public class CloudNetV2Impl implements IPermissionsSystem {
-
     @Override
     public String getPrefix(@NotNull Player player) {
         val permissionEntity = CloudAPI

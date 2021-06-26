@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CacheHandler {
-
     public static final Map<UUID, CacheUser> USER_MAP = Maps.newHashMap();
 
     /**
