@@ -1,5 +1,6 @@
 package net.griefergames.reloaded.utils.prefix;
 
+import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
 public class PrefixUtil {
@@ -14,20 +15,12 @@ public class PrefixUtil {
             i++;
 
             switch (i) {
-                case 1:
-                case 2:
-                    stringBuilder.append("§").append(firstColor).append(c).append(" ");
-                    break;
-
-                case 3:
+                case 1, 2 -> stringBuilder.append("§").append(firstColor).append(c).append(" ");
+                case 3 -> stringBuilder.append("§").append(secondColor).append(c).append(" ");
+                case 4 -> {
                     stringBuilder.append("§").append(secondColor).append(c).append(" ");
-                    break;
-
-                case 4:
-                    stringBuilder.append("§").append(secondColor).append(c).append(" ");
-
                     i = 0;
-                    break;
+                }
             }
         }
 

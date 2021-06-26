@@ -2,6 +2,7 @@ package net.griefergames.reloaded.modules.holographic;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import lombok.val;
 import net.griefergames.reloaded.GrieferGamesReloaded;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

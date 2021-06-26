@@ -1,6 +1,7 @@
 package net.griefergames.reloaded;
 
 import lombok.Getter;
+import lombok.val;
 import net.griefergames.reloaded.config.PropertiesReader;
 import net.griefergames.reloaded.config.handler.ConfigHandler;
 import net.griefergames.reloaded.database.builder.DatabaseBuilder;

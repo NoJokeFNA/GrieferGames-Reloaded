@@ -1,6 +1,7 @@
 package net.griefergames.reloaded.utils.prefix.permissionssystem.impl;
 
 import de.dytanic.cloudnet.driver.CloudNetDriver;
+import lombok.val;
 import net.griefergames.reloaded.utils.chat.ChatUtil;
 import net.griefergames.reloaded.utils.prefix.permissionssystem.IPermissionsSystem;
 import org.bukkit.entity.Player;
@@ -22,16 +23,11 @@ public class CloudNetV3Impl implements IPermissionsSystem {
         val iPermissionGroup = iPermissionManagement.getHighestPermissionGroup(iPermissionUser);
         val playerName = player.getName();
 
-        switch ("asd") {
-            case "display":
-                return ChatUtil.sendColoredMessage(iPermissionGroup.getDisplay() + playerName);
-
-            case "prefix":
-                return ChatUtil.sendColoredMessage(iPermissionGroup.getPrefix() + playerName);
-
-            default:
-                throw new UnsupportedOperationException("§4Unsupported value in §cchat_settings.yml » chat.cloudnet.use » " + "");
-        }
+        return switch ("asd") {
+            case "display" -> ChatUtil.sendColoredMessage(iPermissionGroup.getDisplay() + playerName);
+            case "prefix" -> ChatUtil.sendColoredMessage(iPermissionGroup.getPrefix() + playerName);
+            default -> throw new UnsupportedOperationException("§4Unsupported value in §cchat_settings.yml » chat.cloudnet.use » " + "");
+        };
     }
 
     @Override

@@ -169,73 +169,23 @@ public class HikariSqlExecutor {
          */
         private static void setPreparedStatement(final int index, @NotNull final Object replacement, @NotNull final SqlType sqlType, @NotNull final PreparedStatement preparedStatement) throws SQLException {
             switch (sqlType) {
-                case NULL:
-                    preparedStatement.setNull(index, (int) replacement);
-                    break;
-
-                case BOOLEAN:
-                    preparedStatement.setBoolean(index, (boolean) replacement);
-                    break;
-
-                case BYTE:
-                    preparedStatement.setByte(index, (byte) replacement);
-                    break;
-
-                case SHORT:
-                    preparedStatement.setShort(index, (short) replacement);
-                    break;
-
-                case INTEGER:
-                    preparedStatement.setInt(index, (int) replacement);
-                    break;
-
-                case LONG:
-                    preparedStatement.setLong(index, (long) replacement);
-                    break;
-
-                case FLOAT:
-                    preparedStatement.setFloat(index, (float) replacement);
-                    break;
-
-                case DOUBLE:
-                    preparedStatement.setDouble(index, (double) replacement);
-                    break;
-
-                case BIG_DECIMAL:
-                    preparedStatement.setBigDecimal(index, (BigDecimal) replacement);
-                    break;
-
-                case STRING:
-                    preparedStatement.setString(index, (String) replacement);
-                    break;
-
-                case BYTES:
-                    preparedStatement.setBytes(index, (byte[]) replacement);
-                    break;
-
-                case DATE:
-                    preparedStatement.setDate(index, (Date) replacement);
-                    break;
-
-                case TIME:
-                    preparedStatement.setTime(index, (Time) replacement);
-                    break;
-
-                case TIMESTAMP:
-                    preparedStatement.setTimestamp(index, (Timestamp) replacement);
-                    break;
-
-                case OBJECT:
-                    preparedStatement.setObject(index, replacement);
-                    break;
-
-                case ARRAY:
-                    preparedStatement.setArray(index, (Array) replacement);
-                    break;
-
-                case URL:
-                    preparedStatement.setURL(index, (URL) replacement);
-                    break;
+                case NULL -> preparedStatement.setNull(index, (int) replacement);
+                case BOOLEAN -> preparedStatement.setBoolean(index, (boolean) replacement);
+                case BYTE -> preparedStatement.setByte(index, (byte) replacement);
+                case SHORT -> preparedStatement.setShort(index, (short) replacement);
+                case INTEGER -> preparedStatement.setInt(index, (int) replacement);
+                case LONG -> preparedStatement.setLong(index, (long) replacement);
+                case FLOAT -> preparedStatement.setFloat(index, (float) replacement);
+                case DOUBLE -> preparedStatement.setDouble(index, (double) replacement);
+                case BIG_DECIMAL -> preparedStatement.setBigDecimal(index, (BigDecimal) replacement);
+                case STRING -> preparedStatement.setString(index, (String) replacement);
+                case BYTES -> preparedStatement.setBytes(index, (byte[]) replacement);
+                case DATE -> preparedStatement.setDate(index, (Date) replacement);
+                case TIME -> preparedStatement.setTime(index, (Time) replacement);
+                case TIMESTAMP -> preparedStatement.setTimestamp(index, (Timestamp) replacement);
+                case OBJECT -> preparedStatement.setObject(index, replacement);
+                case ARRAY -> preparedStatement.setArray(index, (Array) replacement);
+                case URL -> preparedStatement.setURL(index, (URL) replacement);
             }
         }
     }
