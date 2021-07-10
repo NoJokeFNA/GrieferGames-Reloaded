@@ -13,7 +13,7 @@ public class DatabaseBuilder {
         "CREATE TABLE IF NOT EXISTS `gg_bank` ("
             + "  id               INT(11)     NOT NULL AUTO_INCREMENT,"
             + "  bank_player_uuid VARCHAR(64) NOT NULL,"
-            + "  bank_amount      VARCHAR(32) NOT NULL,"
+            + "  bank_amount      DECIMAL(15,0) NOT NULL,"
             + "  PRIMARY KEY (id)"
             + ");";
 
