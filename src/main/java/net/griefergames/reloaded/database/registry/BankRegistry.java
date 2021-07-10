@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BankRegistry extends HikariSqlExecutor {
   /**
@@ -43,7 +44,7 @@ public class BankRegistry extends HikariSqlExecutor {
    * @return the player's bank amount
    */
   public BigDecimal getBankAmount(@NotNull final UUID playerUuid) {
-    val coins = BigDecimal.valueOf(0);
+    AtomicReference<BigDecimal> coins = new AtomicReference<>(BigDecimal.ZERO);
 
     val sqlQuery = "SELECT `bank_amount` FROM `gg_bank` WHERE `bank_player_uuid` = ?";
     super.executeQuery(
@@ -53,14 +54,14 @@ public class BankRegistry extends HikariSqlExecutor {
             resultSet -> {
               try {
                 if (resultSet.next()) {
-                  coins.add(resultSet.getBigDecimal("bank_amount"));
+                  coins.set(resultSet.getBigDecimal("bank_amount"));
                 }
               } catch (SQLException exception) {
                 ExceptionHandler.handleException(exception, "Error while executing sql-query", false);
               }
             });
 
-    return coins;
+    return coins.get();
   }
 
   /**
@@ -77,7 +78,7 @@ public class BankRegistry extends HikariSqlExecutor {
   public void updateBank(@NotNull final UUID playerUuid, final BigDecimal coins,
                          final BankType bankType) {
     val currentCoins = this.getBankAmount(playerUuid);
-    var newCoins = BigDecimal.valueOf(0);
+    var newCoins = BigDecimal.ZERO;
     switch (bankType) {
       case ADD -> newCoins = currentCoins.add(coins);
       case REMOVE -> newCoins = currentCoins.subtract(coins);
