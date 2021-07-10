@@ -44,7 +44,7 @@ public class BankRegistry extends HikariSqlExecutor {
    * @return the player's bank amount
    */
   public BigDecimal getBankAmount(@NotNull final UUID playerUuid) {
-    AtomicReference<BigDecimal> coins = new AtomicReference<>(BigDecimal.ZERO);
+    val coins = new AtomicReference<>(BigDecimal.ZERO);
 
     val sqlQuery = "SELECT `bank_amount` FROM `gg_bank` WHERE `bank_player_uuid` = ?";
     super.executeQuery(
