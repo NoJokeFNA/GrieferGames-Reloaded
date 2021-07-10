@@ -9,14 +9,17 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 import java.util.concurrent.TimeUnit;
 
 public class PermissionsExImpl implements IPermissionsSystem {
-    @Override
-    public String getPrefix(@NotNull Player player) {
-        val user = PermissionsEx.getUser(player);
-        return user.getPrefix();
-    }
+  @Override
+  public String getPrefix(@NotNull Player player) {
+    val user = PermissionsEx.getUser(player);
+    return user.getPrefix();
+  }
 
-    @Override
-    public void setGroup(Player player, @NotNull Player targetPlayer, @NotNull String groupName, long duration, @NotNull TimeUnit timeUnit) {
-
-    }
+  @Override
+  public void setGroup(
+      Player player,
+      @NotNull Player targetPlayer,
+      @NotNull String groupName,
+      long duration,
+      @NotNull TimeUnit timeUnit) {}
 }

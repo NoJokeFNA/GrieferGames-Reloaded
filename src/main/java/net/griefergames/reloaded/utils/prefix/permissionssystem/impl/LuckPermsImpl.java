@@ -20,64 +20,64 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class LuckPermsImpl implements IPermissionsSystem {
-    @Override
-    public String getPrefix(@NotNull Player player) {
-        final LuckPerms luckPerms = LuckPermsProvider.get();
-        final User user = luckPerms.getUserManager().getUser(player.getUniqueId());
-        if (user == null)
-            return "Unknown user data";
+  @Override
+  public String getPrefix(@NotNull Player player) {
+    final LuckPerms luckPerms = LuckPermsProvider.get();
+    final User user = luckPerms.getUserManager().getUser(player.getUniqueId());
+    if (user == null) return "Unknown user data";
 
-        final ContextManager contextManager = luckPerms.getContextManager();
-        final QueryOptions queryOptions = contextManager.getQueryOptions(user).orElse(contextManager.getStaticQueryOptions());
-        final CachedMetaData cachedMetaData = user.getCachedData().getMetaData(queryOptions);
-        final String prefix = cachedMetaData.getPrefix();
-        if (prefix == null)
-            return "Unknown meta data (prefix)";
+    final ContextManager contextManager = luckPerms.getContextManager();
+    final QueryOptions queryOptions =
+        contextManager.getQueryOptions(user).orElse(contextManager.getStaticQueryOptions());
+    final CachedMetaData cachedMetaData = user.getCachedData().getMetaData(queryOptions);
+    final String prefix = cachedMetaData.getPrefix();
+    if (prefix == null) return "Unknown meta data (prefix)";
 
-        return ChatUtil.sendColoredMessage(prefix);
+    return ChatUtil.sendColoredMessage(prefix);
+  }
+
+  @Override
+  public void setGroup(
+      final Player player,
+      @NotNull final Player targetPlayer,
+      @NotNull String groupName,
+      final long duration,
+      @NotNull final TimeUnit timeUnit) {
+    val luckPerms = LuckPermsProvider.get();
+
+    val userManager = luckPerms.getUserManager();
+    val user = userManager.getUser(targetPlayer.getUniqueId());
+    if (user == null) throw new UnsupportedOperationException("User cannot be null");
+
+    val group = luckPerms.getGroupManager().getGroup(groupName);
+    if (group == null) throw new UnsupportedOperationException("Group cannot be null");
+
+    val userGroups =
+        user.getNodes(NodeType.INHERITANCE).stream()
+            .map(InheritanceNode::getGroupName)
+            .collect(Collectors.toSet());
+
+    if (userGroups.contains(group.getName())) {
+      if (player != null) player.sendMessage("Der Spieler hat bereits den " + groupName + " Rang!");
+
+      GrieferGamesLogger.log(Level.INFO, "Player already has the rank", null);
+      return;
     }
 
-    @Override
-    public void setGroup(final Player player, @NotNull final Player targetPlayer, @NotNull String groupName, final long duration, @NotNull final TimeUnit timeUnit) {
-        val luckPerms = LuckPermsProvider.get();
+    val inheritanceNode =
+        InheritanceNode.builder(group).expiry(duration, timeUnit).value(true).build();
 
-        val userManager = luckPerms.getUserManager();
-        val user = userManager.getUser(targetPlayer.getUniqueId());
-        if (user == null)
-            throw new UnsupportedOperationException("User cannot be null");
-
-        val group = luckPerms.getGroupManager().getGroup(groupName);
-        if (group == null)
-            throw new UnsupportedOperationException("Group cannot be null");
-
-        val userGroups = user
-                .getNodes(NodeType.INHERITANCE)
-                .stream()
-                .map(InheritanceNode::getGroupName)
-                .collect(Collectors.toSet());
-
-        if (userGroups.contains(group.getName())) {
-            if (player != null)
-                player.sendMessage("Der Spieler hat bereits den " + groupName + " Rang!");
-
-            GrieferGamesLogger.log(Level.INFO, "Player already has the rank", null);
-            return;
-        }
-
-        val inheritanceNode = InheritanceNode
-                .builder(group)
-                .expiry(duration, timeUnit)
-                .value(true)
-                .build();
-
-        val dataMutateResult = user.data().add(inheritanceNode);
-        if (!dataMutateResult.wasSuccessful()) {
-            GrieferGamesLogger.log(Level.WARNING, "An internal error occurred within LuckPerms", null);
-            return;
-        }
-
-        userManager.saveUser(user);
-
-        GrieferGamesLogger.log(Level.INFO, "Successfully modified %s's rank to %s.", new Object[]{player.getName(), groupName});
+    val dataMutateResult = user.data().add(inheritanceNode);
+    if (!dataMutateResult.wasSuccessful()) {
+      GrieferGamesLogger.log(Level.WARNING, "An internal error occurred within LuckPerms", null);
+      return;
     }
+
+    userManager.saveUser(user);
+
+    GrieferGamesLogger.log(
+        Level.INFO,
+        "Successfully modified %s's rank to %s.",
+        new Object[] {player.getName(), groupName});
+  }
 }

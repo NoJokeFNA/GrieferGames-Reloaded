@@ -16,49 +16,51 @@ import org.jetbrains.annotations.NotNull;
 import java.text.NumberFormat;
 
 public class PlayerJoinListener implements Listener {
-    private final GrieferGamesReloadedPlugin plugin;
+  private final GrieferGamesReloadedPlugin plugin;
 
-    private final IEssentials iEssentials;
+  private final IEssentials iEssentials;
 
-    public PlayerJoinListener() {
-        this.plugin = GrieferGamesReloaded.PLUGIN.getPlugin();
+  public PlayerJoinListener() {
+    this.plugin = GrieferGamesReloaded.PLUGIN.getPlugin();
 
-        this.iEssentials = (Essentials) this.plugin.getServer().getPluginManager().getPlugin("Essentials");
+    this.iEssentials =
+        (Essentials) this.plugin.getServer().getPluginManager().getPlugin("Essentials");
+  }
+
+  @EventHandler
+  public void onPlayerJoin(@NotNull final PlayerJoinEvent event) {
+    val player = event.getPlayer();
+
+    val essentialsUser = this.iEssentials.getUser(player.getUniqueId());
+    val numberFormat = NumberFormat.getNumberInstance().format(essentialsUser.getMoney());
+
+    new ScoreboardBuilder("dummy", DisplaySlot.SIDEBAR, "§6§lGrieferGames", player)
+        .addScore("§1", 14)
+        .addScore("§7>> §3§lServer", 13)
+        .addScore("§f" + this.plugin.getServer().getName(), 12)
+        .addScore("§2", 11)
+        .addScore("§7>> §3§lKontostand", 10)
+        .addTeam("playerMoney", "§f" + numberFormat + "$", "§3", 9)
+        .addScore("§4", 8)
+        .addScore("§7>> §3§lOnline", 7)
+        .addTeam(
+            "onlinePlayer",
+            "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers(),
+            "§5",
+            6)
+        .addScore("§6", 6)
+        .addScore("§7>> §3§lSpielzeit", 4)
+        .addTeam("onlineTime", "§f" + "34 Stunden", "§7", 3)
+        .addScore("§f" + "34 Stunden", 3)
+        .addScore("§8", 2)
+        .addScore("§7>> §3§lServer-Addresse", 1)
+        .addScore("§fGrieferGames.net", 0);
+
+    for (var onlinePlayer : Bukkit.getOnlinePlayers()) {
+      ScoreboardBuilder.updateTeam(
+          onlinePlayer,
+          "onlinePlayer",
+          "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
     }
-
-    @EventHandler
-    public void onPlayerJoin(@NotNull final PlayerJoinEvent event) {
-        val player = event.getPlayer();
-
-        val essentialsUser = this.iEssentials.getUser(player.getUniqueId());
-        val numberFormat = NumberFormat.getNumberInstance().format(essentialsUser.getMoney());
-
-        new ScoreboardBuilder("dummy", DisplaySlot.SIDEBAR, "§6§lGrieferGames", player)
-                .addScore("§1", 14)
-                .addScore("§7>> §3§lServer", 13)
-                .addScore("§f" + this.plugin.getServer().getName(), 12)
-                .addScore("§2", 11)
-                .addScore("§7>> §3§lKontostand", 10)
-
-                .addTeam("playerMoney", "§f" + numberFormat + "$", "§3", 9)
-
-                .addScore("§4", 8)
-                .addScore("§7>> §3§lOnline", 7)
-
-                .addTeam("onlinePlayer", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers(), "§5", 6)
-
-                .addScore("§6", 6)
-                .addScore("§7>> §3§lSpielzeit", 4)
-
-                .addTeam("onlineTime", "§f" + "34 Stunden", "§7", 3)
-
-                .addScore("§f" + "34 Stunden", 3)
-                .addScore("§8", 2)
-                .addScore("§7>> §3§lServer-Addresse", 1)
-                .addScore("§fGrieferGames.net", 0);
-
-        for (var onlinePlayer : Bukkit.getOnlinePlayers()) {
-            ScoreboardBuilder.updateTeam(onlinePlayer, "onlinePlayer", "§f" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
-        }
-    }
+  }
 }

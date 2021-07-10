@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 import java.text.NumberFormat;
 
 public class UserBalanceUpdateListener implements Listener {
-    @EventHandler
-    public void onUserBalanceUpdate(@NotNull final UserBalanceUpdateEvent event) {
-        val player = event.getPlayer();
+  @EventHandler
+  public void onUserBalanceUpdate(@NotNull final UserBalanceUpdateEvent event) {
+    val player = event.getPlayer();
 
-        val numberFormat = NumberFormat.getNumberInstance().format(event.getNewBalance());
-        ScoreboardBuilder.updateTeam(player, "playerMoney", "§f" + numberFormat + "$");
-    }
+    val numberFormat = NumberFormat.getNumberInstance().format(event.getNewBalance());
+    ScoreboardBuilder.updateTeam(player, "playerMoney", "§f" + numberFormat + "$");
+  }
 }

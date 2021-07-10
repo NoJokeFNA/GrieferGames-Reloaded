@@ -10,69 +10,82 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 
 public class PlayerHolographicController {
-    public void createHolographic(@NotNull final Player player, final int holographicId, @NotNull final String text) {
-        //TODO: Set the players holographic -> Database
+  public void createHolographic(
+      @NotNull final Player player, final int holographicId, @NotNull final String text) {
+    // TODO: Set the players holographic -> Database
 
-        val hologram = HologramsAPI.createHologram(GrieferGamesReloaded.PLUGIN.getPlugin(), player.getLocation());
-        hologram.appendTextLine(text);
-    }
+    val hologram =
+        HologramsAPI.createHologram(GrieferGamesReloaded.PLUGIN.getPlugin(), player.getLocation());
+    hologram.appendTextLine(text);
+  }
 
-    public void listHolographs(@NotNull final Player player) {
-        //TODO: Get holographs from the player -> Database
-    }
+  public void listHolographs(@NotNull final Player player) {
+    // TODO: Get holographs from the player -> Database
+  }
 
-    public void addLine(@NotNull final Player player, final int holographicId, @NotNull final String text) {
-        //TODO: Add a line from the players holograms line -> Database
+  public void addLine(
+      @NotNull final Player player, final int holographicId, @NotNull final String text) {
+    // TODO: Add a line from the players holograms line -> Database
 
-        val hologramCollection = this.getHolograms();
-        hologramCollection.forEach(hologram -> {
-            //TODO: Do some stuff
+    val hologramCollection = this.getHolograms();
+    hologramCollection.forEach(
+        hologram -> {
+          // TODO: Do some stuff
         });
-    }
+  }
 
-    public void removeLine(@NotNull final Player player, final int holographicId, @NotNull final String text) {
-        //TODO: Remove a line from the players holograms line -> Database
+  public void removeLine(
+      @NotNull final Player player, final int holographicId, @NotNull final String text) {
+    // TODO: Remove a line from the players holograms line -> Database
 
-        val hologramCollection = this.getHolograms();
-        hologramCollection.forEach(hologram -> {
-            //TODO: Do some stuff
-            hologram.removeLine(holographicId);
+    val hologramCollection = this.getHolograms();
+    hologramCollection.forEach(
+        hologram -> {
+          // TODO: Do some stuff
+          hologram.removeLine(holographicId);
         });
-    }
+  }
 
-    public void editLine(@NotNull final Player player, final int holographicId, final int lineNumber, @NotNull final String text) {
-        //TODO: Edit the players holographic -> Database
+  public void editLine(
+      @NotNull final Player player,
+      final int holographicId,
+      final int lineNumber,
+      @NotNull final String text) {
+    // TODO: Edit the players holographic -> Database
 
-        val hologramCollection = this.getHolograms();
-        hologramCollection.forEach(hologram -> {
-            //TODO: Do some stuff
+    val hologramCollection = this.getHolograms();
+    hologramCollection.forEach(
+        hologram -> {
+          // TODO: Do some stuff
         });
-    }
+  }
 
-    public void moveHolographic(@NotNull final Player player, final int holographicId) {
-        //TODO: Move the players holographic -> Database
+  public void moveHolographic(@NotNull final Player player, final int holographicId) {
+    // TODO: Move the players holographic -> Database
 
-        val hologramCollection = this.getHolograms();
-        hologramCollection.forEach(hologram -> {
-            //TODO: Do some stuff
+    val hologramCollection = this.getHolograms();
+    hologramCollection.forEach(
+        hologram -> {
+          // TODO: Do some stuff
         });
-    }
+  }
 
-    public void deleteHolographic(@NotNull final Player player, final int holographicId) {
-        //TODO: Delete the players holographic -> Database
+  public void deleteHolographic(@NotNull final Player player, final int holographicId) {
+    // TODO: Delete the players holographic -> Database
 
-        val hologramCollection = this.getHolograms();
-        hologramCollection.forEach(hologram -> {
-            //TODO: Do some stuff
-            hologram.delete();
+    val hologramCollection = this.getHolograms();
+    hologramCollection.forEach(
+        hologram -> {
+          // TODO: Do some stuff
+          hologram.delete();
         });
-    }
+  }
 
-    public void sendHelpMessage(@NotNull final Player player) {
-        //TODO: Send help message to the player
-    }
+  public void sendHelpMessage(@NotNull final Player player) {
+    // TODO: Send help message to the player
+  }
 
-    private Collection<Hologram> getHolograms() {
-        return HologramsAPI.getHolograms(GrieferGamesReloaded.PLUGIN.getPlugin());
-    }
+  private Collection<Hologram> getHolograms() {
+    return HologramsAPI.getHolograms(GrieferGamesReloaded.PLUGIN.getPlugin());
+  }
 }

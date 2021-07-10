@@ -2,5 +2,4 @@ package net.griefergames.reloaded.database.registry;
 
 import net.griefergames.reloaded.database.executor.HikariSqlExecutor;
 
-public class CooldownRegistry extends HikariSqlExecutor {
-}
+public class CooldownRegistry extends HikariSqlExecutor {}
